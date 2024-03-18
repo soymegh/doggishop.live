@@ -1,21 +1,17 @@
-on:
-  push:
-    branches:
-      - main
-name: Deploy website on push on main
+name: Sincronizar servidor
 
+on: push
+name: 🚀 Deploy website on push
 jobs:
-  web-deploy:https://github.com/
-    name:  Deploy
+  web-deploy:
+    name: 🎉 Deploy
     runs-on: ubuntu-latest
     steps:
-    - name:  Get latest code
-      uses: actions/checkout@v2
-      with:
-        submodules: true
-
-    - name: Sync files
-      uses: SamKirkland/FTP-Deploy-Action@4.3.0
+    - name: 🚚 Get latest code
+      uses: actions/checkout@v4
+    
+    - name: 📂 Sync files
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
       with:
         server: ${{ secrets.server_deploy }}
         username: ${{ secrets.user_deploy }}
