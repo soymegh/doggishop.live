@@ -15,5 +15,4 @@ jobs:
         username: ${{ secrets.user_deploy }}
         password: ${{ secrets.pwd_deploy }}
         local-dir: ./dist/
-        server-dir: ${{ secrets.domain_deploy }}
         port: 21
