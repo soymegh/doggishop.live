@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\PetType;
 use App\Models\Provider;
 use App\Models\Blog;
+use App\Models\User;
 
 class HomeController extends Controller
 {
@@ -32,7 +33,8 @@ class HomeController extends Controller
                 $petTypeCount = PetType::count();
                 $providerCount = Provider::count();
                 $blogCount = Blog::count();
-                return view('home', compact('petCount', 'categoryCount', 'productCount', 'petTypeCount', 'providerCount', 'blogCount'));
+                $userCount = User::count();
+                return view('home', compact('petCount', 'categoryCount', 'productCount', 'petTypeCount', 'providerCount', 'blogCount', 'userCount'));
                 break;
             case 'user':
                 $petCount = Pet::count();
@@ -43,11 +45,12 @@ class HomeController extends Controller
                 $blogCount = Blog::count();
                 return view('home', compact('petCount', 'categoryCount', 'productCount', 'petTypeCount', 'providerCount', 'blogCount'));
                 break;
-                break;
+            
             case 'guest':
                 $posts = Blog::orderBy('created_at', 'desc')->take(3)->get();
                 $mascotas = Pet::orderBy('created_at', 'desc')->take(3)->get();
                 $productos = Product::orderBy('created_at', 'desc')->take(3)->get();
+                
                 return view('guest.index', compact('posts', 'mascotas', 'productos'));
 
                 break;

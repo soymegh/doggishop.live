@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PetTypeController;
 use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -90,6 +91,17 @@ Route::middleware('auth')->group(function () {
     Route::get('blogs/{id}/edit', [BlogController::class, 'edit'])->name('blogs.edit');
     Route::put('blogs/{id}', [BlogController::class, 'update'])->name('blogs.update');
     Route::delete('blogs/{id}', [BlogController::class, 'destroy'])->name('blogs.destroy');
+});
+
+//Usuario Admin
+Route::middleware('auth')->group(function () {
+    Route::get('admin', [AdminController::class, 'index'])->name('admin.index');
+    Route::get('admin/create', [AdminController::class, 'create'])->name('admin.create');
+    Route::post('admin', [AdminController::class, 'store'])->name('admin.store');
+    Route::get('admin/{id}', [AdminController::class, 'show'])->name('admin.show');
+    Route::get('admin/{id}/edit', [AdminController::class, 'edit'])->name('admin.edit');
+    Route::put('admin/{id}', [AdminController::class, 'update'])->name('admin.update');
+    Route::delete('admin/{id}', [AdminController::class, 'destroy'])->name('admin.destroy');  
 });
 
 //Usuario Gues

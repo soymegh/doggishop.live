@@ -109,6 +109,23 @@
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <!-- Usuarios -->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-warning shadow h-100 py-2 bg-dark">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-white text-uppercase mb-1">
+                                    Usuarios</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">Registros: {{$userCount}} </div>
+                                <div class="p mb-0 text-gray-800"><a href="{{route('admin.index')}}" class="text-white">Ver Registros</a></div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
         </div>
     </div>
 @endsection
