@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\PetType;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PetController;
@@ -21,7 +22,8 @@ use App\Http\Controllers\AdminController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $petTypeInfo= PetType::select('name','img_url')->get();
+    return view('welcome',compact('petTypeInfo'));
 })->name('welcome');
 
 Auth::routes();
