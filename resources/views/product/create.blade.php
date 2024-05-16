@@ -54,7 +54,7 @@
                             has-error
                         @enderror">
                         <label for="price">{{ __('Precio') }}</label>
-                        <input type="text" class="form-control" id="price" name="price"
+                        <input type="number" class="form-control" id="price" name="price"
                             value="{{ old('price') }}">
                         @error('price')
                             <span class="help-block text-danger">{{ $message }}</span>

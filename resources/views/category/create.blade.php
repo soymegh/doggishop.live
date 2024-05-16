@@ -18,7 +18,7 @@
                         @enderror">
 
                         <label for="name">Nombre</label>
-                        <input type="text" name="name" id="name" class="form-control"
+                        <input required type="text" name="name" id="name" class="form-control"
                             value="{{ old('name') }}">
                         @error('name')
                             <span class="help-block
@@ -30,7 +30,7 @@
                             has-error
                         @enderror">
                         <label for="description">Descripción</label>
-                        <textarea name="description" id="description" class="form-control" rows="3">{{ old('description') }}</textarea>
+                        <textarea required name="description" id="description" class="form-control" rows="3">{{ old('description') }}</textarea>
                         @error('description')
                             <span class="help-block
                             text-danger">{{ $message }}</span>
@@ -40,7 +40,7 @@
                     <div class="form-group">
                         <label for="img_url">Imagen</label>
                         <input type="file" name="img_url" id="img_url" class="form-control" 
-                            value="{{ old('img_url') }}" accept="image/*">
+                            value="{{ old('img_url') }}" accept="image/*" required>
                     </div>
                     <button type="submit" class="btn btn-primary">Guardar</button>
                 </form>
