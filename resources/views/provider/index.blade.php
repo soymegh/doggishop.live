@@ -1,27 +1,40 @@
 @extends('layouts.app')
 
 @section('content')
+    <style>
+        thead  tr  th {
+            background-color: #f3ad55 !important; 
+            color: white !important;
+
+        }
+
+        tbody tr td {
+            background-color: #f8ead6 !important;
+
+        }
+        
+    </style>
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <h1 class="col-12">Providers</h1>
                 <a href="{{ route('home') }}" class="col-12">Regresar</a>
             </div>
-            <a class="text-right btn btn-outline-success" href="{{ route('providers.create') }}">Nuevo Proveedor</a>
+            <a class="text-center btn btn-outline-success" href="{{ route('providers.create') }}">Nuevo Proveedor</a>
                 
         </div>
-        <div class="row">
+        <div class="row mt-2">
             <div class="col-12">
-                <table class="table">
+                <table class="table table-bordered rounded-3 overflow-hidden">
                     <thead>
                         <tr>
-                            <th>Id</th>
-                            <th>Nombre</th>
-                            <th>Correo</th>
-                            <th>Telefono</th>
-                            <th>Encargado</th>
-                            <th>Imagen</th>
-                            <th>Acciones</th>
+                            <th scope="col">Id</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Correo</th>
+                            <th scope="col">Telefono</th>
+                            <th scope="col">Encargado</th>
+                            <th scope="col">Imagen</th>
+                            <th scope="col">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>

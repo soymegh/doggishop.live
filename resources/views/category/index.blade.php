@@ -1,6 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+        thead  tr  th {
+            background-color: #f3ad55 !important; 
+            color: white !important;
+
+        }
+
+        tbody tr td {
+            background-color: #f8ead6 !important;
+
+        }
+        
+</style>
     <div class="container">
         <div class="row my-4">
             <div class="col-md-6">
@@ -18,7 +31,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="table-responsive">
-                    <table class="table table-striped table-hover">
+                    <table class="table table-bordered rounded-3 overflow-hidden">
                         <thead class="table-dark">
                             <tr>
                                 <th>ID</th>

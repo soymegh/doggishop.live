@@ -1,6 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+        thead  tr  th {
+            background-color: #f3ad55 !important; 
+            color: white !important;
+
+        }
+
+        tbody tr td {
+            background-color: #f8ead6 !important;
+
+        }
+        
+</style>
     
     <div class="container">
         <div class="row">
@@ -16,7 +29,7 @@
 
         <div class="row">
             <div class="col-12">
-                <table class="table">
+                <table class="table table-bordered rounded-3 overflow-hidden">
                     <thead>
                         <tr>
                             <th>Title</th>

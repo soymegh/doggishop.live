@@ -1,13 +1,26 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+        thead  tr  th {
+            background-color: #f3ad55 !important; 
+            color: white !important;
+
+        }
+
+        tbody tr td {
+            background-color: #f8ead6 !important;
+
+        }
+        
+</style>
     <div class="container">
         <div>
             <h1 class="col-12">Pet Types</h1>
             <a href="{{ route('home') }}" class="col-12">Regresar</a>
         </div>
         <a href="{{ route('pet_type.create') }}" class="btn btn-primary">Add Pet Type</a>
-        <table class="table table-striped">
+        <table class="table table-bordered rounded-3 overflow-hidden">
             <thead>
                 <tr>
                     <th>Tipo de Mascota</th>
