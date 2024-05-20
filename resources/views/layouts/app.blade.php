@@ -17,6 +17,14 @@
             /* Ajusté el tamaño del logo */
             height: auto;
         }
+        body{
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        footer{
+            margin-top: auto;
+        }
     </style>
 </head>
 
@@ -25,7 +33,7 @@
         <!-- Encabezado con barra de navegación -->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container">
-                <a class="navbar-brand" href="/">
+                <a class="navbar-brand" href="/home">
                     <img src="/logo.png" alt="DOGGISHOP Logo" class="d-inline-block align-top" loading="lazy">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -92,7 +100,7 @@
         @yield('content')
     </main>
 
-    <footer class="footer">
+    <footer class="footer bg-light pt-3 pb-3">
         <!-- Pie de página -->
         <div class="container text-center">
             <span class="text-muted">Desarrollado por FMM: <a href="https://github.com/GhostlyCoder20">Francisco</a>, <a

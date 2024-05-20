@@ -15,9 +15,18 @@
         
 </style>
     <div class="container">
-        <div>
-            <h1 class="col-12">Pet Types</h1>
-            <a href="{{ route('home') }}" class="col-12">Regresar</a>
+        <div class="row my-4">
+            <div class="col-md-6">
+            <h2 class="col-12">Tipos de mascota</h2>
+            </div>
+            <div class="col-md-6 text-end">
+                <a href="{{ route('home') }}" class="btn btn-outline-primary">Regresar</a>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col-md-12 text-end">
+                <a href="{{ route('pet_type.create') }}" class="btn btn-success" title="gato, perro, pajaro">Nuevo Tipo</a>
+            </div>
         </div>
         <a href="{{ route('pet_type.create') }}" class="btn btn-primary">Add Pet Type</a>
         <table class="table table-bordered rounded-3 overflow-hidden">
