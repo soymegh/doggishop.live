@@ -2,13 +2,18 @@
 
 @section('content')
     <div class="container">
+        
         <div class="row">
-            <h2>Editar Mascota</h2>
-            <a href="{{ route('pets.index') }}" class="link-primary">Regresar</a>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <form action="{{ route('pets.update', $pet->id) }}" method="POST" enctype="multipart/form-data">
+            <div class=" col-md-12 border rounded-5 my-5 ">
+                <div class="row mt-4 mb-3  ml-1 mr-3">
+                    <div class="col">
+                        <h2>Editar Mascota</h2>
+                    </div>
+                    <div class="col text-right  ">
+                    <a href="{{ route('pets.index') }}" class="btn btn-primary rounded-pill">Regresar</a>
+                    </div>
+                </div>
+                <form class="mb-4  mx-3"  action="{{ route('pets.update', $pet->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div
@@ -89,7 +94,7 @@
                             value="{{ old('img_url') }}" accept="image/*">
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <button type="submit" class="btn btn-success rounded-pill pl-4 pr-4 fw-bold">Guardar</button>
                 </form>
             </div>
         </div>

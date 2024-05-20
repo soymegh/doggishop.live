@@ -33,14 +33,17 @@
     }
 
     .btn {
+        border-radius: 99999pc;
         color: #333;
         border-color: #333;
         transition: background-color 0.3s ease, color 0.3s ease;
     }
 
     .btn:hover {
-        background-color: #FFDAB9;
-        color: #333;
+        background-color: #02365a;
+        color: #fff !important; 
+        border-color: #02365a;
+        font-weight: bold;
     }
 </style>
 <div class="container-fluid">

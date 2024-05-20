@@ -23,6 +23,7 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Nombre</th>
+                                <th>Descripción</th>
                                 <th>Foto</th>
                                 <th>Acciones</th>
                             </tr>
@@ -32,6 +33,7 @@
                                 <tr>
                                     <td>{{ $category->id }}</td>
                                     <td>{{ $category->name }}</td>
+                                    <td>{{ $category->description }}</td>
                                     <td>
                                         @if($category->img_url != null)
                                         <img src="{{ asset('images/category/' . $category->img_url) }}"
@@ -41,17 +43,18 @@
                                             width="50">
                                         @endif
                                     </td>
-                                    <td>
-    <div class="btn-group" role="group">
-        <a href="{{ route('categories.show', $category->id) }}" class="btn btn-info">Ver</a>
-        <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-primary">Editar</a>
-        <form action="{{ route('categories.destroy', $category->id) }}" method="POST">
-            @csrf
-            @method('DELETE')
-            <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar esta categoría?')">Eliminar</button>
-        </form>
-    </div>
-</td>
+                                    <td class="text-right">
+                                        <div class="btn-group" role="group">
+                                            <!-- se siente innecesario-->
+<!--                                            <a href="{{ route('categories.show', $category->id) }}" class="btn btn-info">Ver</a>-->
+                                            <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-primary ml-5 mr-3 pr-3 pl-3 rounded-pill">Editar</a>
+                                            <form action="{{ route('categories.destroy', $category->id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger action mr-5 rounded-pill" onclick="return confirm('¿Estás seguro de que deseas eliminar esta categoría?')">Eliminar</button>
+                                            </form>
+                                        </div>
+                                    </td>
 
 
                                 </tr>

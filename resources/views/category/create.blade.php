@@ -1,16 +1,25 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <h2>Nueva Categoría</h2>
+    <div class="container ">
+        
+        
         <div class="row">
-            <div class="col-md-12">
-                <a href="{{ route('categories.index') }}" class="btn btn-primary">Regresar</a>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <form action="{{ route('categories.store') }}" method="POST" enctype="multipart/form-data">
+            <div class=" col-md-12 border rounded-5 mt-5 ">
+                
+
+                <div class="row mt-3 mb-3  ml-1 mr-3">
+                    
+                    <div class="col">
+                        <h2>Nueva Categoría</h2>
+                    </div>
+                    <div class="col text-right  ">
+                        <a href="{{ route('categories.index') }}" class="btn btn-primary rounded-pill">Regresar</a>
+                    </div>
+                </div>
+
+
+                <form class="mb-4  ml-3 mr-3" action="{{ route('categories.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group
                         @error('name')
@@ -42,7 +51,7 @@
                         <input type="file" name="img_url" id="img_url" class="form-control" 
                             value="{{ old('img_url') }}" accept="image/*" >
                     </div>
-                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <button type="submit" class="btn btn-success rounded-pill pl-4 pr-4 fw-bold">Guardar</button>
                 </form>
             </div>
         </div>
