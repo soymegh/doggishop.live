@@ -40,7 +40,7 @@
                     <div class="form-group">
                         <label for="img_url">Imagen</label>
                         <input type="file" name="img_url" id="img_url" class="form-control" 
-                            value="{{ old('img_url') }}" accept="image/*" required>
+                            value="{{ old('img_url') }}" accept="image/*" >
                     </div>
                     <button type="submit" class="btn btn-primary">Guardar</button>
                 </form>

@@ -7,7 +7,10 @@
             <div class="col-md-12">
                 <h1>Blog Posts</h1>
                 <a href="{{route('home')}}">Regresar</a>
-                <a class="text-right" href="{{ route('blogs.create') }}">Create Blog Post</a>
+                
+            </div>
+            <div class="col-md-12">
+                <a class="text-right btn btn-outline-success" href="{{ route('blogs.create') }}">Create Blog Post</a>
             </div>
         </div>
 
@@ -29,13 +32,15 @@
                                 <td>{{ $blogPost->created_at }}</td>
                                 <td>{{ $blogPost->updated_at }}</td>
                                 <td>
+                                    <div class="btn-group" role="group">
                                     {{-- <a href="{{ route('blogs.show', ['blogs' => $blogPost->id]) }}">View</a> --}}
-                                    <a href="{{ route('blogs.edit', $blogPost->id) }}">Edit</a>
-                                    <form method="POST" class="fm-inline" action="{{ route('blogs.destroy', $blogPost->id) }}">
+                                    <a href="{{ route('blogs.edit', $blogPost->id) }}" class="btn btn-outline-info ">Edit</a>
+                                    <form method="POST" class="fm-inline " action="{{ route('blogs.destroy', $blogPost->id) }}">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit">Delete</button>
+                                        <button type="submit" class="btn btn-outline-danger">Delete</button>
                                     </form>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach

@@ -39,11 +39,6 @@ class CategoryController extends Controller
             return redirect()->route('welcome');
         }
 
-        $request->validate([
-            'img_url' => 'required|file|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
-        
-        //return $request;
         $category = new Category();
         $category->name = $request->name;
         $category->description = $request->description;

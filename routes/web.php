@@ -9,6 +9,7 @@ use App\Http\Controllers\PetTypeController;
 use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\InventaryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +34,7 @@ Auth::routes();
 Route::middleware('auth')->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/home/product/{id}', [App\Http\Controllers\HomeController::class, 'showProduct'])->name('home.showProduct');
+    Route::get('/home/pet/{id}', [App\Http\Controllers\HomeController::class, 'showPet'])->name('home.showPet');
 });
 
 Route::middleware('auth')->group(function () {
@@ -89,6 +91,7 @@ Route::middleware('auth')->group(function () {
     Route::get('blogs', [BlogController::class, 'index'])->name('blogs.index');
     Route::get('blogs/create', [BlogController::class, 'create'])->name('blogs.create');
     Route::post('blogs', [BlogController::class, 'store'])->name('blogs.store');
+    Route::get('blog', [BlogController::class, 'posts'])->name('blogs.post');
     Route::get('blogs/{id}', [BlogController::class, 'show'])->name('blogs.show');
     Route::get('blogs/{id}/edit', [BlogController::class, 'edit'])->name('blogs.edit');
     Route::put('blogs/{id}', [BlogController::class, 'update'])->name('blogs.update');
@@ -109,5 +112,18 @@ Route::middleware('auth')->group(function () {
 //Usuario Gues
 Route::middleware('auth')->group(function () {
     Route::get('Cliente', [App\Http\Controllers\HomeController::class, 'index'])->name('welcome');
+    Route::get('Ciente/{id}', [App\Http\Controllers\HomeController::class, 'showCart'])->name('home.showCart');
+    
 });
-//
+
+// Inventory
+Route::middleware('auth')->group(function(){
+    Route::get('factura', [InventaryController::class, 'index'])->name('inventary.index');
+    Route::get('factura/create', [InventaryController::class, 'create'])->name('inventary.create');
+    Route::post('factura', [InventaryController::class, 'store'])->name('inventary.store');
+    Route::get('factura/{id}', [InventaryController::class, 'show'])->name('inventary.show');
+    Route::get('factura/{id}/edit', [InventaryController::class, 'edit'])->name('inventary.edit');
+    Route::put('factura/{id}', [InventaryController::class, 'update'])->name('inventary.update');
+    Route::delete('factura/{id}', [InventaryController::class, 'destroy'])->name('inventary.destroy');
+        
+});

@@ -6,7 +6,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Inventary;
 use App\Models\Provider;
+use App\Models\PetType;
 use Illuminate\Support\Facades\File;
 
 class ProductController extends Controller
@@ -17,7 +19,7 @@ class ProductController extends Controller
     public function index()
     {
         //
-    
+
         try {
             $products = Product::all();
             return view('product.index', compact('products'));
@@ -38,7 +40,8 @@ class ProductController extends Controller
         try {
             $categories = Category::all();
             $providers = Provider::all();
-            return view('product.create', compact('categories', 'providers'));
+            $pet_types = PetType::all();
+            return view('product.create', compact('categories', 'providers', 'pet_types'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error al mostrar el formulario');
         }
@@ -61,9 +64,12 @@ class ProductController extends Controller
             $product->description = $request->description;
             $product->size = $request->size;
             $product->price = $request->price;
+            $product->stock = $request->stock;
+            $product->pet_type_id = $request->pet_type_id;
             $product->category_id = $request->category_id;
             $product->provider_id = $request->provider_id;
             $product->save();
+            $this->saveInv($product);
 
             if ($request->hasFile('img_url')) {
                 $id = $product->id;
@@ -73,7 +79,8 @@ class ProductController extends Controller
                 //return $product->img_url;
                 $product->save();
             }
-            return redirect()->route('products.index');
+
+            return redirect()->route('products.index')->with('success', 'Producto guardado correctamente');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error al guardar el producto');
         }
@@ -104,9 +111,10 @@ class ProductController extends Controller
         }
         try {
             $product = Product::find($id);
+            $pet_types = PetType::all();
             $categories = Category::all();
             $providers = Provider::all();
-            return view('product.edit', compact('product', 'categories', 'providers'));
+            return view('product.edit', compact('product', 'categories', 'providers', 'pet_types'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error al mostrar el formulario');
         }
@@ -127,6 +135,8 @@ class ProductController extends Controller
             $product->description = $request->description;
             $product->size = $request->size;
             $product->price = $request->price;
+            
+            $product->pet_type_id = $request->pet_type_id;
             $product->category_id = $request->category_id;
             $product->provider_id = $request->provider_id;
 
@@ -140,7 +150,28 @@ class ProductController extends Controller
             }
 
             $product->save();
-            return redirect()->route('products.index');
+
+            //ver cuantos movimientos en el inventario
+            $inventaryCount = Inventary::where('product_id', $product->id)->count();
+            
+            if($inventaryCount == 0){
+                $product->stock = $request->stock;
+                $product->save();
+                $this->saveInv($product);
+                return redirect()->route('products.index')->with('success', 'Producto actualizado correctamente');
+            }elseif ($inventaryCount == 1) {
+                $product->stock = $request->stock;
+                $product->save();
+                //cambiar la inventario inicial del inventario
+                $inventary = Inventary::where('product_id', $product->id)->first();
+                $inventary->quantity = $product->stock;
+                $inventary->price = $product->price;
+                $inventary->save();
+                return redirect()->route('products.index')->with('success', 'Producto actualizado correctamente');
+            }else{
+                return redirect()->route('products.index')->with('success', 'Producto actualizado correctamente, pero no se cambio el stock porque ya tiene movimientos en el inventario');
+            }
+            
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error al actualizar el producto');
         }
@@ -165,5 +196,17 @@ class ProductController extends Controller
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error al eliminar el producto');
         }
+    }
+
+    public function saveInv($product)
+    {
+        $inventary = new Inventary();
+        $inventary->date = date('Y-m-d');
+        $inventary->product_id = $product->id;
+        $inventary->quantity = $product->stock;
+        $inventary->price = $product->price;
+        $inventary->description = 'Entrada';
+        $inventary->user_id = auth()->id();
+        $inventary->save();
     }
 }

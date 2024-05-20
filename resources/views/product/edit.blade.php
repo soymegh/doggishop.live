@@ -3,8 +3,8 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <h2>Editar Producto</h2>
-            <a href="{{ route('products.index') }}" class="link-primary">Regresar</a>
+            <h2 class="col-12">Editar Producto</h2>
+            <a href="{{ route('products.index') }}" class="link-primary col-12">Regresar</a>
         </div>
         <div class="row">
             <div class="col-md-12">
@@ -58,7 +58,24 @@
                             <span class="help-block text-danger">{{ $message }}</span>
                         @enderror
                     </div>
+                    <div class="form-group @error('stock') has-error @enderror">
+                        <label for="stock">Stock</label>
+                        <input type="number" class="form-control" id="stock" name="stock"
+                            value="{{ $product->stock }}">
+                        @error('stock')
+                            <span class="help-block text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
                     
+                    <div class="form-group @error('pet-type') has-error @enderror">
+                        <label for="pet_type_id">Selecciona el tipo de mascota:</label>
+                        <select class="form-control" id="pet_type_id" name="pet_type_id">
+                            @foreach ($pet_types as $pet_type)
+                                <option value="{{ $pet_type->id }}" @if($product->pet_type_id == $pet_type->id) selected @endif>  {{ $pet_type->name }}</option>
+                            @endforeach
+                        </select>
+                        <a href="{{ route('pet_type.create') }} ">Agregar nuevo</a>
+                    </div> 
                     
                     <div class="form-group @error('category_id') has-error @enderror">
                         <label for="category_id">Selecciona la categoria:</label>

@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\PetType;
 use App\Models\Provider;
 use App\Models\Blog;
+use App\Models\Inventary;
 use App\Models\User;
 
 class HomeController extends Controller
@@ -34,7 +35,8 @@ class HomeController extends Controller
                 $providerCount = Provider::count();
                 $blogCount = Blog::count();
                 $userCount = User::count();
-                return view('home', compact('petCount', 'categoryCount', 'productCount', 'petTypeCount', 'providerCount', 'blogCount', 'userCount'));
+                $historyCount = Inventary::count();
+                return view('home', compact('petCount', 'categoryCount', 'productCount', 'petTypeCount', 'providerCount', 'blogCount', 'userCount', 'historyCount'));
                 break;
             case 'user':
                 $petCount = Pet::count();
@@ -47,9 +49,9 @@ class HomeController extends Controller
                 break;
             
             case 'guest':
-                $posts = Blog::orderBy('created_at', 'desc')->take(3)->get();
-                $mascotas = Pet::orderBy('created_at', 'desc')->take(3)->get();
-                $productos = Product::orderBy('created_at', 'desc')->take(3)->get();
+                $posts = Blog::orderBy('created_at', 'desc')->get();
+                $mascotas = Pet::orderBy('created_at', 'desc')->paginate(6);
+                $productos = Product::orderBy('created_at', 'desc')->paginate(6);
                 
                 return view('guest.index', compact('posts', 'mascotas', 'productos'));
 
@@ -64,5 +66,17 @@ class HomeController extends Controller
     {
         $product = Product::find($id);
         return view('guest.showProduct', compact('product'));
+    }
+
+    public function showPet($id)
+    {
+        $mascota = Pet::find($id);
+        return view('guest.showPet', compact('mascota'));
+    }
+
+    public function showCart($id)
+    {
+        $products = Inventary::where('user_id', $id)->get();
+        return view('guest.car', compact('products'));
     }
 }

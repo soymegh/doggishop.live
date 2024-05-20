@@ -3,8 +3,8 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <h2>Productos</h2>
-            <a href="{{ route('home') }}" class="link-primary">Regresar</a>
+            <h2 class="col-12">Productos</h2>
+            <a href="{{ route('home') }}" class="link-primary col-12">Regresar</a>
         </div>
         <div class="row">
             <div class="col-md-12">
@@ -32,20 +32,29 @@
                                 <td>{{ $product->description }}</td>
                                 <td>{{ $product->size }}</td>
                                 <td>{{ $product->price }}</td>
-                                <td> <img src="{{ asset('images/product/' . $product->picture) }}" alt="{{$product->picture}}"
-                                        width="50px"> </td>
                                 <td>
-                                    <a href="{{ route('products.show', $product->id) }}"
-                                        class="btn btn-outline-info">Ver</a>
-                                    <a href="{{ route('products.edit', $product->id) }}"
-                                        class="btn btn-outline-primary">Editar</a>
-                                    <form action="{{ route('products.destroy', $product->id) }}" method="POST"
-                                        style="display: inline;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-outline-danger"
-                                            onclick="return confirm('¿Estás seguro de que deseas eliminar este producto?')">Eliminar</button>
-                                    </form>
+                                    @if ($product->picture != null)
+                                        <img src="{{ asset('images/product/' . $product->picture) }}"
+                                            alt="{{ $product->picture }}" width="50px">
+                                    @else
+                                        <img src="{{ asset('images/sinfoto.png') }}" alt="{{ $product->picture }}"
+                                            width="50px">
+                                    @endif
+                                </td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <a href="{{ route('inventary.show', $product->id) }}"
+                                            class="btn btn-outline-info">Ver</a>
+                                        <a href="{{ route('products.edit', $product->id) }}"
+                                            class="btn btn-outline-primary">Editar</a>
+                                        <form action="{{ route('products.destroy', $product->id) }}" method="POST"
+                                            style="display: inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-outline-danger"
+                                                onclick="return confirm('¿Estás seguro de que deseas eliminar este producto?')">Eliminar</button>
+                                        </form>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach

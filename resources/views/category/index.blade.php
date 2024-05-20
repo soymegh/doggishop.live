@@ -33,8 +33,13 @@
                                     <td>{{ $category->id }}</td>
                                     <td>{{ $category->name }}</td>
                                     <td>
+                                        @if($category->img_url != null)
                                         <img src="{{ asset('images/category/' . $category->img_url) }}"
                                             alt="{{ $category->name }}" width="50">
+                                        @else
+                                        <img src="{{ asset('images/sinfoto.png') }}" alt="{{ $category->name }}"
+                                            width="50">
+                                        @endif
                                     </td>
                                     <td>
     <div class="btn-group" role="group">

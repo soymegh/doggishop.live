@@ -17,7 +17,9 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->string('size');
             $table->float('price');
+            $table->integer('stock')->default(0);
             $table->string('picture')->nullable();
+            $table->foreignId('pet_type_id')->constrained();
             $table->foreignId('category_id')->constrained();
             $table->foreignId('provider_id')->constrained(); //Marca o proveedor
             $table->boolean('status')->default(true);

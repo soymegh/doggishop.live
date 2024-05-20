@@ -3,8 +3,8 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <h2>Mascotas</h2>
-            <a href="{{ route('home') }}" class="link-primary">Regresar</a>
+            <h2 class="col-12">Mascotas</h2>
+            <a href="{{ route('home') }}" class="link-primary col-12">Regresar</a>
         </div>
         <div class="row">
             <div class="col-md-12">
@@ -34,17 +34,28 @@
                                 <td>{{ $pet->gender }}</td>
                                 <td>{{ $pet->age }}</td>
                                 <td>{{ $pet->price }}</td>
-                                <td>        <img src="{{ asset('images/pet/' . $pet->img_url) }}" alt="{{ $pet->name }}" width="50"></td>
                                 <td>
-                                    <a href="{{ route('pets.show', $pet->id) }}" class="btn btn-outline-info">Ver</a>
-                                    <a href="{{ route('pets.edit', $pet->id) }}" class="btn btn-outline-primary">Editar</a>
-                                    <form action="{{ route('pets.destroy', $pet->id) }}" method="POST"
-                                        style="display: inline;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-outline-danger"
-                                            onclick="return confirm('¿Estás seguro de que deseas eliminar esta mascota?')">Eliminar</button>
-                                    </form>
+                                    @if ($pet->img_url != null)
+                                        <img src="{{ asset('images/pet/' . $pet->img_url) }}" alt="{{ $pet->name }}"
+                                            width="50">
+                                    @else
+                                        <img src="{{ asset('images/sinfoto.png') }}" alt="{{ $pet->name }}"
+                                            width="50">
+                                    @endif
+                                </td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <a href="{{ route('pets.show', $pet->id) }}" class="btn btn-outline-info">Ver</a>
+                                        <a href="{{ route('pets.edit', $pet->id) }}"
+                                            class="btn btn-outline-primary">Editar</a>
+                                        <form action="{{ route('pets.destroy', $pet->id) }}" method="POST"
+                                            style="display: inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-outline-danger"
+                                                onclick="return confirm('¿Estás seguro de que deseas eliminar esta mascota?')">Eliminar</button>
+                                        </form>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach

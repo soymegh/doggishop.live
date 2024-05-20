@@ -13,8 +13,9 @@ class BlogController extends Controller
     public function index()
     {
         //
-        
-    
+        if (auth()->user()->role != 'admin') {
+            return redirect()->route('welcome');
+        }
         $blogs = Blog::all();
         return view('blog.index', compact('blogs'));
     }
@@ -55,9 +56,6 @@ class BlogController extends Controller
     public function show(string $id)
     {
         //
-        if (auth()->user()->role != 'admin') {
-            return redirect()->route('welcome');
-        }
         $blog = Blog::find($id);
         return view('blog.show', compact('blog'));
     }
@@ -106,5 +104,11 @@ class BlogController extends Controller
         $blog = Blog::find($id);
         $blog->delete();
         return redirect()->route('blogs.index');
+    }
+
+    public function posts()
+    {
+        $posts = Blog::all();
+        return view('blog.posts', compact('posts'));
     }
 }
