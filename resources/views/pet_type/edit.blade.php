@@ -2,15 +2,17 @@
 
 @section('content')
     <div class="container">
-        <h2>Editar Tipo de Mascota</h2>
         <div class="row">
-            <div class="col-md-12">
-                <a href="{{ route('pet_type.index') }}" class="btn btn-primary">Regresar</a>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <form action="{{ route('pet_type.update', $petType->id) }}" method="POST" enctype="multipart/form-data">
+            <div class=" col-md-12 border rounded-5 mt-5 ">
+                <div class="row mt-3 mb-3  ml-1 mr-3">
+                    <div class="col">
+                        <h2>Editar tipo de mascota</h2>
+                    </div>
+                    <div class="col text-right  ">
+                        <a href="{{ route('pet_type.index') }}" class="btn btn-primary rounded-pill">Regresar</a>
+                    </div>
+                </div>
+                <form class="mb-4  ml-3 mr-3" action="{{ route('pet_type.update', $petType->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div
@@ -37,7 +39,7 @@
                         <label for="img_url">{{ __('Foto') }} </label>
                         <input type="file" name="img_url" id="img_url" accept="image/*">
                     </div>
-                    <button type="submit" class="btn btn-primary">Actualizar Tipo de Mascota</button>
+                    <button type="submit" class="btn btn-success rounded-pill pl-4 pr-4 fw-bold">Actualizar Tipo de Mascota</button>
                 </form>
             </div>
         </div>
