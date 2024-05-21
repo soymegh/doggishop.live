@@ -62,12 +62,15 @@
     }
 </style>
 <div class="container">
+    
     <div class="row">
-        <h2>Crear proveedor</h2>
-        <a href="{{ route('providers.index') }}">Regresar</a>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12 border rounded-5 my-5">
+        <div class="row mt-4 mb-3  ml-1 mr-3">
+            <h2 class="col">Crear proveedor</h2>
+            <div class="col text-right">
+                <a class="btn btn-primary rounded-pill" href="{{ route('providers.index') }}">Regresar</a>
+            </div>       
+        </div>
             <form action="{{ route('providers.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 

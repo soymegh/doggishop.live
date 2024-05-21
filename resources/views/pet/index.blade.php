@@ -19,11 +19,8 @@
             <div class="col-md-6 text-end">
                 <a href="{{ route('home') }}" class="btn btn-outline-primary">Regresar</a>
             </div>
-        </div>
-        <div class="row mb-4">
-            <div class="col-md-12 text-end">
-                <a href="{{ route('pets.create') }}" class="btn btn-success">Nueva mascota</a>
-            </div>
+
+            <a href="{{ route('pets.create') }}" class="mt-5 text-center btn btn-outline-success">Nueva mascota</a>
         </div>
 
         <div class="row">

@@ -1,15 +1,35 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+        thead  tr  th {
+            background-color: #f3ad55 !important; 
+            color: white !important;
+
+        }
+
+        tbody tr td {
+            background-color: #f8ead6 !important;
+
+        }
+        
+</style>
     <div class="container">
-        <div class="row">
-            <div class="col-md-12">
+        <div class="row my-4">
+            <div class="col-md-6">
                 <h1>Listado de Usuarios</h1>
-                <a href="{{ route('home') }}">Regresar</a>
-                <div class="pull-right">
-                    <a href="{{ route('admin.create') }}" class="btn btn-success">Add User</a>
-                </div>
-                <table class="table table-bordered">
+            </div>
+            <div class="col-md-6 text-end">
+             <a href="{{ route('home') }}" class="btn btn-outline-primary">Regresar</a>
+            </div>
+                
+            <a class="mt-5 text-center btn btn-outline-success" href="{{ route('admin.create') }}">Nuevo </a>
+
+        </div>
+        <div class="row mt-2">
+            <div class="col-12">
+                
+                <table class="table table-bordered rounded-3 overflow-hidden">
                     <thead>
                         <tr>
                             <th>Name</th>

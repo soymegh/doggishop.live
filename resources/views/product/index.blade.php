@@ -1,17 +1,31 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+        thead  tr  th {
+            background-color: #f3ad55 !important; 
+            color: white !important;
+
+        }
+
+        tbody tr td {
+            background-color: #f8ead6 !important;
+
+        }
+        
+</style>
     <div class="container">
-        <div class="row">
-            <h2 class="col-12">Productos</h2>
-            <a href="{{ route('home') }}" class="link-primary col-12">Regresar</a>
+        
+    <div class="row my-4">
+        <div class="col-md-6">
+            <h2>Productos</h2>
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <a href="{{ route('products.create') }}" class="btn btn-outline-success">Nuevo</a>
-            </div>
+        <div class="col-md-6 text-end">
+            <a href="{{ route('home') }}" class="btn btn-outline-primary">Regresar</a>
         </div>
 
+        <a href="{{ route('products.create') }}" class="mt-5 text-center btn btn-outline-success">Nuevo</a>
+    </div>
         <div class="row">
             <div class="col-md-12">
                 <table class="table">

@@ -4,9 +4,13 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-12">
-            <h1>Edit User</h1>
-            <a href="{{route('admin.index')}}">Regresar</a>
+        <div class="col-md-12 border rounded-5 my-5">
+            <div class="row mt-4 mb-3  ml-1 mr-3">
+                <h2 class="col">Editar Usuario</h2>
+                <div class="col text-right">
+                    <a href="{{ route('admin.index') }}" class="btn btn-primary rounded-pill">Regresar</a>
+                </div> 
+            </div>
             <form action="{{ route('admin.update', $user->id) }}" method="POST">
                 @csrf
                 @method('PUT')

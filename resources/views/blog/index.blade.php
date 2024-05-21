@@ -16,15 +16,16 @@
 </style>
     
     <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h1>Blog Posts</h1>
-                <a href="{{route('home')}}">Regresar</a>
-                
+        <div class="row my-4">
+            <div class="col-md-6">
+                <h1>Blog Posts</h1> 
             </div>
-            <div class="col-md-12">
-                <a class="text-right btn btn-outline-success" href="{{ route('blogs.create') }}">Create Blog Post</a>
+            <div class="col-md-6 text-end">
+                <a class="btn btn-outline-primary" href="{{route('home')}}">Regresar</a>
             </div>
+
+            <a class="mt-5 text-center btn btn-outline-success" href="{{ route('blogs.create') }}">Nuevo Blog</a>
+
         </div>
 
         <div class="row">
