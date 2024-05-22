@@ -17,12 +17,15 @@
     <div class="container">
         <div class="row my-4">
             <div class="col-md-6">
-                <h1>Providers</h1>
+                <h1>Proveedor</h1>
             </div>
+
+
             <div class="col-md-6 text-end">
                 <a href="{{ route('home') }}" class="btn btn-outline-primary">Regresar</a>
             </div>
-            <a class="mt-5 text-center btn btn-outline-success" href="{{ route('providers.create') }}">Nuevo Proveedor</a>
+            <a class="mt-5  text-center btn btn-outline-success" href="{{ route('providers.create') }}">Nuevo Proveedor</a>
+
                 
         </div>
         <div class="row mt-2">

@@ -1,6 +1,8 @@
 <?php
 
 use App\Models\PetType;
+use App\Models\Blog;
+use App\Models\Pet;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PetController;
@@ -10,6 +12,8 @@ use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\InventaryController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,18 +28,34 @@ use App\Http\Controllers\InventaryController;
 
 Route::get('/', function () {
     $petTypeInfo= PetType::select('name','img_url')->get();
-    return view('welcome',compact('petTypeInfo'));
+    $blogs = Blog::all()->take(3);
+    $pets = Pet::all()->take(4);
+    return view('welcome',compact('petTypeInfo', 'blogs', 'pets'));
 })->name('welcome');
+
+Route::get('/contact', function () {
+    return view('contact');
+})->name('contact');
+
+Route::get('/about', function () {
+    return view('about');
+})->name('about');
+
+Route::post('/contact/send', [MailController::class, 'sendEmail'])->name('contact.send');
+
+
 
 Auth::routes();
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //verificar que el usuario este autenticado 
 Route::middleware('auth')->group(function () {
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-    Route::get('/home/product/{id}', [App\Http\Controllers\HomeController::class, 'showProduct'])->name('home.showProduct');
-    Route::get('/home/pet/{id}', [App\Http\Controllers\HomeController::class, 'showPet'])->name('home.showPet');
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get('/home/product/{id}', [HomeController::class, 'showProduct'])->name('home.showProduct');
+    Route::get('/home/pet/{id}', [HomeController::class, 'showPet'])->name('home.showPet');
+    
 });
+
 
 Route::middleware('auth')->group(function () {
     Route::get('categories', [CategoryController::class, 'index'])->name('categories.index');

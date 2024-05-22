@@ -12,6 +12,8 @@ use App\Models\Blog;
 use App\Models\Inventary;
 use App\Models\User;
 
+
+
 class HomeController extends Controller
 {
     /**
@@ -45,7 +47,9 @@ class HomeController extends Controller
                 $petTypeCount = PetType::count();
                 $providerCount = Provider::count();
                 $blogCount = Blog::count();
-                return view('home', compact('petCount', 'categoryCount', 'productCount', 'petTypeCount', 'providerCount', 'blogCount'));
+                $userCount = User::count();
+                $historyCount = Inventary::count();
+                return view('home', compact('petCount', 'categoryCount', 'productCount', 'petTypeCount', 'providerCount', 'blogCount', 'userCount', 'historyCount'));
                 break;
             
             case 'guest':
@@ -79,4 +83,6 @@ class HomeController extends Controller
         $products = Inventary::where('user_id', $id)->get();
         return view('guest.car', compact('products'));
     }
+
+   
 }
