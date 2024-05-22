@@ -132,7 +132,9 @@
                         accept="image/*">
                 </div>
 
-                <button type="submit" class="btn btn-primary">Guardar</button>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>  
             </form>
         </div>
     </div>

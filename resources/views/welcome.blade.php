@@ -2,6 +2,19 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+    .carousel .carousel-item {
+        height: 500px;
+    }
+
+    .carousel-item img {
+        position: absolute;
+        object-fit: cover;
+        top: 0;
+        left: 0;
+        min-height: 500px;
+    }
+</style>
 <div class="jumbotron">
     <div class="container">
         <h1 class="display-4">¡Bienvenido a DOGGISHOP!</h1>
