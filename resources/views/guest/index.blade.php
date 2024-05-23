@@ -155,17 +155,17 @@
                                 <p class="card-text text-primary fw-semibold">Precio: ${{ $product->price }}</p>
                                 <a href="{{ route('home.showProduct', $product->id) }}"
                                     class="btn btn-outline-info btn-sm mb-2">Ver más</a>
-                                <form action="{{ route('inventary.store') }}" method="POST" class="d-inline-block">
-                                    @csrf
-                                    <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                    <input type="hidden" name="price" value="{{ $product->price }}">
-                                    <input type="hidden" name="description" value="Salida">
-                                    <div class="d-flex justify-content-center align-items-center mb-2">
-                                        <input type="number" name="quantity" value="1"
-                                            class="form-control form-control-sm text-center me-2" style="width: 60px;">
-                                        <button type="submit" class="btn btn-outline-success btn-sm">Comprar</button>
-                                    </div>
-                                </form>
+                                    <form action="{{ route('inventary.store') }}" method="POST" class="d-inline-block">
+    @csrf
+    <input type="hidden" name="product_id" value="{{ $product->id }}">
+    <input type="hidden" name="price" value="{{ $product->price }}">
+    <input type="hidden" name="description" value="Salida">
+    <div class="d-flex justify-content-center align-items-center mb-2">
+        <input type="number" name="quantity" value="1" class="form-control form-control-sm text-center me-2" style="width: 60px;" min="1" required>
+        <button type="submit" class="btn btn-outline-success btn-sm">Comprar</button>
+    </div>
+</form>
+
                             </div>
                         </div>
                     </div>
