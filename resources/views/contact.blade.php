@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="card">message
+    <div class="card">
         <div class="card-header">
             Contact Us
         </div>
