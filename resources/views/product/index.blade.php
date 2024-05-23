@@ -58,6 +58,8 @@
                                 <td>
                                     <div class="btn-group" role="group">
                                         <a href="{{ route('inventary.show', $product->id) }}"
+                                            class="btn btn-outline-info">Inventario</a>
+                                            <a href="{{ route('product.show', $product->id) }}"
                                             class="btn btn-outline-info">Ver</a>
                                         <a href="{{ route('products.edit', $product->id) }}"
                                             class="btn btn-outline-primary">Editar</a>
