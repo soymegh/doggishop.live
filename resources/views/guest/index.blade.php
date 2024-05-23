@@ -118,8 +118,8 @@
                                         class="rounded-circle shadow-lg transition-transform duration-300 hover:scale-110 mb-3">
                                 @endif
                                 <div class="contenido mt-4">
-                                    <h3 class="fw-bold text-dark">{{ $mascota->name }}</h3>
-                                    <p class="text-muted mb-3">{{ $mascota->breed }} | <span
+                                    <h3 class="fw-bold text-dark">{{ $mascota->breed }}</h3>
+                                    <p class="text-muted mb-3">{{ $mascota->name }} | <span
                                             class="text-primary fw-semibold">${{ $mascota->price }}</span></p>
                                     <a href="{{ route('home.showPet', $mascota->id) }}"
                                         class="btn btn-outline-primary btn-sm transition-colors duration-300 hover:bg-primary hover:text-white">Ver
