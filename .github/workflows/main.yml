@@ -11,6 +11,6 @@ jobs:
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
       with:
-        server: ftp.jadg13.online
-        username: admin@doggishop.live
+        server:  ${{ secrets.server_deploy }}
+        username: ${{ secrets.user_deploy }}
         password: ${{ secrets.pwd_deploy }}
