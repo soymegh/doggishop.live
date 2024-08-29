@@ -14,6 +14,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\InventaryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MailController;
+use App\Models\Category;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,7 +31,8 @@ Route::get('/', function () {
     $petTypeInfo= PetType::select('name','img_url')->get();
     $blogs = Blog::all()->take(3);
     $pets = Pet::all()->take(4);
-    return view('welcome',compact('petTypeInfo', 'blogs', 'pets'));
+    $categories = Category::all()->take(4);
+    return view('welcome',compact('petTypeInfo', 'blogs', 'pets', 'categories'));
 })->name('welcome');
 
 Route::get('/contact', function () {

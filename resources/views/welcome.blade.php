@@ -76,42 +76,10 @@
 </div>
 <br>
 
-{{-- Inicio Componente --}}
-<div class="container mascots">`
-    <div class="">
-        <div class="row mt-4">
-            <div class="col-6">
-                <h2>Mascotas destacadas</h2>
-            </div>
-            <div class="col-6 text-right">
-                <a href="{{ route('pets.index') }}" class="btn p-2 animal border-mid"> {{-- Cambiar por la vista del cliente--}}
-                    Ver más
-                </a>
-            </div>
-        </div>    
-    
-        <div class="row mt-4">
-        @foreach ($pets as $pet)
-            <div class="col-3 col md-4 ">
-                <div class="card border-mid">
-                    <a href="{{ route('pets.show', $pet->id) }}" class="btn p-0 animal border-mid">
-                        <div class="card-img-top m-0 border-mid" style="height: 150px; background-image: url('{{ asset('images/pet/' . $pet->img_url) }}'); background-size: cover;"></div>
-                        <div class="card-body">
-                            <h5 class="card-title text-center">{{ $pet->breed }}</h5>
-                            <p class="card-text">{{ $pet->description }}</p>
-                            <p class="card-text">Precio: ${{ $pet->price }}</p>
-                        </div>
-                    </a>
-                    {{-- <img src="{{ asset('images/pet/' . $pet->img_url) }}" class="" alt="{{ $pet->name }}"> --}}
-                    
-                </div>
-            </div>
-        @endforeach
-        </div>
+<x-homecards title="Mascotas Destacadas" index="pets.index" :list="$pets"/>
 
-    </div>
-</div>
-{{-- Fin Componente --}}
+<x-homecards title="Categorias Destacadas" index="categories.index" :list="$categories"/>
+
 
 <div class="container">
     <!-- Contenido principal de la página -->
