@@ -16,7 +16,7 @@
             <div class="col-3 col md-4 ">
                 <div class="card border-mid">
                     <a href="{{ route('pets.show', $pet->id) }}" class="btn p-0 animal border-mid">
-                        <div class="card-img-top m-0 border-mid" style="height: 150px; background-image: url('{{ asset('images/pet/' . $pet->img_url ?? " ") }}'); background-size: cover;"></div>
+                        <div class="card-img-top m-0 border-mid" style="height: 150px; background-image: url('{{ asset('images/'.$folder.'/' . $pet->img_url ?? " ") }}'); background-size: cover;"></div>
                         
                         <div class="card-body">
                             <h5 class="card-title text-center">{{ $pet->breed ?? $pet->name ?? " "}}</h5>

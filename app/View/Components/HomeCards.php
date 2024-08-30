@@ -11,14 +11,16 @@ class HomeCards extends Component
     protected $title;
     protected $index;
     protected $list;
+    protected $folder;
     /**
      * Create a new component instance.
      */
-    public function __construct($title,$index,$list)
+    public function __construct($title,$index,$list,$folder)
     {
         $this->title = $title;
         $this->index = $index;
         $this->list = $list;
+        $this->folder= $folder;
         //
     }
 
@@ -30,6 +32,7 @@ class HomeCards extends Component
         $title = $this->title;
         $index = $this->index;
         $list = $this->list;
-        return view('components.home-cards', compact('title','index','list'));
+        $folder = $this->folder;
+        return view('components.home-cards', compact('title','index','list','folder'));
     }
 }

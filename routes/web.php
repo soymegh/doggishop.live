@@ -29,7 +29,7 @@ use App\Models\Category;
 
 Route::get('/', function () {
     $petTypeInfo= PetType::select('name','img_url')->get();
-    $blogs = Blog::all()->take(3);
+    $blogs = Blog::orderBy('created_at', 'DESC')->get()->take(4);
     $pets = Pet::all()->take(4);
     $categories = Category::all()->take(4);
     return view('welcome',compact('petTypeInfo', 'blogs', 'pets', 'categories'));

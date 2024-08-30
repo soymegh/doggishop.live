@@ -21,9 +21,14 @@
     .border-mid{
         border-radius: 50px;
     }
-    .animal:hover{
+    .animal:hover {
         color: #ffac45;
         border-color: #ffac45;
+    }
+    .blog:hover{
+        background-color: #343a40;
+        color: white;
+        border-radius: 20px;
     }
 </style>
 
@@ -70,32 +75,45 @@
     <span class="sr-only">Next</span>
   </a>
 </div>
+
 <!-- Fin del carrusel-->
 <div class="border-bottom text-center mb-5 pt-3">
 <h2>Nuestras variaciones de mascotas</h2>
 </div>
 <br>
 
-<x-homecards title="Mascotas Destacadas" index="pets.index" :list="$pets"/>
+<x-homecards title="Mascotas Destacadas" index="pets.index" :list="$pets" folder="pet"/>
+<x-homecards title="Categorias Destacadas" index="categories.index" :list="$categories" folder="category"/>
 
-<x-homecards title="Categorias Destacadas" index="categories.index" :list="$categories"/>
 
 
 <div class="container">
+    <div class="row mt-4 pb-3">
+        <div class="col-6">
+            <h2>Últimas Noticias</h2>
+        </div>
+        <div class="col-6 text-right">
+            <a href="{{ route("blogs.index") }}" class="btn p-2 animal border-mid"> {{-- Cambiar por la vista del cliente--}}
+               Ver más
+            </a>
+        </div>
+    </div>
     <!-- Contenido principal de la página -->
-    <h2>Últimas Noticias</h2>
+    
     <!-- mostrar blogs  -->
     @if ($blogs)
         <div class="row">
             @foreach ($blogs as $blog)
-                <div class="col-12 col md-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title text-center">{{ $blog->title }}</h5>
-                            <p class="card-text">{{ $blog->summary }}</p>
-                            <a href="{{ route('blogs.show', $blog->id) }}" class="btn btn-primary">Leer más</a>
+                <div class="col-12 col  border-top blog">
+                    <a href="{{route("blogs.show",$blog->id)}}" class="btn p-0" style="width:100%;">
+                    <div class="card border-0">
+                        <div class="card-body ">
+                            <h5 class="card-title text-left">{{ $blog->title }}</h5>
+                            <p class="card-text text-left" >{{$blog->created_at}}</p>
+                            
                         </div>
                     </div>
+                    </a>
                 </div>
             @endforeach
         </div>   
