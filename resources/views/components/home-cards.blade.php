@@ -13,7 +13,7 @@
         
         <div class="row mt-4">
         @foreach ($list as $pet)
-            <div class="col-3 col md-4 ">
+            <div class="col-12 col-sm-6 col-md-3 pb-3">
                 <div class="card border-mid">
                     <a href="{{ route( explode('.',$index)[0] .'.show', $pet->id) }}" class="btn p-0 animal border-mid">
                         <div class="card-img-top m-0 border-mid" style="height: 150px; background-image: url('{{ asset('images/'.$folder.'/' . $pet->img_url ?? " ") }}'); background-size: cover;"></div>
