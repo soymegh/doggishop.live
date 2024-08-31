@@ -75,8 +75,9 @@
     <span class="sr-only">Next</span>
   </a>
 </div>
-
 <!-- Fin del carrusel-->
+
+
 <div class="border-bottom text-center mb-5 pt-3">
 <h2>Nuestras variaciones de mascotas</h2>
 </div>
@@ -93,7 +94,7 @@
             <h2>Últimas Noticias</h2>
         </div>
         <div class="col-6 text-right">
-            <a href="{{ route("blogs.index") }}" class="btn p-2 animal border-mid"> {{-- Cambiar por la vista del cliente--}}
+            <a href="{{ route("blogs.post") }}" class="btn p-2 animal border-mid"> {{-- Cambiar por la vista del cliente--}}
                Ver más
             </a>
         </div>
