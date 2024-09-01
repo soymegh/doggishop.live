@@ -23,8 +23,10 @@
                             <p class="card-text">{{ $pet->description }}</p>
                             <p class="card-text">
                                 @if ($pet->price) {{"Precio: $".$pet->price }}@else {{" "}}@endif
-                            
                             </p>
+                            <p> @if ($pet->price_discounted) {{"Descuento: $".$pet->price_discounted }}@else {{" "}}@endif
+                            </p>
+                            <p>  @if ($pet->new_price) {{"Nuevo Precio: $".$pet->new_price }}@else {{" "}}@endif</p>
                         </div>
                     </a>
                     {{-- <img src="{{ asset('images/pet/' . $pet->img_url) }}" class="" alt="{{ $pet->name }}"> --}}

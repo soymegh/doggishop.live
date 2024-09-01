@@ -154,6 +154,8 @@
         <a href="{{ route('pet_type.index') }}">Tipos de Mascotas</a>
         <a href="{{ route('providers.index') }}">Proveedores</a>
         <a href="{{ route('blogs.index') }}">Blog</a>
+        <a href="{{ route('discounts.index') }}">Descuentos</a>
+        <a href="{{ route('events.index') }}">Eventos</a>
     </div>
     @endif
     @endif

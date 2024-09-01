@@ -10,8 +10,9 @@ use App\Models\PetType;
 use App\Models\Provider;
 use App\Models\Blog;
 use App\Models\Inventary;
+use App\Models\Discount;
 use App\Models\User;
-
+use App\Services\DiscountService;
 
 
 class HomeController extends Controller
@@ -51,12 +52,17 @@ class HomeController extends Controller
                 $historyCount = Inventary::count();
                 return view('home', compact('petCount', 'categoryCount', 'productCount', 'petTypeCount', 'providerCount', 'blogCount', 'userCount', 'historyCount'));
                 break;
-            
+
             case 'guest':
-                $posts = Blog::orderBy('created_at', 'desc')->get();
-                $mascotas = Pet::orderBy('created_at', 'desc')->paginate(6);
-                $productos = Product::orderBy('created_at', 'desc')->paginate(6);
+
                 
+
+                $posts = Blog::orderBy('created_at', 'desc')->get();
+                //$mascotas = Pet::orderBy('created_at', 'desc')->paginate(6);
+                $discounts = new DiscountService();
+                $mascotas = $discounts->applyDiscountPets();
+                $productos = Product::orderBy('created_at', 'desc')->paginate(6);
+
                 return view('guest.index', compact('posts', 'mascotas', 'productos'));
 
                 break;
@@ -69,12 +75,17 @@ class HomeController extends Controller
     public function showProduct($id)
     {
         $product = Product::find($id);
+        $discounts = new DiscountService();
+        $product = $discounts->applyDiscountProduct($product);
+        return $product;
         return view('guest.showProduct', compact('product'));
     }
 
     public function showPet($id)
     {
         $mascota = Pet::find($id);
+        $discounts = new DiscountService();
+        $mascota = $discounts->applyDiscountPet($mascota);
         return view('guest.showPet', compact('mascota'));
     }
 
@@ -83,6 +94,4 @@ class HomeController extends Controller
         $products = Inventary::where('user_id', $id)->get();
         return view('guest.car', compact('products'));
     }
-
-   
 }

@@ -3,6 +3,7 @@
 use App\Models\PetType;
 use App\Models\Blog;
 use App\Models\Pet;
+use App\Services\DiscountService;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PetController;
@@ -12,6 +13,8 @@ use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\InventaryController;
+use App\Http\Controllers\DiscountController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MailController;
 use App\Models\Category;
@@ -28,9 +31,14 @@ use App\Models\Category;
 */
 
 Route::get('/', function () {
+    
     $petTypeInfo= PetType::select('name','img_url')->get();
     $blogs = Blog::orderBy('created_at', 'DESC')->get()->take(4);
-    $pets = Pet::all()->take(4);
+    //$pets = Pet::all()->take(4);
+    $discountServices = new DiscountService();
+    $pets = $discountServices->applyDiscountPets()->take(4);
+    //si llegase a tener productos
+    //$products = $discountServices->applyDiscountProducts()->take(4);
     $categories = Category::all()->take(4);
     return view('welcome',compact('petTypeInfo', 'blogs', 'pets', 'categories'));
 })->name('welcome');
@@ -147,5 +155,29 @@ Route::middleware('auth')->group(function(){
     Route::get('factura/{id}/edit', [InventaryController::class, 'edit'])->name('inventary.edit');
     Route::put('factura/{id}', [InventaryController::class, 'update'])->name('inventary.update');
     Route::delete('factura/{id}', [InventaryController::class, 'destroy'])->name('inventary.destroy');
+        
+});
+
+//Discount
+Route::middleware('auth')->group(function(){
+    Route::get('discounts', [DiscountController::class, 'index'])->name('discounts.index');
+    Route::get('discounts/create', [DiscountController::class, 'create'])->name('discounts.create');
+    Route::post('discounts', [DiscountController::class, 'store'])->name('discounts.store');
+    Route::get('discounts/{id}', [DiscountController::class, 'show'])->name('discounts.show');
+    Route::get('discounts/{id}/edit', [DiscountController::class, 'edit'])->name('discounts.edit');
+    Route::put('discounts/{id}', [DiscountController::class, 'update'])->name('discounts.update');
+    Route::delete('discounts/{id}', [DiscountController::class, 'destroy'])->name('discounts.destroy');
+        
+});
+
+//Event
+Route::middleware('auth')->group(function(){
+    Route::get('events', [EventController::class, 'index'])->name('events.index');
+    Route::get('events/create', [EventController::class, 'create'])->name('events.create');
+    Route::post('events', [EventController::class, 'store'])->name('events.store');
+    Route::get('events/{id}', [EventController::class, 'show'])->name('events.show');
+    Route::get('events/{id}/edit', [EventController::class, 'edit'])->name('events.edit');
+    Route::put('events/{id}', [EventController::class, 'update'])->name('events.update');
+    Route::delete('events/{id}', [EventController::class, 'destroy'])->name('events.destroy');
         
 });

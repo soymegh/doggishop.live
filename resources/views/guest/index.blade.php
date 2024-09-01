@@ -119,8 +119,17 @@
                                 @endif
                                 <div class="contenido mt-4">
                                     <h3 class="fw-bold text-dark">{{ $mascota->breed }}</h3>
-                                    <p class="text-muted mb-3">{{ $mascota->name }} | <span
-                                            class="text-primary fw-semibold">${{ $mascota->price }}</span></p>
+                                    <p class="text-muted mb-3">{{ $mascota->name }} | <span class="text-muted mb-3">
+                                            @if ($mascota->price_discounted)
+                                                <del class="text-danger fw-semibold">${{ $mascota->price }}</del>
+                                                <span class="text-success fw-semibold">${{ $mascota->new_price }}</span>
+                                            @else
+                                                <span class="text-primary fw-semibold">${{ $mascota->price }}</span>
+                                            @endif
+                                        </span>
+                                    </p>
+                                    <p class="text-muted mb-3"> ⬇️ {{ $mascota->price_discounted }} </p>
+
                                     <a href="{{ route('home.showPet', $mascota->id) }}"
                                         class="btn btn-outline-primary btn-sm transition-colors duration-300 hover:bg-primary hover:text-white">Ver
                                         más</a>
@@ -155,22 +164,24 @@
                                 <p class="card-text text-primary fw-semibold">Precio: ${{ $product->price }}</p>
                                 <a href="{{ route('home.showProduct', $product->id) }}"
                                     class="btn btn-outline-info btn-sm mb-2">Ver más</a>
-                                    <form action="{{ route('inventary.store') }}" method="POST" class="d-inline-block">
-    @csrf
-    <input type="hidden" name="product_id" value="{{ $product->id }}">
-    <input type="hidden" name="price" value="{{ $product->price }}">
-    <input type="hidden" name="description" value="Salida">
-    <div class="d-flex justify-content-center align-items-center mb-2">
-        <input type="number" name="quantity" value="1" class="form-control form-control-sm text-center me-2" style="width: 60px;" min="1" required>
-        <button type="submit" class="btn btn-outline-success btn-sm">Comprar</button>
-    </div>
-</form>
+                                <form action="{{ route('inventary.store') }}" method="POST" class="d-inline-block">
+                                    @csrf
+                                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                    <input type="hidden" name="price" value="{{ $product->price }}">
+                                    <input type="hidden" name="description" value="Salida">
+                                    <div class="d-flex justify-content-center align-items-center mb-2">
+                                        <input type="number" name="quantity" value="1"
+                                            class="form-control form-control-sm text-center me-2" style="width: 60px;"
+                                            min="1" required>
+                                        <button type="submit" class="btn btn-outline-success btn-sm">Comprar</button>
+                                    </div>
+                                </form>
 
                             </div>
                         </div>
                     </div>
                 @endforeach
-          
+
             </div>
         </div>
     </section>

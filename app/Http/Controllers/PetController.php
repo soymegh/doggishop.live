@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Pet;
 use App\Models\PetType;
 use Illuminate\Support\Facades\File;
+use App\Models\Discount;
+use App\Services\DiscountService;
 
 class PetController extends Controller
 {
@@ -15,7 +17,6 @@ class PetController extends Controller
     public function index()
     {
         //
-   
         try {
             $pets = Pet::all();
             return view('pet.index', compact('pets'));
@@ -83,6 +84,8 @@ class PetController extends Controller
         
         try {
             $pet = Pet::find($id);
+            $discoutServices = new DiscountService();
+            $pet = $discoutServices->applyDiscountPet($pet);
             return view('pet.show', compact('pet'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error al obtener la mascota');

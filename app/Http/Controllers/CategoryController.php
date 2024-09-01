@@ -13,7 +13,6 @@ class CategoryController extends Controller
      */
     public function index()
     {
-       
         $categories = Category::all();
         return view('category.index', compact('categories'));
     }
@@ -24,7 +23,7 @@ class CategoryController extends Controller
     public function create()
     {
         //
-        if(auth()->user()->role != 'admin'){
+        if (auth()->user()->role != 'admin') {
             return redirect()->route('welcome');
         }
         return view('category.create');
@@ -44,17 +43,17 @@ class CategoryController extends Controller
         $category->description = $request->description;
         $category->save();
 
-    
+
         /*Guardar picture*/
-        if($request->hasFile('img_url')){
-            
+        if ($request->hasFile('img_url')) {
+
             $id = $category->id;
             $imageName = $id . '.' . $request->file('img_url')->getClientOriginalExtension();
             $request->file('img_url')->move(public_path('images/category'), $imageName);
             $category->img_url = $imageName;
             $category->save();
         }
-     
+
         return redirect()->route('categories.index');
     }
 
@@ -110,9 +109,9 @@ class CategoryController extends Controller
             // Assign the new image name to the blog
             $category->img_url = $imageName;
         }
-        
+
         $category->save();
-        
+
         return redirect()->route('categories.index');
     }
 
@@ -132,7 +131,7 @@ class CategoryController extends Controller
         }
 
         $category->delete();
- 
+
         return redirect()->route('categories.index');
     }
 }
