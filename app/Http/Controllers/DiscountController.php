@@ -93,6 +93,8 @@ class DiscountController extends Controller
             return redirect()->route('welcome');
         }
         $discount = Discount::find($id);
+        $discount->start_time = date('Y-m-d', strtotime($discount->start_time));
+        $discount->end_time = date('Y-m-d', strtotime($discount->end_time));
         return view('discount.edit', compact('discount'));
     }
 
