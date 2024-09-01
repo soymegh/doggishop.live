@@ -21,7 +21,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Blade::component('components.homecards', HomeCards::class);
+        Blade::component('components.home-cards', HomeCards::class);
         //
     }
 }

@@ -86,8 +86,8 @@
     </div>
     <br>
 
-    <x-homecards title="Mascotas Destacadas" index="pets.index" :list="$pets" folder="pet" />
-    <x-homecards title="Categorias Destacadas" index="categories.index" :list="$categories" folder="category" />
+    <x-home-cards title="Mascotas Destacadas" index="pets.index" :list="$pets" folder="pet" />
+    <x-home-cards title="Categorias Destacadas" index="categories.index" :list="$categories" folder="category" />
 
 
 
