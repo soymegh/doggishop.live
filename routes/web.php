@@ -18,6 +18,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MailController;
 use App\Models\Category;
+use App\Models\Event;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,7 +41,8 @@ Route::get('/', function () {
     //si llegase a tener productos
     //$products = $discountServices->applyDiscountProducts()->take(4);
     $categories = Category::all()->take(4);
-    return view('welcome',compact('petTypeInfo', 'blogs', 'pets', 'categories'));
+    $event = Event::all()->where('start_date','>=', today()->modify('-4 days'));
+    return view('welcome',compact('petTypeInfo', 'blogs', 'pets', 'categories','event'));
 })->name('welcome');
 
 Route::get('/contact', function () {

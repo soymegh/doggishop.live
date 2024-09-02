@@ -21,7 +21,7 @@ class ProductController extends Controller
         //
 
         try {
-            $products = Product::all();
+            $products = Product::paginate(8);
             return view('product.index', compact('products'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error al obtener los productos');
