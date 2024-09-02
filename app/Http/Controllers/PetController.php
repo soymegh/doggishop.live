@@ -18,7 +18,7 @@ class PetController extends Controller
     {
         //
         try {
-            $pets = Pet::all();
+            $pets = Pet::paginate(8);
             return view('pet.index', compact('pets'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error al obtener las mascotas');

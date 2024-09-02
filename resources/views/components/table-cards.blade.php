@@ -58,10 +58,11 @@
 
                             <div class="border-bottom mb-3" ></div>
                             <div class="d-flex justify-content-evenly">
+                                
                             @if ($route =='products')
                                 <a title="Inventario del producto" href="{{ route('inventary.show', $e->id) }}" class="btn btn-outline-info rounded-pill"> <i class="py-1 fa-solid fa-boxes-stacked"></i> </a>
-                            @else
-
+                            @elseif($route =='pets')
+                            <a href="{{ route($route. '.show', $e->id) }}" title="Visualizar detalles" class="btn btn-outline-info rounded-circle"><i class="fa-regular fa-eye"></i></a>
                             @endif
                             <a href="{{ route($route. '.edit', $e->id) }}" title="Editar registro" class="btn btn-outline-primary rounded-circle"><i class="fa-regular fa-pen-to-square"></i></a>
 
