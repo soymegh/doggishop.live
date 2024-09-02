@@ -29,7 +29,7 @@
                 <div class="card border-mid animal">
                     
                         @if ($e->img_url != null)
-                            <img src="{{ asset('images/'.$folder .'/' . $e->img_url) }}" alt="{{ $e->img_url }}" width="50px">
+                            <img src="{{ asset('images/'.$folder .'/' . $e->img_url) }}" alt="{{ $e->img_url }}" >
                         @else
                             <img src="{{ asset('images/sinfoto.png') }}" alt="{{ $e->img_url }}">
                         @endif    
