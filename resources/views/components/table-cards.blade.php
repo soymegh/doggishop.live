@@ -8,7 +8,8 @@
             border-color: #ffac45;
         }
     img{
-        object-fit: contain;
+        
+        object-fit: cover;
     }
 </style>
 <div>
@@ -32,10 +33,13 @@
                 <div class="card border-mid animal">
                     
                         @if ($e->img_url != null)
-                            <img src="{{ asset('images/'.$folder .'/' . $e->img_url) }}" alt="{{ $e->img_url }}" height="250px" >
+                            <img class="border-mid" src="{{ asset('images/'.$folder .'/' . $e->img_url) }}" alt="{{ $e->img_url }}" height="250px" >
+                        @elseif ($e->picture != null)
+                            <img class="border-mid" src="{{ asset('images/'.$folder .'/' . $e->picture) }}" alt="{{ $e->picture }}" height="250px" >
                         @else
-                            <img src="{{ asset('images/sinfoto.png') }}" alt="{{ $e->img_url }}">
+                            <img class="border-mid" src="{{ asset('images/sinfoto.png') }}" alt="{{ $e->img_url }}">
                         @endif    
+
                         <div class="card-body">
                             <h5 class="card-title text-center">{{ $e->breed ?? $e->name ?? " "}}</h5>
                             <p class="card-text">{{ $e->description ?? $e->attendant ??$e->name }}</p>
