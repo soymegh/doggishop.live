@@ -10,13 +10,20 @@
     <div class="col-12 col row  border-top blog">
         <div class=" @if ($admin)col-md-10 @endif">
             {{--{{ route($route.'.show', $e->id) }}--}}
-            <a href="#" data-bs-toggle="modal" data-bs-target="#viewPost" class="btn p-0" style="width:100%;">
+            <a href="#" data-bs-toggle="modal" data-bs-target="#viewPost{{$e->id}}" class="btn p-0" style="width:100%;">
                 <div class="card border-0">
                     <div class="card-body ">
                         <div class="row">
                         <div class="col-md-10">
-                            <h5 class="card-title text-left">{{ $e->title }}</h5>
-                            <p class="card-text text-left">{{ $e->created_at }}</p>    
+                            <h5 class="card-title text-left">{{ $e->title ??$e->name }}</h5>
+                            <div class="row">
+                            
+                            @if($route == "admin")
+                            <b class="card-text text-left col-md-auto">Rol: {{ $e->role }}</b>    
+                            @endif
+                            <p class="card-text text-left col-md-auto">{{ $e->email?? $e->created_at }}</p>
+                            </div>
+                            
                         </div>
                         </div>
                         
@@ -43,24 +50,9 @@
         </div>
         @endif
 
-        <!-- Modal -->
-        <div class="modal fade" id="viewPost" tabindex="-1" aria-labelledby="viewPostLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="viewPostLabel">{{$e->title}}</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                {{$e->content}}
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-            </div>
-            </div>
-        </div>
-        </div>
-
+        @if($route=='blogs')
+        <x-show-modal :element="$e" />
+        @endif
     </div>
 @endforeach
 
