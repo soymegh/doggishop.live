@@ -22,8 +22,8 @@
             <h2>{{$title}}</h2>
         </div>
         <div class="col-md-6 text-end">
-            <a href="{{ route('home') }}" class="btn btn-outline-primary"><i class="bi bi-arrow-return-left"></i>Regresar</a>
-            <a href="{{ route( $route.'.create') }}" class="text-center btn btn-outline-success">Nuevo</a>
+            <a href="{{ route('home') }}" title="Regresar a home" class="btn btn-outline-primary rounded-circle"><i class=" py-3 fa-solid fa-rotate-left fa-xl"></i></a>
+            <a href="{{ route( $route.'.create') }}" title="Crear uno nuevo" class="text-center btn btn-outline-success rounded-circle"><i class="py-3 fa-solid fa-plus fa-xl"></i></a>
         </div>
     </div>
 
@@ -59,17 +59,19 @@
                             <div class="border-bottom mb-3" ></div>
                             <div class="d-flex justify-content-evenly">
                             @if ($route =='products')
-                                <a href="{{ route('inventary.show', $e->id) }}" class="btn btn-outline-info rounded-pill"> I </a>
+                                <a title="Inventario del producto" href="{{ route('inventary.show', $e->id) }}" class="btn btn-outline-info rounded-pill"> <i class="py-1 fa-solid fa-boxes-stacked"></i> </a>
                             @else
 
                             @endif
-                            <a href="{{ route($route. '.edit', $e->id) }}" class="btn btn-outline-primary rounded-pill">E</a>
+                            <a href="{{ route($route. '.edit', $e->id) }}" title="Editar registro" class="btn btn-outline-primary rounded-circle"><i class="fa-regular fa-pen-to-square"></i></a>
 
                             <form action="{{ route( $route.'.destroy', $e->id) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-outline-danger rounded-pill"
-                                    onclick="return confirm('¿Estás seguro de que deseas eliminar este producto?')">D</button>
+                                <button type="submit" class="btn btn-outline-danger rounded-circle"
+                                    onclick="return confirm('¿Estás seguro de que deseas eliminar este producto?')" title="Eliminar registro">
+                                    <i class="fa-regular fa-trash-can"></i>
+                                </button>
                             </form>
                             </div>
                             

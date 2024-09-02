@@ -12,6 +12,7 @@
 
     <!-- Agrega tus estilos personalizados aquí -->
     <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="{{asset('fontawesome-free-6.6.0-web/css/all.min.css')}}">
 
     <style>
         .navbar-brand img {

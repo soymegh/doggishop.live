@@ -17,7 +17,7 @@ class PetTypeController extends Controller
      
         
         try{
-            $petTypes = PetType::all();
+            $petTypes = PetType::paginate(8);
             return view('pet_type.index', compact('petTypes'));
         }catch(\Exception $e){
             return redirect()->back()->with('error', $e->getMessage());
