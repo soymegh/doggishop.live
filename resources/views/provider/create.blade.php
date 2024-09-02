@@ -68,7 +68,9 @@
         <div class="row mt-4 mb-3  ml-1 mr-3">
             <h2 class="col">Crear proveedor</h2>
             <div class="col text-right">
-                <a class="btn btn-primary rounded-pill" href="{{ route('providers.index') }}">Regresar</a>
+            <a href="{{ route('providers.index') }}" class="btn btn-primary rounded-circle" title="Regresar a Proveedores">
+                <i class=" py-3 fa-solid fa-rotate-left fa-xl"></i>
+            </a>
             </div>       
         </div>
             <form action="{{ route('providers.store') }}" method="POST" enctype="multipart/form-data">

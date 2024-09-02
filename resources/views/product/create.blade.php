@@ -67,7 +67,9 @@
                 <div class="row mt-4 mb-3  ml-1 mr-3">
                     <h2 class="col">Crear Producto</h2>
                     <div class="col text-right">
-                        <a href="{{ route('products.index') }}" class="btn btn-primary rounded-pill">Regresar</a>
+                    <a href="{{ route('products.index') }}" class="btn btn-primary rounded-circle" title="Regresar a Productos">
+                    <i class=" py-3 fa-solid fa-rotate-left fa-xl"></i>
+                    </a>
                     </div> 
                 </div>
                 <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">

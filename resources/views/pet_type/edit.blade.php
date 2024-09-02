@@ -69,7 +69,9 @@
                         <h2>Editar tipo de mascota</h2>
                     </div>
                     <div class="col text-right  ">
-                        <a href="{{ route('pet_type.index') }}" class="btn btn-primary rounded-pill">Regresar</a>
+                    <a href="{{ route('pet_type.index') }}" class="btn btn-primary rounded-circle" title="Regresar a Tipos de Mascotas">
+                    <i class=" py-3 fa-solid fa-rotate-left fa-xl"></i>
+                    </a>
                     </div>
                 </div>
                 <form class="mb-4  ml-3 mr-3" action="{{ route('pet_type.update', $petType->id) }}" method="POST" enctype="multipart/form-data">

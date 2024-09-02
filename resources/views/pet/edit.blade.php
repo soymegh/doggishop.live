@@ -70,7 +70,9 @@
                         <h2>Editar Mascota</h2>
                     </div>
                     <div class="col text-right  ">
-                    <a href="{{ route('pets.index') }}" class="btn btn-primary rounded-pill">Regresar</a>
+                    <a href="{{ route('pets.index') }}" class="btn btn-primary rounded-circle" title="Regresar a Mascotas">
+                    <i class=" py-3 fa-solid fa-rotate-left fa-xl"></i>
+                    </a>
                     </div>
                 </div>
                 <form class="mb-4  mx-3"  action="{{ route('pets.update', $pet->id) }}" method="POST" enctype="multipart/form-data">

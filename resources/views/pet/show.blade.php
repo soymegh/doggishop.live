@@ -10,7 +10,9 @@
                         <h2>Ver Mascotas</h2>
                     </div>
                     <div class="col text-right  ">
-                        <a href="{{ route('categories.index') }}" class="btn btn-primary rounded-pill">Regresar</a>
+                    <a href="{{ route('pets.index') }}" class="btn btn-primary rounded-circle" title="Regresar a Mascotas">
+                    <i class=" py-3 fa-solid fa-rotate-left fa-xl"></i>
+                    </a>
                     </div>
 
                 </div>
