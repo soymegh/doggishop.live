@@ -99,7 +99,8 @@
     <!-- Fin del carrusel-->
 
     <!-- Button trigger modal -->
-    @if ($event)
+    @if (count($event)!=0)
+    
     <div class="mx-4 my-4">
         <button type="button" class="btn fs-2 col-12 py-3 modal-button border-2 border-mid" data-bs-toggle="modal" data-bs-target="#eventModal" >
             Le invitamos a nuestros futuros eventos!!
@@ -108,7 +109,7 @@
 
     <!-- Modal -->
     <div class="modal fade " id="eventModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-lg">
         <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Eventos próximos</h5>
