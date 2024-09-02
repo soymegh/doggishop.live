@@ -20,10 +20,18 @@
                             
                             @if($route == "admin")
                             <b class="card-text text-left col-md-auto">Rol: {{ $e->role }}</b>    
+                            @elseif($route =="discounts")
+                            <b class="card-text text-left col-md-auto">Descuento de: {{ $e->discount }} %</b>
                             @endif
-                            <p class="card-text text-left col-md-auto">{{ $e->email?? $e->created_at }}</p>
+                            <p class="card-text text-left col-md-auto">{{ $e->email ?? $e->status?'Activa':'Inactiva' ?? $e->created_at }}</p>
                             </div>
                             
+                            @if($route =="discounts")
+                            <div class="row pt-2">
+                            <p class="card-text text-left col-md-auto">Desde {{date('d-m-Y',strtotime($e->start_time))  }} hasta {{date('d-m-Y',strtotime($e->end_time))  }}</p>    
+                            </div>
+                            
+                            @endif
                         </div>
                         </div>
                         
