@@ -29,11 +29,7 @@
             border-color: #ffac45;
         }
 
-        .blog:hover {
-            background-color: #343a40;
-            color: white;
-            border-radius: 20px;
-        }
+        
         .modal-button{
             background-color: #fbedd3;
             border-color: #ffac45;
@@ -179,21 +175,7 @@
 
         <!-- mostrar blogs  -->
         @if ($blogs)
-            <div class="row">
-                @foreach ($blogs as $blog)
-                    <div class="col-12 col  border-top blog">
-                        <a href="{{ route('blogs.show', $blog->id) }}" class="btn p-0" style="width:100%;">
-                            <div class="card border-0">
-                                <div class="card-body ">
-                                    <h5 class="card-title text-left">{{ $blog->title }}</h5>
-                                    <p class="card-text text-left">{{ $blog->created_at }}</p>
-
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                @endforeach
-            </div>
+            <x-list-design :list="$blogs" route="blogs" :admin="false"/>
         @else
             <h3>No hay noticias en este momento</h3>
         @endif

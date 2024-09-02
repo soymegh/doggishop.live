@@ -16,7 +16,7 @@ class BlogController extends Controller
         if (auth()->user()->role != 'admin') {
             return redirect()->route('welcome');
         }
-        $blogs = Blog::all();
+        $blogs = Blog::paginate(8);
         return view('blog.index', compact('blogs'));
     }
 

@@ -13,19 +13,9 @@
     }
 </style>
 <div>
-    <!-- 
-    Argumentos: Folder, Route, List Title
-    -->
-
-    <div class="row my-4">
-        <div class="col-md-6">
-            <h2>{{$title}}</h2>
-        </div>
-        <div class="col-md-6 text-end">
-            <a href="{{ route('home') }}" title="Regresar a home" class="btn btn-outline-primary rounded-circle"><i class=" py-3 fa-solid fa-rotate-left fa-xl"></i></a>
-            <a href="{{ route( $route.'.create') }}" title="Crear uno nuevo" class="text-center btn btn-outline-success rounded-circle"><i class="py-3 fa-solid fa-plus fa-xl"></i></a>
-        </div>
-    </div>
+    <!-- Argumentos: Folder, Route, List Title-->
+     
+    <x-title-admin :title="$title" :route="$route" />
 
     <div class="row mt-4">
         @foreach ($list as $e)
@@ -61,7 +51,7 @@
                                 
                             @if ($route =='products')
                                 <a title="Inventario del producto" href="{{ route('inventary.show', $e->id) }}" class="btn btn-outline-info rounded-pill"> <i class="py-1 fa-solid fa-boxes-stacked"></i> </a>
-                            @elseif($route =='pets')
+                            @elseif($route =='pets'|| $route='providers' )
                             <a href="{{ route($route. '.show', $e->id) }}" title="Visualizar detalles" class="btn btn-outline-info rounded-circle"><i class="fa-regular fa-eye"></i></a>
                             @endif
                             <a href="{{ route($route. '.edit', $e->id) }}" title="Editar registro" class="btn btn-outline-primary rounded-circle"><i class="fa-regular fa-pen-to-square"></i></a>
