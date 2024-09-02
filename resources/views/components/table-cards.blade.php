@@ -7,6 +7,9 @@
             
             border-color: #ffac45;
         }
+    img{
+        object-fit: contain;
+    }
 </style>
 <div>
     <!-- 
@@ -29,7 +32,7 @@
                 <div class="card border-mid animal">
                     
                         @if ($e->img_url != null)
-                            <img src="{{ asset('images/'.$folder .'/' . $e->img_url) }}" alt="{{ $e->img_url }}" >
+                            <img src="{{ asset('images/'.$folder .'/' . $e->img_url) }}" alt="{{ $e->img_url }}" height="250px" >
                         @else
                             <img src="{{ asset('images/sinfoto.png') }}" alt="{{ $e->img_url }}">
                         @endif    
