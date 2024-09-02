@@ -26,6 +26,8 @@
                             <img class="border-mid" src="{{ asset('images/'.$folder .'/' . $e->img_url) }}" alt="{{ $e->img_url }}" height="250px" >
                         @elseif ($e->picture != null)
                             <img class="border-mid" src="{{ asset('images/'.$folder .'/' . $e->picture) }}" alt="{{ $e->picture }}" height="250px" >
+                        @elseif ($e->image_event != null)
+                            <img class="border-mid" src="{{ asset('images/'.$folder .'/' . $e->image_event) }}" alt="{{ $e->image_event }}" height="250px" >
                         @else
                             <img class="border-mid" src="{{ asset('images/sinfoto.png') }}" alt="{{ $e->img_url }}">
                         @endif    
@@ -51,7 +53,7 @@
                                 
                             @if ($route =='products')
                                 <a title="Inventario del producto" href="{{ route('inventary.show', $e->id) }}" class="btn btn-outline-info rounded-pill"> <i class="py-1 fa-solid fa-boxes-stacked"></i> </a>
-                            @elseif($route =='pets'|| $route='providers' )
+                            @elseif($route =='pets'|| $route=='providers' )
                             <a href="{{ route($route. '.show', $e->id) }}" title="Visualizar detalles" class="btn btn-outline-info rounded-circle"><i class="fa-regular fa-eye"></i></a>
                             @endif
                             <a href="{{ route($route. '.edit', $e->id) }}" title="Editar registro" class="btn btn-outline-primary rounded-circle"><i class="fa-regular fa-pen-to-square"></i></a>
