@@ -14,11 +14,16 @@ class PetController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
         try {
-            $pets = Pet::paginate(8);
+            if($request){
+                $pets = Pet::whereAny(['name','gender','breed'],'LIKE','%'.$request->get('search').'%')->paginate(8);
+            }
+            else{
+                $pets = Pet::paginate(8);
+            }
+
             return view('pet.index', compact('pets'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error al obtener las mascotas');

@@ -11,9 +11,15 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $categories = Category::paginate(8);
+        if($request){
+            $categories = Category::whereAny(['name','description'],'LIKE','%'.$request->get('search').'%')->paginate(8);
+        }
+        else{
+            $categories = Category::paginate(8);
+        }
+        
         return view('category.index', compact('categories'));
     }
 
