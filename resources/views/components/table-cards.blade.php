@@ -17,12 +17,7 @@
      
     <x-title-admin :title="$title" :route="$route" />
     
-    <form class="mb-4  ml-3 mr-3" action="{{ route($route.'.index') }}" method="GET" enctype="multipart/form-data">
-        <div class="row">
-            <input class="form-control col-md-10" name="search" type="text" placeholder="Busqueda">
-            <button class="btn btn-primary col-md-2" >SEND</button>
-        </div>
-    </form>
+    <x-search-bar :route="$route"/>
 
     <div class="row mt-4">
         @foreach ($list as $e)

@@ -5,6 +5,7 @@
             border-radius: 20px;
         }
 </style>
+<x-search-bar :route="$route"/>
 <div class="row">
 @foreach ($list as $e)
     <div class="col-12 col row  border-top blog">
@@ -23,11 +24,15 @@
                             @elseif($route =="discounts")
                             <b class="card-text text-left col-md-auto">Descuento de: {{ $e->discount }} %</b>
                             @endif
-                            <p class="card-text text-left col-md-auto">{{ $e->email ?? $e->status?'Activa':'Inactiva' ?? $e->created_at }}</p>
+                            
+                                @if(!$e->status)
+                                <p class="card-text text-left col-md-auto">{{ $e->email ?? $e->created_at }}</p>
+                                @endif
                             </div>
                             
                             @if($route =="discounts")
                             <div class="row pt-2">
+                            <i class="card-text text-left col-md-auto">{{ $e->status?'Activa':'Inactiva' }}</i>
                             <p class="card-text text-left col-md-auto">Desde {{date('d-m-Y',strtotime($e->start_time))  }} hasta {{date('d-m-Y',strtotime($e->end_time))  }}</p>    
                             </div>
                             

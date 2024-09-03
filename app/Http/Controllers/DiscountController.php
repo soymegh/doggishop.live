@@ -12,12 +12,20 @@ class DiscountController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         //
         if(auth()->user()->role != 'admin') {
             return redirect()->route('welcome');
         }
+
+        if($request){
+            $discounts = Discount::whereAny(['name','description','discount'],'LIKE','%'.$request->get('search').'%')->paginate(8);
+        }
+        else{
+            $discounts = Discount::paginate(8);
+        }
+
         $discounts = Discount::all();
         return view('discount.index', compact('discounts'));
 
