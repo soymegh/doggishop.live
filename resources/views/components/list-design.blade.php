@@ -5,7 +5,9 @@
             border-radius: 20px;
         }
 </style>
+@if($admin)
 <x-search-bar :route="$route"/>
+@endif
 <div class="row">
 @foreach ($list as $e)
     <div class="col-12 col row  border-top blog">
