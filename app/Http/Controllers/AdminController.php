@@ -10,10 +10,16 @@ class AdminController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         //
-        $users = User::all();
+        if($request){
+            $users = User::whereAny(['name','email'],'LIKE','%'.$request->get('search').'%')->paginate(8);
+        }
+        else{
+            $users = User::paginate(8);
+        }
+
         return view('user.index', compact('users'));
     }
 

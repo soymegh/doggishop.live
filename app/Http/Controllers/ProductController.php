@@ -16,12 +16,17 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         //
-
         try {
-            $products = Product::paginate(8);
+            if($request){
+                $products = Product::whereAny(['name','description','price'],'LIKE','%'.$request->get('search').'%')->paginate(8);
+            }
+            else{
+                $products = Product::paginate(8);
+            }
+
             return view('product.index', compact('products'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error al obtener los productos');

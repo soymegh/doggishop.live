@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\View\Components\HomeCards;
 use App\View\Components\ListDesign;
+use App\View\Components\SearchBar;
 use App\View\Components\ShowModal;
 use App\View\Components\TableCards;
 use App\View\Components\TitleAdmin;
@@ -31,6 +32,7 @@ class AppServiceProvider extends ServiceProvider
         Blade::component('components.list-desing', ListDesign::class);
         Blade::component('components.title-admin', TitleAdmin::class);
         Blade::component('components.show-modal', ShowModal::class);
+        Blade::component('components.search-bar', SearchBar::class);
         Paginator::useBootstrapFive();
         //
     }

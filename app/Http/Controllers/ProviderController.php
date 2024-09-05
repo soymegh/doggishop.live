@@ -11,11 +11,18 @@ class ProviderController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         //
    
         try{
+            if($request){
+                $providers = Provider::whereAny(['name','attendant','email'],'LIKE','%'.$request->get('search').'%')->paginate(8);
+            }
+            else{
+                $providers = Provider::paginate(8);
+            }
+
             $providers = Provider::paginate(8);
             return view('provider.index', compact('providers'));
         }catch(\Exception $ex){

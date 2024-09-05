@@ -10,13 +10,21 @@ class BlogController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         //
         if (auth()->user()->role != 'admin') {
             return redirect()->route('welcome');
         }
-        $blogs = Blog::paginate(8);
+
+        if($request){
+            $blogs = Blog::whereAny(['title','created_at'],'LIKE','%'.$request->get('search').'%')->paginate(8);
+        }
+        else{
+            $blogs = Blog::paginate(8);
+        }
+
+        
         return view('blog.index', compact('blogs'));
     }
 

@@ -4,7 +4,9 @@
     <div class="container">
         <div class="row">
             <h2>Ver Producto</h2>
-            <a href="{{ route('products.index') }}" class="link-primary">Regresar</a>
+            <a href="{{ route('products.index') }}" class="btn btn-primary rounded-circle" title="Regresar a Productos">
+                    <i class=" py-3 fa-solid fa-rotate-left fa-xl"></i>
+                    </a>
         </div>
         <div class="row">
             <div class="col-md-12">

@@ -11,9 +11,15 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $categories = Category::paginate(8);
+        if($request){
+            $categories = Category::whereAny(['name','description'],'LIKE','%'.$request->get('search').'%')->paginate(8);
+        }
+        else{
+            $categories = Category::paginate(8);
+        }
+        
         return view('category.index', compact('categories'));
     }
 
@@ -124,6 +130,9 @@ class CategoryController extends Controller
         if (auth()->user()->role != 'admin') {
             return redirect()->route('welcome');
         }
+        try{
+
+        
         $category = Category::find($id);
 
         if (!empty($category->img_url) && file_exists(public_path('images/category/' . $category->img_url))) {
@@ -131,7 +140,10 @@ class CategoryController extends Controller
         }
 
         $category->delete();
-
-        return redirect()->route('categories.index');
+        return redirect()->route('category.index');
+        }catch(\Exception $e){
+            return redirect()->back()->with('error', "Código ".$e->getCode());
+        }
+        
     }
 }

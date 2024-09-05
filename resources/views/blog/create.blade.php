@@ -10,7 +10,9 @@
                         <h2>Crear un nuevo post</h2>
                     </div>
                     <div class="col text-right  ">
-                        <a href="{{ route('blogs.index') }}" class="btn btn-primary rounded-pill">Regresar</a>
+                    <a href="{{ route('blogs.index') }}" class="btn btn-primary rounded-circle" title="Regresar a Blogs">
+                        <i class=" py-3 fa-solid fa-rotate-left fa-xl"></i>
+                    </a>
                     </div>
                 </div>
 

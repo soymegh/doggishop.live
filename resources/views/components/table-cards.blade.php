@@ -16,6 +16,8 @@
     <!-- Argumentos: Folder, Route, List Title-->
      
     <x-title-admin :title="$title" :route="$route" />
+    
+    <x-search-bar :route="$route"/>
 
     <div class="row mt-4">
         @foreach ($list as $e)

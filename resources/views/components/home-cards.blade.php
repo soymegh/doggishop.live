@@ -22,11 +22,20 @@
                             <h5 class="card-title text-center">{{ $pet->breed ?? $pet->name ?? " "}}</h5>
                             <p class="card-text">{{ $pet->description }}</p>
                             <p class="card-text">
-                                @if ($pet->price) {{"Precio: $".$pet->price }}@else {{" "}}@endif
+                                
                             </p>
-                            <p> @if ($pet->price_discounted) {{"Descuento: $".$pet->price_discounted }}@else {{" "}}@endif
-                            </p>
-                            <p>  @if ($pet->new_price) {{"Nuevo Precio: $".$pet->new_price }}@else {{" "}}@endif</p>
+                            
+                            @if ($pet->price_discounted) {{"Precio: "}}
+                            <del class="text-danger fw-semibold">${{ $pet->price }}</del>
+                            <span class="text-success fw-semibold">${{ $pet->new_price }}</span>
+                            
+                            @elseif ($pet->price) {{"Precio: $".$pet->price }}
+                            
+                            @endif 
+                            
+                            
+
+                            
                         </div>
                     </a>
                     {{-- <img src="{{ asset('images/pet/' . $pet->img_url) }}" class="" alt="{{ $pet->name }}"> --}}

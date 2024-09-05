@@ -11,13 +11,16 @@ class PetTypeController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-     
-        
         try{
-            $petTypes = PetType::paginate(8);
+            if($request){
+                $petTypes = PetType::whereAny(['name','description'],'LIKE','%'.$request->get('search').'%')->paginate(8);
+            }
+            else{
+                $petTypes = PetType::paginate(8);
+            }
+            
             return view('pet_type.index', compact('petTypes'));
         }catch(\Exception $e){
             return redirect()->back()->with('error', $e->getMessage());

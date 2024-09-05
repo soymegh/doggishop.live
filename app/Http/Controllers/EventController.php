@@ -11,13 +11,20 @@ class EventController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         //
         if (auth()->user()->role != 'admin') {
             return redirect()->route('welcome');
         }
-        $events = Event::all();
+
+        if($request){
+            $events = Event::whereAny(['name','description','start_date'],'LIKE','%'.$request->get('search').'%')->paginate(8);
+        }
+        else{
+            $events = Event::paginate(8);
+        }
+        
         return view('event.index', compact('events'));
     }
 

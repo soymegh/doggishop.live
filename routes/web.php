@@ -44,7 +44,7 @@ Route::get('/', function () {
     //si llegase a tener productos
     //$products = $discountServices->applyDiscountProducts()->take(4);
     $categories = Category::all()->take(4);
-    $event = Event::all()->where('start_date','>=', today()->modify('-4 days'));
+    $event = Event::all()->where('start_date','>=', today())->where('start_date','<=',today()->modify('+8 Days'));
     return view('welcome',compact('petTypeInfo', 'blogs', 'pets', 'categories','event'));
 })->name('welcome');
 
