@@ -19,6 +19,9 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MailController;
 use App\Models\Category;
 use App\Models\Event;
+use App\Models\Inventary;
+use App\Models\payment_type;
+use Illuminate\Support\Facades\Storage;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,7 +35,7 @@ use App\Models\Event;
 */
 
 Route::get('/', function () {
-    
+
     $petTypeInfo= PetType::select('name','img_url')->get();
     $blogs = Blog::orderBy('created_at', 'DESC')->get()->take(4);
     //$pets = Pet::all()->take(4);
@@ -60,12 +63,12 @@ Route::post('/contact/send', [MailController::class, 'sendEmail'])->name('contac
 Auth::routes();
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-//verificar que el usuario este autenticado 
+//verificar que el usuario este autenticado
 Route::middleware('auth')->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/home/product/{id}', [HomeController::class, 'showProduct'])->name('home.showProduct');
     Route::get('/home/pet/{id}', [HomeController::class, 'showPet'])->name('home.showPet');
-    
+
 });
 
 
@@ -138,15 +141,27 @@ Route::middleware('auth')->group(function () {
     Route::get('admin/{id}', [AdminController::class, 'show'])->name('admin.show');
     Route::get('admin/{id}/edit', [AdminController::class, 'edit'])->name('admin.edit');
     Route::put('admin/{id}', [AdminController::class, 'update'])->name('admin.update');
-    Route::delete('admin/{id}', [AdminController::class, 'destroy'])->name('admin.destroy');  
+    Route::delete('admin/{id}', [AdminController::class, 'destroy'])->name('admin.destroy');
 });
 
 //Usuario Gues
 Route::middleware('auth')->group(function () {
     Route::get('Cliente', [App\Http\Controllers\HomeController::class, 'index'])->name('welcome');
-    Route::get('Ciente/{id}', [App\Http\Controllers\HomeController::class, 'showCart'])->name('home.showCart');
-    
+    Route::get('Ciente/{id}', function($id) {
+
+        $payment_types = payment_type::all();
+        $products = Inventary::where('user_id', $id)->get();
+        $jsonPath = public_path('\json\cities.json');
+        $jsonContent = file_get_contents($jsonPath);
+        $cities = json_decode($jsonContent, true);
+        return view('guest.car', compact('products', 'payment_types','cities'));
+
+    })->name('home.showCart');
+
+
 });
+
+
 
 // Inventory
 Route::middleware('auth')->group(function(){
@@ -157,7 +172,7 @@ Route::middleware('auth')->group(function(){
     Route::get('factura/{id}/edit', [InventaryController::class, 'edit'])->name('inventary.edit');
     Route::put('factura/{id}', [InventaryController::class, 'update'])->name('inventary.update');
     Route::delete('factura/{id}', [InventaryController::class, 'destroy'])->name('inventary.destroy');
-        
+
 });
 
 //Discount
@@ -169,7 +184,7 @@ Route::middleware('auth')->group(function(){
     Route::get('discounts/{id}/edit', [DiscountController::class, 'edit'])->name('discounts.edit');
     Route::put('discounts/{id}', [DiscountController::class, 'update'])->name('discounts.update');
     Route::delete('discounts/{id}', [DiscountController::class, 'destroy'])->name('discounts.destroy');
-        
+
 });
 
 //Event
@@ -181,5 +196,5 @@ Route::middleware('auth')->group(function(){
     Route::get('events/{id}/edit', [EventController::class, 'edit'])->name('events.edit');
     Route::put('events/{id}', [EventController::class, 'update'])->name('events.update');
     Route::delete('events/{id}', [EventController::class, 'destroy'])->name('events.destroy');
-        
+
 });

@@ -11,6 +11,7 @@ use App\Models\Provider;
 use App\Models\Blog;
 use App\Models\Inventary;
 use App\Models\Discount;
+use App\Models\payment_type;
 use App\Models\User;
 use App\Services\DiscountService;
 
@@ -55,7 +56,7 @@ class HomeController extends Controller
 
             case 'guest':
 
-                
+
 
                 $posts = Blog::orderBy('created_at', 'desc')->get();
                 //$mascotas = Pet::orderBy('created_at', 'desc')->paginate(6);
@@ -89,9 +90,4 @@ class HomeController extends Controller
         return view('guest.showPet', compact('mascota'));
     }
 
-    public function showCart($id)
-    {
-        $products = Inventary::where('user_id', $id)->get();
-        return view('guest.car', compact('products'));
-    }
 }

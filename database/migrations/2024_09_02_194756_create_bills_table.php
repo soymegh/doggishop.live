@@ -13,12 +13,11 @@ return new class extends Migration
     {
         Schema::create('bills', function (Blueprint $table) {
             $table->id();
-            $table->integer('RUC');
+            $table->decimal('subtotal', 5, 2);
             $table->decimal('total',5, 2);
             $table->dateTime('bill_date');
             $table->foreignId('payment_type_id')->constrained('payment_types');
             $table->foreignId('user_id')->constrained('users');
-            $table->boolean('status');
         });
     }
 
