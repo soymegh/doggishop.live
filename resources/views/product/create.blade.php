@@ -74,6 +74,48 @@
                 </div>
                 <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
+                    <div class="form-group @error('category') has-error @enderror">
+                        <label for="category_id">Categoría:</label>
+                        <div class="px-3 row">
+                        <select class="form-select col-sm" id="category_id" name="category_id">
+                            <option value="">Seleccione...</option>
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endforeach
+                        </select>
+                        <a href="{{ route('categories.create') }} " class="col-sm-auto btn btn-success px-5" title="Agregar nuevo"><i class=" py-3 fa-solid fa-plus fa-xl"></i></a>
+                        </div>
+                        
+                    </div>
+                    <div class="form-group @error('pet-type') has-error @enderror">
+                        <label for="pet_type_id">Tipo de mascota:</label>
+                        <div class="px-3 row">
+                            <select class="form-select col-sm" id="pet_type_id" name="pet_type_id">
+                                <option value="">Seleccione...</option>
+                                @foreach ($pet_types as $pet_type)
+                                    <option value="{{ $pet_type->id }}">{{ $pet_type->name }}</option>
+                                @endforeach
+                            </select>
+                            <a href="{{ route('pet_type.create') }} " class="col-sm-auto btn btn-success px-5" title="Agregar nuevo"><i class=" py-3 fa-solid fa-plus fa-xl"></i></a>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                    <div class="form-group @error('provider') has-error @enderror">
+                        <label for="provider_id">Selecciona el proveedor:</label>
+                        <div class="row px-3">
+                            <select class="form-select col-sm" id="provider_id" name="provider_id">
+                                <option value="">Seleccione...</option>
+                                @foreach ($providers as $provider)
+                                <option value="{{ $provider->id }}">{{ $provider->name }}</option>
+                                @endforeach
+                            </select>
+                            <a href="{{ route('providers.create') }} " class="col-sm-auto btn btn-success px-5" title="Agregar nuevo"><i class=" py-3 fa-solid fa-plus fa-xl"></i></a>
+                        </div>
+                        
+                    </div>
+
                     <div
                         class="form-group
                         @error('name')
@@ -104,7 +146,7 @@
                         @error('size')
                             has-error
                         @enderror">
-                        <label for="size">{{ __('Peso') }}</label>
+                        <label for="size">{{ __('Presentación') }}</label>
                         <input type="text" class="form-control" id="size" name="size"
                             value="{{ old('size') }}">
                         @error('size')
@@ -118,7 +160,7 @@
                             has-error
                         @enderror">
                         <label for="price">{{ __('Precio') }}</label>
-                        <input type="number" class="form-control" id="price" name="price"
+                        <input type="number" step="0.1" class="form-control" id="price" name="price"
                             value="{{ old('price') }}">
                         @error('price')
                             <span class="help-block text-danger">{{ $message }}</span>
@@ -137,35 +179,7 @@
                         @enderror
                     </div>
 
-                    <div class="form-group @error('pet-type') has-error @enderror">
-                        <label for="pet_type_id">Selecciona el tipo de mascota:</label>
-                        <select class="form-control" id="pet_type_id" name="pet_type_id">
-                            @foreach ($pet_types as $pet_type)
-                                <option value="{{ $pet_type->id }}">{{ $pet_type->name }}</option>
-                            @endforeach
-                        </select>
-                        <a href="{{ route('pet_type.create') }} ">Agregar nuevo</a>
-                    </div>
-
-
-                    <div class="form-group @error('category') has-error @enderror">
-                        <label for="category_id">Selecciona la Categoría:</label>
-                        <select class="form-control" id="category_id" name="category_id">
-                            @foreach ($categories as $category)
-                                <option value="{{ $category->id }}">{{ $category->name }}</option>
-                            @endforeach
-                        </select>
-                        <a href="{{ route('categories.create') }} ">Agregar nuevo</a>
-                    </div>
-                    <div class="form-group @error('provider') has-error @enderror">
-                        <label for="provider_id">Selecciona el proveedor:</label>
-                        <select class="form-control" id="provider_id" name="provider_id">
-                            @foreach ($providers as $provider)
-                                <option value="{{ $provider->id }}">{{ $provider->name }}</option>
-                            @endforeach
-                        </select>
-                        <a href="{{ route('providers.create') }} ">Agregar nuevo</a>
-                    </div>
+                    
                     <div class="form-group files color">
                         <label for="img_url">Imagen</label>
                         <input type="file" name="img_url" id="img_url" class="form-control"

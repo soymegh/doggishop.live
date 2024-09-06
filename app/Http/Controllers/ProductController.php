@@ -10,6 +10,7 @@ use App\Models\Inventary;
 use App\Models\Provider;
 use App\Models\PetType;
 use Illuminate\Support\Facades\File;
+use App\Services\DiscountService;
 
 class ProductController extends Controller
 {
@@ -19,13 +20,11 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         //
+        $discountServices = new DiscountService();
+
         try {
-            if($request){
-                $products = Product::whereAny(['name','description','price'],'LIKE','%'.$request->get('search').'%')->paginate(8);
-            }
-            else{
-                $products = Product::paginate(8);
-            }
+            $products = $discountServices->applyDiscountProducts($request);
+            
 
             return view('product.index', compact('products'));
         } catch (\Exception $e) {

@@ -77,6 +77,50 @@
                 <form action="{{ route('products.update', $product->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
+                    
+                    <div class="form-group @error('category_id') has-error @enderror">
+                        <label for="category_id">Selecciona la categoria:</label>
+                        <div class="px-3 row">
+                            <select class="form-select col-sm" id="category_id" name="category_id">
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}"  @if ($product->category_id == $category->id) selected @endif>{{ $category->name }}</option>
+                                    
+                                @endforeach
+                            </select>
+                            <a href="{{ route('categories.create') }} " class="col-sm-auto btn btn-success px-5" title="Agregar nuevo"><i class=" py-3 fa-solid fa-plus fa-xl"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="form-group @error('pet-type') has-error @enderror">
+                        <label for="pet_type_id">Selecciona el tipo de mascota:</label>
+                        <div class="px-3 row">
+                        <select class="form-select col-sm" id="pet_type_id" name="pet_type_id">
+                            @foreach ($pet_types as $pet_type)
+                                <option value="{{ $pet_type->id }}" @if($product->pet_type_id == $pet_type->id) selected @endif>  {{ $pet_type->name }}</option>
+                            @endforeach
+                        </select>
+                        <a href="{{ route('pet_type.create') }} " class="col-sm-auto btn btn-success px-5" title="Agregar nuevo"><i class=" py-3 fa-solid fa-plus fa-xl"></i></a>
+                        </div>
+                        
+                    </div> 
+                    
+                    
+
+                    <div class="form-group @error('provider_id') has-error @enderror">
+                        <label for="provider_id">Selecciona el proveedor:</label>
+                        <div class="px-3 row">
+                        <select class="form-select col-sm" id="provider_id" name="provider_id">
+                            @foreach ($providers as $provider)
+                                <option value="{{ $provider->id }}"  @if ($product->provider_id == $provider->id) selected @endif>{{ $provider->name }}</option>
+                                
+                            @endforeach
+                        </select>
+                        <a href="{{ route('providers.create') }} " class="col-sm-auto btn btn-success px-5" title="Agregar nuevo"><i class=" py-3 fa-solid fa-plus fa-xl"></i></a>
+                        </div>
+                        
+                        
+                    </div>
+                    
                     <div
                         class="form-group
                         @error('name')
@@ -119,7 +163,7 @@
                         @enderror">
                         <label for="price">{{ __('Precio') }}</label>
                         <input type="number" class="form-control" id="price" name="price"
-                            value="{{ $product->price }}">
+                            value="{{ $product->price }}" step="0.01">
                         @error('price')
                             <span class="help-block text-danger">{{ $message }}</span>
                         @enderror
@@ -133,37 +177,7 @@
                         @enderror
                     </div>
                     
-                    <div class="form-group @error('pet-type') has-error @enderror">
-                        <label for="pet_type_id">Selecciona el tipo de mascota:</label>
-                        <select class="form-control" id="pet_type_id" name="pet_type_id">
-                            @foreach ($pet_types as $pet_type)
-                                <option value="{{ $pet_type->id }}" @if($product->pet_type_id == $pet_type->id) selected @endif>  {{ $pet_type->name }}</option>
-                            @endforeach
-                        </select>
-                        <a href="{{ route('pet_type.create') }} ">Agregar nuevo</a>
-                    </div> 
                     
-                    <div class="form-group @error('category_id') has-error @enderror">
-                        <label for="category_id">Selecciona la categoria:</label>
-                        <select class="form-control" id="category_id" name="category_id">
-                            @foreach ($categories as $category)
-                                <option value="{{ $category->id }}"  @if ($product->category_id == $category->id) selected @endif>{{ $category->name }}</option>
-                                
-                            @endforeach
-                        </select>
-                        <a href="{{ route('categories.create') }} ">Agregar nuevo</a>
-                    </div>
-
-                    <div class="form-group @error('provider_id') has-error @enderror">
-                        <label for="provider_id">Selecciona el proveedor:</label>
-                        <select class="form-control" id="provider_id" name="provider_id">
-                            @foreach ($providers as $provider)
-                                <option value="{{ $provider->id }}"  @if ($product->provider_id == $provider->id) selected @endif>{{ $provider->name }}</option>
-                                
-                            @endforeach
-                        </select>
-                        <a href="{{ route('providers.create') }} ">Agregar nuevo</a>
-                    </div>
                     <div class="form-group files color">
                         <label for="img_url">Imagen</label>
                         <input type="file" name="img_url" id="img_url" class="form-control"

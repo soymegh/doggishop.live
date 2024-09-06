@@ -4,7 +4,7 @@ namespace App\Services;
 use App\Models\Discount;
 use App\Models\Pet;
 use App\Models\Product;
-
+use Illuminate\Http\Request;
 class DiscountService
 {
     //constructor
@@ -36,7 +36,7 @@ class DiscountService
         return $pets;
     }
 
-    public function applyDiscountProducts()
+    public function applyDiscountProducts(Request $request)
     {
         $discounts = Discount::where('start_time', '<=', now())
             ->where('end_time', '>=', now())
@@ -44,15 +44,19 @@ class DiscountService
             ->where('products', true)
             ->get();
 
+        
+        if($request){
+            $products = Product::whereAny(['name','description','price'],'LIKE','%'.$request->get('search').'%')->paginate(8);
+        }else{
+            $products = Product::paginate(8);
+        }
+
         if ($discounts->count() > 0) {
-            $products = Product::all();
             foreach ($products as $product) {
                 //agregar un nuevo campo llamado price_discounted
                 $product->price_discounted = ($product->price * ($discounts[0]->discount/100));
                 $product->new_price = $product->price - ($product->price * ($discounts[0]->discount/100));
             }
-        } else {
-            $products = Product::all();
         }
 
         return $products;
