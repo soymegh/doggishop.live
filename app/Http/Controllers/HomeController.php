@@ -41,9 +41,10 @@ class HomeController extends Controller
                 $petTypeCount = PetType::count();
                 $providerCount = Provider::count();
                 $blogCount = Blog::count();
+                $paymentType = payment_type::count();
                 $userCount = User::count();
                 $historyCount = Inventary::count();
-                return view('home', compact('petCount', 'categoryCount', 'productCount', 'petTypeCount', 'providerCount', 'blogCount', 'userCount', 'historyCount'));
+                return view('home', compact('paymentType','petCount', 'categoryCount', 'productCount', 'petTypeCount', 'providerCount', 'blogCount', 'userCount', 'historyCount'));
                 break;
             case 'user':
                 $petCount = Pet::count();
@@ -51,10 +52,11 @@ class HomeController extends Controller
                 $productCount = Product::count();
                 $petTypeCount = PetType::count();
                 $providerCount = Provider::count();
+                $paymentType = payment_type::count();
                 $blogCount = Blog::count();
                 $userCount = User::count();
                 $historyCount = Inventary::count();
-                return view('home', compact('petCount', 'categoryCount', 'productCount', 'petTypeCount', 'providerCount', 'blogCount', 'userCount', 'historyCount'));
+                return view('home', compact('paymentType','petCount', 'categoryCount', 'productCount', 'petTypeCount', 'providerCount', 'blogCount', 'userCount', 'historyCount'));
                 break;
 
             case 'guest':

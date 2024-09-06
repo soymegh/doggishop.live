@@ -126,6 +126,17 @@
             </div>
         </div>
 
+        <!-- Payment -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card card-blue">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Tipos de pago</h5>
+                    <p class="card-text">Registros: {{$paymentType}}</p>
+                    <a href="{{route('payment_type.index')}}" class="btn btn-sm btn-light d-block mx-auto">Ver</a>
+                </div>
+            </div>
+        </div>
+
         <!-- Inventario 
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card card-blue">

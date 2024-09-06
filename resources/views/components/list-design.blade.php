@@ -55,7 +55,7 @@
             <form method="POST" class="fm-inline " action="{{ route($route.'.destroy', $e->id) }}">
                 @csrf
                 @method('DELETE')
-                <button type="submit" class="btn btn-danger rounded-circle py-2">
+                <button type="submit" class="btn btn-danger rounded-circle py-2" onclick="return confirm('¿Estás seguro de que deseas eliminar este registro?')">
                     <i class="fa-regular fa-trash-can fa-lg"></i>
                 </button>
             </form>

@@ -17,6 +17,7 @@ use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\PaymentTypeController;
 use App\Models\Category;
 use App\Models\Event;
 use App\Models\Inventary;
@@ -113,6 +114,16 @@ Route::middleware('auth')->group(function () {
     Route::put('pet_types/{id}', [PetTypeController::class, 'update'])->name('pet_type.update');
     Route::delete('pet_types/{id}', [PetTypeController::class, 'destroy'])->name('pet_type.destroy');
 });
+
+Route::middleware('auth')->group(function () {
+    Route::get('payment_type', [PaymentTypeController::class, 'index'])->name('payment_type.index');
+    Route::get('payment_type/create', [PaymentTypeController::class, 'create'])->name('payment_type.create');
+    Route::post('payment_type', [PaymentTypeController::class, 'store'])->name('payment_type.store');
+    Route::get('payment_type/{id}/edit', [PaymentTypeController::class, 'edit'])->name('payment_type.edit');
+    Route::put('payment_type/{id}', [PaymentTypeController::class, 'update'])->name('payment_type.update');
+    Route::delete('payment_type/{id}', [PaymentTypeController::class, 'destroy'])->name('payment_type.destroy');
+});
+
 
 Route::middleware('auth')->group(function () {
     Route::get('providers', [ProviderController::class, 'index'])->name('providers.index');

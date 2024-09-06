@@ -62,7 +62,7 @@
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-outline-danger rounded-circle"
-                                    onclick="return confirm('¿Estás seguro de que deseas eliminar este producto?')" title="Eliminar registro">
+                                    onclick="return confirm('¿Estás seguro de que deseas eliminar este registro?')" title="Eliminar registro">
                                     <i class="fa-regular fa-trash-can"></i>
                                 </button>
                             </form>
