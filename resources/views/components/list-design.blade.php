@@ -8,6 +8,7 @@
 @if($admin)
 <x-search-bar :route="$route"/>
 @endif
+
 <div class="row">
 @foreach ($list as $e)
     <div class="col-12 col row  border-top blog">
@@ -25,6 +26,8 @@
                             <b class="card-text text-left col-md-auto">Rol: {{ $e->role }}</b>    
                             @elseif($route =="discounts")
                             <b class="card-text text-left col-md-auto">Descuento de: {{ $e->discount }} %</b>
+                            @else
+                            <p class="card-text text-left col-md-auto">{{ $e->description }}</p>
                             @endif
                             
                                 @if(!$e->status)

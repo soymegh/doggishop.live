@@ -12,12 +12,14 @@ use App\Http\Controllers\PetTypeController;
 use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BillController;
 use App\Http\Controllers\InventaryController;
 use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\PaymentTypeController;
+use App\Models\Bill;
 use App\Models\Category;
 use App\Models\Event;
 use App\Models\Inventary;
@@ -145,6 +147,12 @@ Route::middleware('auth')->group(function () {
     Route::put('blogs/{id}', [BlogController::class, 'update'])->name('blogs.update');
     Route::delete('blogs/{id}', [BlogController::class, 'destroy'])->name('blogs.destroy');
 });
+
+
+Route::middleware('auth')->group(function () {
+    Route::get('bills', [BillController::class, 'index'])->name('bills.index');
+});
+
 
 //Usuario Admin
 Route::middleware('auth')->group(function () {

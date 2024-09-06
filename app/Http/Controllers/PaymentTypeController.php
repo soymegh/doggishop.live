@@ -40,8 +40,8 @@ class PaymentTypeController extends Controller
         }
         try{
             $payment_type = new payment_type();
-            $payment_type->payment_type_name = $request->name;
-            //$payment_type->description = $request->description;
+            $payment_type->name = $request->name;
+            $payment_type->description = $request->description;
 
             $payment_type->save();
             return redirect()->route('payment_type.index');
@@ -72,8 +72,8 @@ class PaymentTypeController extends Controller
         }
         try{
             $payment_type = payment_type::find($id);
-            $payment_type->payment_type_name = $request->name;
-            //$payment_type->description = $request->description;
+            $payment_type->name = $request->name;
+            $payment_type->description = $request->description;
             
             $payment_type->save();
             return redirect()->route('payment_type.index');
