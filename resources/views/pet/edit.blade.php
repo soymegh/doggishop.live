@@ -84,13 +84,42 @@
                             has-error
                         @enderror">
                         <label for="name">SKU</label>
-                        <input type="text" class="form-control" id="name" name="name"
+                        <input type="text" class="form-control" id="name" name="name" readonly
                             value="{{ $pet->name }}">
                         @error('name')
                             <span class="help-block
                                 text-danger">{{ $message }}</span>
                         @enderror
                     </div>
+                    <div class="form-group @error('pet_type') has-error @enderror">
+                        <label for="pet_type">Selecciona el tipo de mascota:</label>
+                        <div class="row px-3">
+                        <select class="form-select col-sm" id="pet_type" name="pet_type">
+                            @foreach ($petTypes as $pettype)
+                                <option value="{{ $pettype->id }}"  @if ($pet->pet_type_id == $pettype->id) selected @endif>{{ $pettype->name }}</option>
+                                
+                            @endforeach
+                        </select>
+                        <a href="{{ route('pet_type.create') }} " class="col-sm-auto btn btn-success px-5" title="Agregar nuevo"><i class=" py-3 fa-solid fa-plus fa-xl"></i></a>
+                        </div>
+                        
+                    </div>
+                    <div
+                        class="form-group
+                        @error('gender')
+                            has-error
+                        @enderror">
+                        <label for="gender">Genero</label>
+                        <select class="form-select col-sm" id="gender" name="gender">
+                            <option value="Hembra" @if ($pet->gender == "Hembra") selected @endif >Hembra</option>
+                            <option value="Macho" @if ($pet->gender == "Macho") selected @endif>Macho</option>
+                        </select>
+                        
+                        @error('gender')
+                            <span class="help-block text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    
                     <div
                         class="form-group
                         @error('breed')
@@ -103,18 +132,7 @@
                             <span class="help-block text-danger">{{ $message }}</span>
                         @enderror
                     </div>
-                    <div
-                        class="form-group
-                        @error('gender')
-                            has-error
-                        @enderror">
-                        <label for="gender">Genero</label>
-                        <input type="text" class="form-control" id="gender" name="gender"
-                            value="{{ $pet->gender }}">
-                        @error('gender')
-                            <span class="help-block text-danger">{{ $message }}</span>
-                        @enderror
-                    </div>
+                    
                     <div
                         class="form-group
                         @error('age')
@@ -133,23 +151,14 @@
                             has-error
                         @enderror">
                         <label for="price">Precio</label>
-                        <input type="text" class="form-control" id="price" name="price"
+                        <input type="number" step="0.01" class="form-control" id="price" name="price"
                             value="{{ $pet->price }}">
                         @error('price')
                             <span class="help-block text-danger">{{ $message }}</span>
                         @enderror
                     </div>
 
-                    <div class="form-group @error('pet_type') has-error @enderror">
-                        <label for="pet_type">Selecciona el tipo de mascota:</label>
-                        <select class="form-control" id="pet_type" name="pet_type">
-                            @foreach ($petTypes as $pettype)
-                                <option value="{{ $pettype->id }}"  @if ($pet->pet_type_id == $pettype->id) selected @endif>{{ $pettype->name }}</option>
-                                
-                            @endforeach
-                        </select>
-                        <a href="{{ route('pet_type.create') }} ">Agregar nuevo</a>
-                    </div>
+                    
                     <div class="form-group files color">
                         <label for="img_url">Imagen</label>
                         <input type="file" name="img_url" id="img_url" class="form-control"

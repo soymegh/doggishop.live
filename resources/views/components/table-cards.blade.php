@@ -36,18 +36,16 @@
 
                         <div class="card-body">
                             <h5 class="card-title text-center">{{ $e->breed ?? $e->name ?? " "}}</h5>
-                            <p class="card-text">{{ $e->description ?? $e->attendant ??$e->name }}</p>
+                            <p class="card-text">{{ Str::limit($e->description,100) ?? $e->attendant ??$e->name }}</p>
                             
                             {{-- Para el precio --}}
                             @if ($route =='products')
-                                <p class="card-text">
-                                    @if ($e->price) {{"Precio: $".$e->price }}@else {{" "}}@endif
-                                </p>
-                                <p> @if ($e->price_discounted) {{"Descuento: $".$e->price_discounted }}@else {{" "}}@endif
-                                </p>
-                                <p>  @if ($e->new_price) {{"Nuevo Precio: $".$e->new_price }}@else {{" "}}@endif</p>
+                                @if ($e->price_discounted) {{"Precio: "}}
+                                <del class="text-danger fw-semibold">${{ $e->price }}</del>
+                                <span class="text-success fw-semibold">${{ $e->new_price }}</span>
                                 
-                                
+                                @elseif ($e->price) {{"Precio: $".$e->price }}
+                                @endif
                             @endif
 
                             <div class="border-bottom mb-3" ></div>
@@ -64,7 +62,7 @@
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-outline-danger rounded-circle"
-                                    onclick="return confirm('¿Estás seguro de que deseas eliminar este producto?')" title="Eliminar registro">
+                                    onclick="return confirm('¿Estás seguro de que deseas eliminar este registro?')" title="Eliminar registro">
                                     <i class="fa-regular fa-trash-can"></i>
                                 </button>
                             </form>

@@ -23,7 +23,7 @@ class ProviderController extends Controller
                 $providers = Provider::paginate(8);
             }
 
-            $providers = Provider::paginate(8);
+            
             return view('provider.index', compact('providers'));
         }catch(\Exception $ex){
             return redirect()->back()->with('error', 'Error al obtener Proveedores');
