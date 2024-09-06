@@ -75,7 +75,7 @@
                                         <select class="form-control" id="payment_type" name="payment_type">
                                             <option value="">Seleccionar Tipo de pago</option>
                                             @foreach ($payment_types as $payment_type)
-                                                <option value="{{ $payment_type->id }}">{{ $payment_type->payment_type_name }}
+                                                <option value="{{ $payment_type->id }}">{{ $payment_type->name }}
                                                 </option>
                                             @endforeach
 

@@ -9,5 +9,5 @@ class payment_type extends Model
 {
     use HasFactory;
 
-    protected $fillable= ['payment_type_name','description'];
+    protected $fillable= ['name'];
 }
