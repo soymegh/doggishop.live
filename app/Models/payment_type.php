@@ -9,5 +9,7 @@ class payment_type extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $fillable= ['name'];
 }
