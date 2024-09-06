@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Bill extends Model
 {
+    public $timestamps = false;
+
     use HasFactory;
 
-    protected $fillable = ['RUC','total','bill_date','payment_type_id','user_id','status'];
+    protected $fillable = ['total','bill_date','payment_type_id','user_id'];
 }

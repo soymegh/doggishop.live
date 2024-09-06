@@ -60,90 +60,84 @@
                 <div class="modal-content">
                     <div class="modal-header">
 
-                        <div class="row">
-                            <h2>Datos de Factura</h2>
-                            <hr>
-
+                        <form action="{{ route('home.store') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="user_id" value="{{ Auth::user()->id}}">
                             <div class="row">
+                                <h2>Datos de Factura</h2>
 
-                                <div class="col-md-6">
-                                    <div class="form-group mb-3">
-                                        <label for="ruc">RUC</label>
-                                        <input type="text" name="ruc" id="ruc" class="form-control" required>
-                                    </div>
-                                </div>
+                                <hr>
 
-                                <div class="col-md-6">
-                                    <label for="payment_type">Tipo de Pago</label>
-                                    <select class="form-control" id="payment_type" name="payment_type">
-                                        <option value="">Seleccionar Tipo de pago</option>
-                                        @foreach ($payment_types as $payment_type)
+                                <div class="row">
 
-                                        <option value="{{ $payment_type->id}}">{{ $payment_type->payment_type_name }}</option>
+                                    <div class="col-md-6">
+                                        <label for="payment_type">Tipo de Pago</label>
+                                        <select class="form-control" id="payment_type" name="payment_type">
+                                            <option value="">Seleccionar Tipo de pago</option>
+                                            @foreach ($payment_types as $payment_type)
+                                                <option value="{{ $payment_type->id }}">{{ $payment_type->payment_type_name }}
+                                                </option>
+                                            @endforeach
 
-                                        @endforeach
-
-                                    </select>
-                                </div>
-
-                            </div>
-
-                            <div class="row">
-
-
-                            </div>
-
-
-
-
-                            <h2>Datos de Envio</h2>
-                            <hr>
-
-                            <div class="row">
-
-                                <div class="col-md-6">
-                                    <div class="form-group mb-3">
-                                        <label for="address">Dirección</label>
-                                        <input type="text" name="address" id="address" class="form-control" required>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="form-group mb-3">
-                                        <label for="zipcode">Codigo Postal</label>
-                                        <input type="text" name="zipcode" id="zipcode" class="form-control" required>
+                                        </select>
                                     </div>
 
                                 </div>
 
-                                <div class="col-md-6">
-                                    <label for="payment_type">Ciudad</label>
-                                    <select class="form-control" id="payment_type" name="payment_type">
-                                        <option value="">Seleccionar la Ciudad</option>
-                                        @foreach ($cities as $city)
+                                <h2>Datos de Envio</h2>
 
-                                        <option value="{{$city}}">{{ $city }}</option>
+                                <hr>
 
-                                        @endforeach
+                                <div class="row">
 
-                                    </select>
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-3">
+                                            <label for="address">Dirección</label>
+                                            <input type="text" name="address" id="address" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-3">
+                                            <label for="zipcode">Codigo Postal</label>
+                                            <input type="text" name="zipcode" id="zipcode" class="form-control">
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label for="cities">Ciudad</label>
+                                        <select class="form-control" id="cities" name="cities">
+                                            <option value="">Seleccionar la Ciudad</option>
+                                            @foreach ($cities as $city)
+                                                <option value="{{ $city }}">{{ $city }}</option>
+                                            @endforeach
+
+                                        </select>
+                                    </div>
+
+
+
                                 </div>
 
+                                <hr>
 
-
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input type="hidden" name="subtotal" value="{{ $subtotal }}">
+                                        <h4>Subtotal: {{ $subtotal }}</h4>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="hidden" name="total" value="{{ $totalPaid }}">
+                                        <h4>Total: {{ $totalPaid }}</h4>
+                                    </div>
+                                </div>
                             </div>
 
-                            <hr>
-                            @php
-                                $total_to_pay = 0;
-                                foreach ($products as $product) {
-                                    $total_to_pay += $product->price;
-                                }
-                            @endphp
-                            <h3>Total a pagar: </h3>
-                            <p>{{ $total_to_pay }}</p>
-                        </div>
 
+                            <button class="btn btn-success" type="submit"> Realizar Factura</button>
+
+                        </form>
 
                     </div>
                 </div>

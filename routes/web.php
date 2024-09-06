@@ -147,17 +147,8 @@ Route::middleware('auth')->group(function () {
 //Usuario Gues
 Route::middleware('auth')->group(function () {
     Route::get('Cliente', [App\Http\Controllers\HomeController::class, 'index'])->name('welcome');
-    Route::get('Ciente/{id}', function($id) {
-
-        $payment_types = payment_type::all();
-        $products = Inventary::where('user_id', $id)->get();
-        $jsonPath = public_path('\json\cities.json');
-        $jsonContent = file_get_contents($jsonPath);
-        $cities = json_decode($jsonContent, true);
-        return view('guest.car', compact('products', 'payment_types','cities'));
-
-    })->name('home.showCart');
-
+    Route::get('Ciente/{id}', [App\Http\Controllers\HomeController::class, 'showCart'] )->name('home.showCart');
+    Route::post('Factura', [App\Http\Controllers\HomeController::class, 'store'] )->name('home.store');
 
 });
 

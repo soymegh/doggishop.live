@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('bills', function (Blueprint $table) {
             $table->id();
-            $table->decimal('subtotal', 5, 2);
-            $table->decimal('total',5, 2);
+            $table->decimal('subtotal', 10, 0);
+            $table->decimal('total',10, 0);
             $table->dateTime('bill_date');
             $table->foreignId('payment_type_id')->constrained('payment_types');
             $table->foreignId('user_id')->constrained('users');
