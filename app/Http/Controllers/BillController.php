@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\Shipping;
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 use Dompdf\Dompdf;
 use Illuminate\Http\Request;
 
@@ -32,13 +33,26 @@ class BillController extends Controller
     }
     //report
     public function report(){
-        $billid = Bill::whereMonth('bill_date','=', '9')->get(['id']);
+        Carbon::setLocale('es_ES');
+        $billid = Bill::whereMonth('bill_date','=', today()->month)->get(['id']);
         $billdetails = Bill_Detail::whereIn('bill_id', $billid)->get();
+        
+        $bill = Bill::all();
+        $shipment = Shipping::all();
+        $user = User::all();
+        $products = Product::all();
+        $payment_type = payment_type::all();
 
+     
+        
+        
+        Carbon::setUTF8(true);
+        
+        
         $pdf = Pdf::setOptions(
             ['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])
 
-            ->loadView('bill.report', compact('billdetails','billid') );
+            ->loadView('bill.report', compact('billdetails', 'bill','user','products') );
         
         $pdf->getDomPDF()->setProtocol($_SERVER['DOCUMENT_ROOT']);
         $pdf->setBasePath(public_path());

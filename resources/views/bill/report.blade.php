@@ -10,7 +10,7 @@
     }
     
     p{
-        font-size: 14px;
+        font-size: 18px;
         text-align: center;
     }
 
@@ -61,17 +61,17 @@
         <div class="row">
             <div class="col" style="width: fit-content;">
                 <b>Mes </b>
-                <p>[Mes]</p>
+                <p>{{today()->localeMonth}}</p>
             </div> 
 
             <div class="col" style="width: fit-content;">
-                <b>Total de [mes] </b>
-                <p>{{$billdetails->sum('subtotal')}}</p>
+                <b>Total de {{today()->localeMonth}} </b>
+                <p> ${{$bill->sum('total')}}</p>
                 
             </div> 
 
-            <div class="col" style="width: 20%; text-align:right;">
-                <img src="../../../public/Logo.png"  class="text-left" >
+            <div class="col" style="width: 25%; text-align:right;">
+                <img height="120" src="https://doggishop.live/Logo.png"  class="text-left" >
             </div>
         </div>
 
@@ -81,8 +81,8 @@
         <table>
             <thead>
                 <tr>
+                    <th>Fecha</th>    
                     <th>Factura ID</th>
-                    <th>Fecha</th>
                     <th>Cliente</th>
                     <th>Producto</th>
                     <th>Cantidad</th>
@@ -92,16 +92,26 @@
             </thead>
 
             <tbody>
-                
+            {{$last = $billdetails->first()}}
+            {{$previousGeneral = $bill->first()}}
+
                 @foreach ($billdetails as $bd)
+                {{$current_bill = $bill->where('id','==',$bd->bill_id)->first()}}
+
                 <tr>
-                    <td>{{$bd->bill_id}}</td>
-                    <td>{{$bd->bill_id}}</td>
-                    <td>{{$bd->bill_id}}</td>
-                    <td>{{$bd->product_id}}</td>
+                    <td> {{date("d-m-Y", strtotime($current_bill->bill_date))}} </td>        
+                    
+                    @if ($last->bill_id != $bd->bill_id or $bd == $billdetails->first())
+                    <td rowspan=" {{$billdetails->where('bill_id','==',$bd->bill_id)->count()}}">{{$bd->bill_id}}</td>
+                    @endif
+                    
+                    <td>{{$user->where('id','==', $current_bill->user_id)->first()->name}}</td>
+                    <td>{{$products->firstWhere('id','==',$bd->product_id )->name}}</td>
                     <td>{{$bd->amount}}</td>
                     <td>{{$bd->subtotal}}</td>
                 </tr>
+                {{$last = $bd}}
+                {{$previousGeneral = $current_bill}}
                 @endforeach
                 
             </tbody>

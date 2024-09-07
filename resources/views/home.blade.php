@@ -136,6 +136,16 @@
                 </div>
             </div>
         </div>
+        <!-- Payment -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card card-yellow">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Facturas</h5>
+                    <p class="card-text">Registros: {{$billCount}}</p>
+                    <a href="{{route('bills.index')}}" class="btn btn-sm btn-light d-block mx-auto">Ver</a>
+                </div>
+            </div>
+        </div>
 
         <!-- Inventario 
         <div class="col-xl-3 col-md-6 mb-4">
