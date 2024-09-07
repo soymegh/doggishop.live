@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\Shipping;
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Dompdf\Dompdf;
 use Illuminate\Http\Request;
 
 class BillController extends Controller
@@ -34,8 +35,14 @@ class BillController extends Controller
         $billid = Bill::whereMonth('bill_date','=', '9')->get(['id']);
         $billdetails = Bill_Detail::whereIn('bill_id', $billid)->get();
 
+        $pdf = Pdf::setOptions(
+            ['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])
 
-        $pdf = Pdf::loadView('bill.report', compact('billdetails','billid') );
+            ->loadView('bill.report', compact('billdetails','billid') );
+        
+        $pdf->getDomPDF()->setProtocol($_SERVER['DOCUMENT_ROOT']);
+        $pdf->setBasePath(public_path());
+        
         return $pdf->stream();
     }
     //
