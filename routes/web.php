@@ -151,6 +151,7 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('bills', [BillController::class, 'index'])->name('bills.index');
+    Route::get('bills/report', [BillController::class, 'report'])->name('bills.report');
 });
 
 

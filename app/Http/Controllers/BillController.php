@@ -8,6 +8,7 @@ use App\Models\payment_type;
 use App\Models\Product;
 use App\Models\Shipping;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
 class BillController extends Controller
@@ -28,7 +29,14 @@ class BillController extends Controller
         $payment_type = payment_type::all();
         return view('bill.index', compact('bill','bill_details','payment_type', 'user','shipment','products'));
     }
-    //get one
+    //report
+    public function report(){
+        $billid = Bill::whereMonth('bill_date','=', '9')->get(['id']);
+        $billdetails = Bill_Detail::whereIn('bill_id', $billid)->get();
 
+
+        $pdf = Pdf::loadView('bill.report', compact('billdetails','billid') );
+        return $pdf->stream();
+    }
     //
 }

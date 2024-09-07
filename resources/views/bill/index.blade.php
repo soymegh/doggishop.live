@@ -13,7 +13,10 @@
     <div class="row my-4">
     <div class="col-md-6">
         <h2>Registro de facturaciones</h2>
-    </div>    
+    </div> 
+    <div class="col-md-6 text-end">
+    <a href="{{ route('bills.report') }}" title="Generar Reporte del Mes" class="btn btn-outline-success rounded-circle p-3"><i class="fa-regular fa-file-pdf fa-xl "></i></a>
+    </div>   
     </div>
     
     <div class="row">
