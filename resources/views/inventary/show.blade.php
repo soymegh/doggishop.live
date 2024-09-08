@@ -2,17 +2,19 @@
 
 @section('content')
     <div class="container">
-        <div class="row mb-4">
-            <div class="col-12 d-flex justify-content-between align-items-center">
-                <h1>Inventario</h1>
-                <a href="{{ route('products.index') }}" class="btn btn-secondary">Regresar</a>
-            </div>
+    <div class="row my-4">
+        <div class="col-md-6">
+            <h2>Inventario de productos</h2>
         </div>
-        <div class="row mb-4">
-            <div class="col-12">
-                <a href="{{ route('inventary.create') }}" class="btn btn-primary">Agregar Movimiento</a>
-            </div>
+        <div class="col-md-6 text-end">
+            
+            <a href="{{ route('products.index') }}" title="Regresar a productos" class="btn btn-outline-primary rounded-circle"><i class=" py-3 fa-solid fa-box fa-xl"></i></a>
+            <a href="{{ route( 'inventary.edit',$id ) }}" title="Agregar un movimiento" class="text-center btn btn-outline-success rounded-circle"><i class="py-3 fa-solid fa-plus fa-xl"></i></a>
+            
         </div>
+    </div>
+            
+        
         <div class="row">
             <div class="col-12">
                 <table class="table table-hover">
@@ -43,13 +45,18 @@
                                 @endif
                                 <td>{{ $product->getUser() }}</td>
                                 <td>
+                                    @if ($product->description == 'Entrada')
                                     <div class="btn-group" role="group">
                                         <form action="{{ route('inventary.destroy', $product->id) }}" method="POST" style="display: inline;">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                                            <button type="submit" class="btn btn-outline-danger btn-sm rounded-circle">
+                                            <i class="fa-solid fa-xmark fa-xl  "></i>
+                                            </button>
                                         </form>
                                     </div>
+                                    @endif
+                                    
                                 </td>
                             </tr>
                         @endforeach

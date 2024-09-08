@@ -112,7 +112,7 @@ class InventaryController extends Controller
     {
         //
         $products = Inventary::where('product_id', $id)->get();
-        return view('inventary.show', compact('products'));
+        return view('inventary.show', compact('products','id'));
 
     }
 
@@ -121,9 +121,16 @@ class InventaryController extends Controller
      */
     public function edit(string $id)
     {
-        //
-        $product = Inventary::find($id);
-        return view('inventary.edit', compact('product'));
+        if (auth()->user()->role != 'admin') {
+            return redirect()->route('welcome');
+        }
+        try{
+            $products = Product::all();
+            $item = Product::find($id);
+            return view('inventary.edit', compact('item','products'));
+        }catch(\Exception $e){
+            return redirect()->back()->with('error', $e->getMessage());
+        }
 
     }
 
@@ -133,15 +140,15 @@ class InventaryController extends Controller
     public function update(Request $request, string $id)
     {
         //
-        $product = Inventary::find($id);
-        $product->date = $request->date;
+        $product = new Inventary();
+        $product->date = date("Y-m-d");
         $product->product_id = $request->product_id;
         $product->quantity = $request->quantity;
         $product->price = $request->price;
         $product->description = $request->description;
         $product->user_id = auth()->id();
         $product->save();
-        return redirect()->route('inventary.index');
+        return redirect()->route('inventary.show',$id);
     }
 
     /**

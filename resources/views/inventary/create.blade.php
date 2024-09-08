@@ -4,9 +4,18 @@
 {{-- agregar datos del producto seleccionado --}}
 <div class="container">
     <div class="row">
-        <div class="col-12">
-            <h1>Entrada de productos</h1>
-            <a href="{{ route('inventary.index') }}" class="btn btn-primary">Regresar</a>
+        <div class=" col-md-12 border rounded-5 mt-5 ">
+            <div class="row mt-3 mb-3  ml-1 mr-3">
+                <div class="col">
+                    <h2>Entrada de Productos</h2>
+                </div>
+                <div class="col text-right  ">
+                    <a href="{{ route('products.index') }}" class="btn btn-outline-primary rounded-circle" title="Regresar a Tipos de pago">
+                    <i class=" py-3 fa-solid fa-box fa-xl"></i>
+                    </a>
+                </div>
+            </div>
+           
             <form action="{{ route('inventary.store') }}" method="POST">
                 @csrf
                 <div class="form-group @error('product_id') has-error @enderror">
