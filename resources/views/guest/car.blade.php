@@ -1,13 +1,73 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+    .blog:hover {
+            background-color: #343a40;
+            
+            border-radius: 20px;
+        }
+</style>
+
     <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h1>Mis Compras</h1>
-                    <a href="{{ route('home') }}" class="btn btn-primary">Regresar</a>
+        <x-title-admin title="Mi carrito" route="gues"/>
+        @if (@session('cart'))
+            <div class="row mb-4">
+            @foreach (@session('cart') as $id => $product)
+                <div class="col-12 col row  border-top blog">
+                <div class=" col-md-10 ">
+                <a href="#" class="btn p-0" style="width:100%;">
+                    <div class="card border-0">
+                            <div class="card-body ">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <!-- IMAGEN AQUI -->
+                                </div>
+                                <div class="col-sm-10">
+                                    <h5 class="card-title text-left">{{ $product['name'] }}</h5>
+                                    <div class="row">
+                                    <b class="card-text text-left col-md-auto">Precio:</b> {{ $product['price'] }}
+                                    </div>
+                                    <div class="row">
+                                    <b class="card-text text-left col-md-auto">Cantidad:</b> {{ $product['quantity'] }}
+                                    </div>
+                                    <div class="row">
+                                    <b class="card-text text-left col-md-auto">Descripción:</b> {{ $product['description'] }}
+                                    </div>
+                                    <div class="row">
+                                    <b class="card-text text-left col-md-auto">Fecha:</b> {{ $product['date'] }}
+                                    </div>
+                                    
+                                </div>
+                                
+                                </div>
+                            </div>
+                        </div>
+                    </a>
                 </div>
+                <div class="col-sm my-auto">
+                    <div class="d-flex justify-content-evenly ">
+                    <form method="POST" class="fm-inline " action="{{ route('inventary.destroy', $id)}}">
+                    @csrf
+                    @method('DELETE')
+                        <button type="submit" class="btn btn-danger rounded-circle py-2" onclick="return confirm('¿Estás seguro de que deseas eliminar este registro?')">
+                            <i class="fa-solid fa-xmark fa-xl  "></i>
+                        </button>
+                    </form>
+                    </div>
+                    
+                </div>  
+                  
+                </div>
+            @endforeach
+            </div>
+        @endif
+
+        
+        
+        <!-- <div class="row">
+            <div class="col-12">
+                
                 <table class="table table-hover">
                     <thead class="thead-light">
                         <tr>
@@ -59,8 +119,9 @@
                     </tbody>
                 </table>
             </div>
-        </div>
-        <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modalBill">Finalizar Compras</a>
+        </div> -->
+        
+        <a href="#" class="btn btn-success " data-toggle="modal" data-target="#modalBill"><i class="fa-solid fa-basket-shopping fa-lg mr-2"></i>Finalizar Compras</a>
 
         <div class="modal fade text-left" id="modalBill" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
