@@ -82,7 +82,6 @@
             <thead>
                 <tr>
                     <th>Fecha</th>    
-                    <th>Factura ID</th>
                     <th>Cliente</th>
                     <th>Producto</th>
                     <th>Cantidad</th>
@@ -93,20 +92,26 @@
 
             <tbody>
             {{$last = $billdetails->first()}}
-            {{$previousGeneral = $bill->first()}}
+            {{$previousGeneral = null}}
 
                 @foreach ($billdetails as $bd)
                 {{$current_bill = $bill->where('id','==',$bd->bill_id)->first()}}
 
                 <tr>
-                    <td> {{date("d-m-Y", strtotime($current_bill->bill_date))}} </td>        
-                    
+                    @if ($previousGeneral == null or date("d-m-Y", strtotime($previousGeneral->bill_date)) != date("d-m-Y", strtotime($current_bill->bill_date)))
+                        <td> {{date("d-m-Y", strtotime($current_bill->bill_date))}} </td>
+                    @else
+                        <td></td>
+                    @endif
+                            
+<!--                     
                     @if ($last->bill_id != $bd->bill_id or $bd == $billdetails->first())
                     <td rowspan=" {{$billdetails->where('bill_id','==',$bd->bill_id)->count()}}">{{$bd->bill_id}}</td>
-                    @endif
+                    @endif -->
                     
                     <td>{{$user->where('id','==', $current_bill->user_id)->first()->name}}</td>
                     <td>{{$products->firstWhere('id','==',$bd->product_id )->name}}</td>
+                    
                     <td>{{$bd->amount}}</td>
                     <td>{{$bd->subtotal}}</td>
                 </tr>

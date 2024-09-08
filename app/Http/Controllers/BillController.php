@@ -12,6 +12,8 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Dompdf\Dompdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Cache;
 
 class BillController extends Controller
 {
@@ -33,7 +35,7 @@ class BillController extends Controller
     }
     //report
     public function report(){
-        Carbon::setLocale('es_ES');
+        
         $billid = Bill::whereMonth('bill_date','=', today()->month)->get(['id']);
         $billdetails = Bill_Detail::whereIn('bill_id', $billid)->get();
         
@@ -48,7 +50,8 @@ class BillController extends Controller
         
         Carbon::setUTF8(true);
         
-        
+        App::setLocale(Cache::get('locale','default'));
+
         $pdf = Pdf::setOptions(
             ['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])
 
