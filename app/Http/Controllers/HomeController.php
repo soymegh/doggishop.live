@@ -17,7 +17,7 @@ use App\Models\payment_type;
 use App\Models\Shipping;
 use App\Models\User;
 use App\Services\DiscountService;
-
+use Psy\CodeCleaner\ReturnTypePass;
 
 class HomeController extends Controller
 {
@@ -133,44 +133,88 @@ class HomeController extends Controller
 
     public function store(Request $request) {
 
-        $bill = new Bill();
-        $id = $request->input('user_id');
+        $cart = session()->get('cart');
 
-        $bill->payment_type_id = $request->payment_type;
-        $bill->subtotal = $request->input('subtotal');
-        $bill->total = $request->input('total');
-        $bill->user_id = $id;
-        $bill->bill_date = date_create('now')->format('Y-m-d H:i:s');
-        $bill->save();
+        $user_id = reset($cart)['user_id'];
 
+        $bill = $this->saveBill($cart, $request);
+        $this->saveBillDetails($bill, $cart);
+        $this->saveShipping($bill, $request, $user_id);
 
+        foreach ($cart as $id => $product) {
 
-        $products = Inventary::where('user_id', $id)->get();
-        foreach ($products as $product) {
-
-            $billDetail = new Bill_Detail();
-            $billDetail->bill_id = $bill->id;
-            $billDetail->product_id = $product->product_id;
-            $billDetail->amount = $product->quantity;
-            $billDetail->price = $product->price;
-            $billDetail->subtotal = $product->price * $product->quantity;
-            $billDetail->save();
+            $this->saveInputsOutputs($product, $id);
         }
 
-        $shipping = new Shipping();
-        $shipping->date_shipping = date_create('now')->format('Y-m-d H:i:s');
-        $shipping->zip_code = $request->zipcode;
-        $shipping->address = $request->address;
-        $shipping->city = $request->cities;
-        $shipping->user_id = $id;
-        $shipping->bill_id = $bill->id;
-        $shipping->save();
 
+        session()->forget('cart');
 
         // Redirigir a otra página o mostrar mensaje de éxito
         return redirect()->back()->with('success', 'Datos guardados exitosamente');
 
 
     }
+
+
+    function saveBill($cart, $request) {
+
+        $bill = new Bill();
+        $user_id = reset($cart)['user_id'];
+
+        $bill->payment_type_id = $request->payment_type;
+        $bill->subtotal = $request->input('subtotal');
+        $bill->total = $request->input('total');
+        $bill->user_id = $user_id;
+        $bill->bill_date = date_create('now')->format('Y-m-d H:i:s');
+        $bill->save();
+
+        return $bill;
+
+    }
+
+
+    function saveBillDetails(Bill $bill, $cart) {
+
+        foreach ($cart as $id => $product) {
+
+            $billDetail = new Bill_Detail();
+            $billDetail->bill_id = $bill->id;
+            $billDetail->product_id = $id;
+            $billDetail->amount = $product['quantity'];
+            $billDetail->price = $product['price'];
+            $billDetail->subtotal = $product['price'] * $product['quantity'];
+            $billDetail->save();
+        }
+
+    }
+
+    function saveShipping(Bill $bill, Request $request, $user_id) {
+
+        $shipping = new Shipping();
+
+
+        $shipping->date_shipping = date_create('now')->format('Y-m-d H:i:s');
+        $shipping->zip_code = $request->zipcode;
+        $shipping->address = $request->address;
+        $shipping->city = $request->cities;
+        $shipping->user_id = $user_id;
+        $shipping->bill_id = $bill->id;
+        $shipping->save();
+
+    }
+
+    function saveInputsOutputs($product , $id) {
+
+        $inventary = new Inventary();
+        $inventary->date = date('Y-m-d');
+        $inventary->product_id = $id;
+        $inventary->quantity = $product['quantity'];
+        $inventary->price = $product['price'];
+        $inventary->description = $product['description'];
+        $inventary->user_id = $product['user_id'];
+        $inventary->save();
+    }
+
+
 
 }

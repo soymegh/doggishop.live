@@ -30,7 +30,7 @@ class InventaryController extends Controller
     {
         //
         if(auth()->user()->role != 'guest'){
-            
+
         $products = Product::all();
         return view('inventary.create', compact('products'));
         }else{
@@ -43,6 +43,7 @@ class InventaryController extends Controller
      */
     public function store(Request $request)
     {
+
         //Calcular inventario
         $entradas = Inventary::where('product_id', $request->product_id)->where('description', 'Entrada')->sum('quantity');
         $salidas = Inventary::where('product_id', $request->product_id)->where('description', 'Salida')->sum('quantity');
@@ -51,19 +52,57 @@ class InventaryController extends Controller
         if ($request->description == 'Salida' && $request->quantity > $stock) {
             return redirect()->back()->with('error', 'No hay stock suficiente');
         }
-        $inventary = new Inventary();
-        $inventary->date = date('Y-m-d');
-        $inventary->product_id = $request->product_id;
-        $inventary->quantity = $request->quantity;
-        $inventary->price = $request->price;
-        $inventary->description = $request->description;
-        $inventary->user_id = auth()->id();
-        $inventary->save();
-        
+
+
+        $cart = session()->get('cart');
+        $product = Product::Where('id',$request->product_id)->first();
+
+        if (!$cart) {
+            $cart = [
+                $request->product_id => [
+                    "date" => date('Y-m-d'),
+                    "name" => $product->name,
+                    "quantity"=> $request->quantity,
+                    "price" => $request->price,
+                    "description" => $request->description,
+                    "user_id" => auth()->id()
+
+                ]
+            ];
+
+            session()->put('cart', $cart);
+
+            return redirect()->back()->with('success', 'Registro guardado correctamente');
+
+        }
+
+        if(isset($cart[$request->product_id])) {
+            $cart[$request->product_id]['quantity']+= $request->quantity;
+
+            session()->put('cart', $cart);
+
+            return redirect()->back()->with('success', 'Registro guardado correctamente');
+
+        }
+
+
+        $cart[ $request->product_id ] = [
+            "date" => date('Y-m-d'),
+            "name" => $product->name,
+            "quantity"=> $request->quantity,
+            "price" => $request->price,
+            "description" => $request->description,
+            "user_id" => auth()->id()
+
+        ];
+
+
+        session()->put('cart', $cart);
+
         //mandar un mensaje de confirmacion
         return redirect()->back()->with('success', 'Registro guardado correctamente');
-        
-    
+
+
     }
 
     /**
@@ -74,7 +113,7 @@ class InventaryController extends Controller
         //
         $products = Inventary::where('product_id', $id)->get();
         return view('inventary.show', compact('products'));
-        
+
     }
 
     /**
@@ -85,7 +124,7 @@ class InventaryController extends Controller
         //
         $product = Inventary::find($id);
         return view('inventary.edit', compact('product'));
-        
+
     }
 
     /**
@@ -108,11 +147,29 @@ class InventaryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
-        $product = Inventary::find($id);
-        $product->delete();
-        return redirect()->route('inventary.index');
+        if($id) {
+
+            $cart = session()->get('cart');
+
+            if(isset($cart[$id])) {
+
+                unset($cart[$id]);
+
+                session()->put('cart', $cart);
+            }
+
+
+
+            session()->flash('success', 'Product removed successfully');
+        }
+
+        return back();
+
+        // //
+        // $product = Inventary::find($id);
+        // $product->delete();
+        // return redirect()->route('inventary.index');
     }
 }

@@ -22,33 +22,40 @@
                     <tbody>
                         @php
                             $total = 0;
+                            // dd(@session('cart'))
+
                         @endphp
-                        @foreach ($products as $product)
+                        @if (@session('cart'))
+
+                            @foreach (@session('cart') as $id => $product)
+                                <tr>
+                                    <td>{{ $product['name'] }}</td>
+                                    <td class="text-right">${{ number_format($product['price'], 2) }}</td>
+                                    <td class="text-right">{{ $product['quantity'] }}</td>
+                                    <td>{{ $product['description'] }}</td>
+                                    @php $total += $product['quantity'] ; @endphp
+                                    <td>{{ $product['date'] }}</td>
+                                    <td>
+                                        <div class="btn-group" role="group">
+                                            <form action="{{ route('inventary.destroy', $id) }}" method="POST"
+                                                style="display: inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            {{-- Fila para los totales --}}
                             <tr>
-                                <td>{{ $product->getProduct() }}</td>
-                                <td class="text-right">${{ number_format($product->price, 2) }}</td>
-                                <td class="text-right">{{ $product->quantity }}</td>
-                                <td>{{ $product->description }}</td>
-                                @php $total += $product->quantity; @endphp
-                                <td>{{ $product->create_at }}</td>
-                                <td>
-                                    <div class="btn-group" role="group">
-                                        <form action="{{ route('inventary.destroy', $product->id) }}" method="POST"
-                                            style="display: inline;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
-                                        </form>
-                                    </div>
-                                </td>
+                                <td colspan="2"><strong>Total</strong></td>
+                                <td class="text-right"><strong>{{ $total }}</strong></td>
+                                <td colspan="3"></td>
                             </tr>
-                        @endforeach
-                        {{-- Fila para los totales --}}
-                        <tr>
-                            <td colspan="2"><strong>Total</strong></td>
-                            <td class="text-right"><strong>{{ $total }}</strong></td>
-                            <td colspan="3"></td>
-                        </tr>
+                        @endif
+
+
                     </tbody>
                 </table>
             </div>
