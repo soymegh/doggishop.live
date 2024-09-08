@@ -150,7 +150,7 @@ class HomeController extends Controller
 
             $billDetail = new Bill_Detail();
             $billDetail->bill_id = $bill->id;
-            $billDetail->product_id = $product->id;
+            $billDetail->product_id = $product->product_id;
             $billDetail->amount = $product->quantity;
             $billDetail->price = $product->price;
             $billDetail->subtotal = $product->price * $product->quantity;
