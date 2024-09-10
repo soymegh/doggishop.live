@@ -65,7 +65,8 @@ class InventaryController extends Controller
                     "quantity"=> $request->quantity,
                     "price" => $request->price,
                     "description" => $request->description,
-                    "user_id" => auth()->id()
+                    "user_id" => auth()->id(),
+                    "image" => $product->picture
 
                 ]
             ];
@@ -92,7 +93,8 @@ class InventaryController extends Controller
             "quantity"=> $request->quantity,
             "price" => $request->price,
             "description" => $request->description,
-            "user_id" => auth()->id()
+            "user_id" => auth()->id(),
+            "image" => $product->picture
 
         ];
 

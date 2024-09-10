@@ -4,7 +4,7 @@
 <style>
     .blog:hover {
             background-color: #343a40;
-            
+
             border-radius: 20px;
         }
 </style>
@@ -20,8 +20,9 @@
                     <div class="card border-0">
                             <div class="card-body ">
                             <div class="row">
-                                <div class="col-sm">
+                                <div class="col-sm-2">
                                     <!-- IMAGEN AQUI -->
+                                    <img width="50" height="50" src="{{ asset('images/product/'.$product['image']) }}" alt="">
                                 </div>
                                 <div class="col-sm-10">
                                     <h5 class="card-title text-left">{{ $product['name'] }}</h5>
@@ -37,9 +38,9 @@
                                     <div class="row">
                                     <b class="card-text text-left col-md-auto">Fecha:</b> {{ $product['date'] }}
                                     </div>
-                                    
+
                                 </div>
-                                
+
                                 </div>
                             </div>
                         </div>
@@ -55,19 +56,19 @@
                         </button>
                     </form>
                     </div>
-                    
-                </div>  
-                  
+
+                </div>
+
                 </div>
             @endforeach
             </div>
         @endif
 
-        
-        
+
+
         <!-- <div class="row">
             <div class="col-12">
-                
+
                 <table class="table table-hover">
                     <thead class="thead-light">
                         <tr>
@@ -120,7 +121,7 @@
                 </table>
             </div>
         </div> -->
-        
+
         <a href="#" class="btn btn-success " data-toggle="modal" data-target="#modalBill"><i class="fa-solid fa-basket-shopping fa-lg mr-2"></i>Finalizar Compras</a>
 
         <div class="modal fade text-left" id="modalBill" tabindex="-1" role="dialog" aria-hidden="true">
