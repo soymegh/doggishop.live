@@ -45,7 +45,7 @@ class HomeController extends Controller
                 $userCount = User::count();
                 $historyCount = Inventary::count();
                 $billCount = Bill::count();
-                return view('home', compact('paymentType','petCount', 'categoryCount', 'productCount', 'petTypeCount', 'providerCount', 'blogCount', 'userCount', 'historyCount',''));
+                return view('home', compact('paymentType','petCount', 'categoryCount', 'productCount', 'petTypeCount', 'providerCount', 'blogCount', 'userCount', 'historyCount','billCount));
                 break;
             case 'user':
                 $petCount = Pet::count();
