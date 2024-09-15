@@ -105,7 +105,7 @@ class HomeController extends Controller
 
         $payment_types = payment_type::all();
         $products = Inventary::where('user_id', $id)->get();
-        $jsonPath = public_path('\json\cities.json');
+        $jsonPath = public_path('/json/cities.json');
         $jsonContent = file_get_contents($jsonPath);
         $cities = json_decode($jsonContent, true);
 
