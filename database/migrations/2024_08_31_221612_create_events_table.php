@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('image_event')->nullable();
             $table->dateTime('start_date');
             $table->dateTime('end_date');
+            $table->foreignId('pet_type_id')->nullable()->constrained();
             $table->timestamps();
         });
     }

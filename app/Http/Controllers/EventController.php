@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Event;
+use App\Models\PetType;
 use Illuminate\Support\Facades\File;
 
 class EventController extends Controller
@@ -37,7 +38,13 @@ class EventController extends Controller
         if (auth()->user()->role != 'admin') {
             return redirect()->route('welcome');
         }
-        return view('event.create');
+        try{
+            $petTypes = PetType::all();
+
+            return view('event.create',compact('petTypes'));
+        }catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Error al mostrar el formulario');
+        }
     }
 
     /**
@@ -54,6 +61,7 @@ class EventController extends Controller
         $event->description = $request->description;
         $event->start_date = $request->start_date;
         $event->end_date = $request->end_date;
+        $event->pet_type_id = $request->pet_type;
         $event->save();
 
         if ($request->hasFile('image_event')) {
@@ -92,7 +100,8 @@ class EventController extends Controller
         }
         try {
             $event = Event::find($id);
-            return view('event.edit', compact('event'));
+            $petTypes = PetType::all();
+            return view('event.edit', compact('event','petTypes'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error al mostrar el evento');
         }
@@ -113,6 +122,7 @@ class EventController extends Controller
             $event->description = $request->description;
             $event->start_date = $request->start_date;
             $event->end_date = $request->end_date;
+            $event->pet_type_id = $request->pet_type;
             $event->save();
 
             if ($request->hasFile('image_event')) {
