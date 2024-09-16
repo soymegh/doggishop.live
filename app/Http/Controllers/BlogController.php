@@ -116,7 +116,7 @@ class BlogController extends Controller
 
     public function posts()
     {
-        $posts = Blog::all();
+        $posts = Blog::paginate(6);
         return view('blog.posts', compact('posts'));
     }
 }

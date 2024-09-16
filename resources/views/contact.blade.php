@@ -1,9 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="card">
+<div class="container">
+<div class="card px-0 mt-5 mx-3">
+
         <div class="card-header">
-            Contacto
+        <h2 class="fs-3">Correo de contacto</h2>
+            
+        
         </div>
         <div class="card-body">
             <form action="{{ route('contact.send') }}" method="POST">
@@ -24,8 +28,10 @@
                     <textarea id="message" name="message" rows="4" required class="form-control"></textarea>
                 </div>
 
-                <button type="submit" class="btn btn-success">Enviar</button>
+                <button type="submit" class="btn btn-success rounded-pill px-4 py-2 "><i class="fa-regular fa-paper-plane fa-lg mr-2"></i>Enviar</button>
             </form>
         </div>
     </div>
+</div>
+    
 @endsection

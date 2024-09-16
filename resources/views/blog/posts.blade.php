@@ -29,8 +29,15 @@
 
     .card-body p {
         margin-bottom: 0;
-        font-size: 1.1rem;
+        font-size: 1.2rem;
         color: #333;
+    }
+    .bg-blue{
+        background-color: #00528c;
+        border-color: #00528c;
+    }
+    .date{
+        font-size: 1.12rem;
     }
 </style>
 
@@ -38,25 +45,35 @@
 <section class="blog">
         <div class="container">
             <div class="row">
-                <div class="col-12">
-                    <h2 class="titulo">Posts</h2>
+                <div class="row my-4">
+                    <div class="col-md-6">
+                        <h2>Posts</h2>
+                    </div>
+                    <div class="col-md-6 text-end">
+                    <a href="{{ route('home') }}" title="Regresar a home" class="btn btn-outline-primary rounded-circle"><i class=" py-3  fa-solid fa-home fa-xl"></i></a>
+                    </div>
                 </div>
-                <div class="col-12">
+
+                
+                <div class="col-12 p-4">
                     @foreach ($posts as $post)
-                        <div class="card mb-4">
-                            <div class="card-header bg-primary">
+                        <div class="card mb-4 rounded-3">
+                            <div class="card-header bg-blue rounded-top">
                                 <h2 class="text-white">{{ $post->title }}</h2>
                             </div>
                             <div class="card-body">
-                                <p>{{ Str::words($post->content, 20) }}</p>
+                                <p>{{ $post->content}}</p> <br>
+                                
                             </div>
                             <div class="card-footer">
-                                <a href="{{ route('blogs.show', $post->id) }}" class="btn btn-primary">Leer mas</a>
+                                <p class="date">{{date_format($post->created_at, "d/m/Y g:i a")}}</p>
+                               
                             </div>
                         </div>
                     @endforeach
                 </div>
             </div>
+            {{$posts->links()}}
         </div>
     </section>
 
