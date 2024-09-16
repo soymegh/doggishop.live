@@ -48,6 +48,7 @@
 
         .sidebar:hover {
             width: 220px;
+            transition: width 0.5s ease;
         }
 
         .sidebar a {
@@ -67,15 +68,23 @@
         }
 
         main {
-            margin-left: 200px;
-            padding: 20px;
             transition: margin-left 0.3s ease;
         }
 
         .sidebar:hover + main {
-            margin-left: 220px;
+            
+            transition: width 0.3s ease;
+        }
+        .side-container{
+            max-width: 200px;
         }
 
+        .right-side{
+            max-width: 90%;
+        }
+        .row{
+            width: 100%;
+        }
         @endif
     </style>
 
@@ -144,27 +153,37 @@
         </nav>
     </header>
 
+    <div class="row">
     @if(Auth::user())
     @if (Auth::user()->role == 'admin' || Auth::user()->role == 'user')
-    <div class="sidebar">
-        <a href="/">Inicio</a>
-        <a href="{{ route('home') }}">Dashboard</a>
-        <a href="{{ route('categories.index') }}">Categorías</a>
-        <a href="{{ route('pets.index') }}">Mascotas</a>
-        <a href="{{ route('products.index') }}">Productos</a>
-        <a href="{{ route('pet_type.index') }}">Tipos de Mascotas</a>
-        <a href="{{ route('providers.index') }}">Proveedores</a>
-        <a href="{{ route('blogs.index') }}">Blog</a>
-        <a href="{{ route('discounts.index') }}">Descuentos</a>
-        <a href="{{ route('events.index') }}">Eventos</a>
+        <div class="col col-md-2 side-container px-0">
+            
+            <div class="sidebar">
+                <a href="/">Inicio</a>
+                <a href="{{ route('home') }}">Dashboard</a>
+                <a href="{{ route('categories.index') }}">Categorías</a>
+                <a href="{{ route('pets.index') }}">Mascotas</a>
+                <a href="{{ route('products.index') }}">Productos</a>
+                <a href="{{ route('pet_type.index') }}">Tipos de Mascotas</a>
+                <a href="{{ route('providers.index') }}">Proveedores</a>
+                <a href="{{ route('blogs.index') }}">Blog</a>
+                <a href="{{ route('discounts.index') }}">Descuentos</a>
+                <a href="{{ route('events.index') }}">Eventos</a>
+            </div>
+        </div>
+        
+    @endif
+    @endif
+        <div class="col container py-2 px-0 mr-0 ml-4 @if(Auth::user()) @if (Auth::user()->role == 'admin' || Auth::user()->role == 'user') col-md-10 @endif @endif">
+            <main role="main">
+                @yield('content')
+            </main>
+
+        </div>
     </div>
-    @endif
-    @endif
+    
 
-    <main role="main">
-        @yield('content')
-    </main>
-
+    
     <footer class="footer bg-light pt-3 pb-3">
         <!-- Pie de página -->
         <div class="container text-center">
