@@ -21,7 +21,7 @@
                                 @endif " 
                                 
                         @if ($pet->breed)
-                        data-bs-toggle="modal" data-bs-target="#viewPost{{$pet->id}}"
+                        data-bs-toggle="modal" data-bs-target="#viewPet{{$pet->id}}"
                         @endif
                                 
                                 class="btn p-0 animal border-mid">
@@ -51,11 +51,7 @@
                     
                 </div>
             </div>
-            @if ($pet->breed)
-
-            
-            <x-picture-modal :element="$pet"/>    
-            @endif
+            @if ($pet->breed)<x-picture-modal :element="$pet"/>@endif
             
         @endforeach
         
