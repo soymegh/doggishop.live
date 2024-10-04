@@ -9,7 +9,14 @@
 
 @php
 $type ='';
-if ($element->breed?$type ='Pet':$type = 'Prod' )
+$folder ='';
+if ($element->breed):
+$type ='Pet';
+$folder='pet';
+else:
+$type = 'Prod';
+$folder='product';
+endif
 @endphp
 
 
@@ -24,7 +31,7 @@ if ($element->breed?$type ='Pet':$type = 'Prod' )
             <div class="row">
                 <div class="col col-lg col-sm-12">
                 @if ($element->img_url != null or $element->picture!=null)
-                <img class="border-mid" src="{{ asset('images/pet/' . $element->img_url??$element->picture) }}" alt="{{ $element->img_url??$element->picture }}" height="250px" >
+                <img class="border-mid" src="{{ asset('images/'.$folder.'/' . $element->img_url??$element->picture) }}" alt="{{ $element->img_url??$element->picture }}" height="250px" >
                 @else
                     <img class="border-mid" src="{{ asset('images/sinfoto.png') }}" alt="{{ $element->img_url ??$element->picture}}">
                 @endif
