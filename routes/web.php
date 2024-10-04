@@ -49,7 +49,9 @@ Route::get('/', function () {
     $categories = Category::all()->take(4);
     
     // Find future events or current ones that will end in the next 8 days
-    $event = Event::all()->where('start_date','>=', today()  || 'end_date','<=',today()->modify('+8 Days')); 
+    //$event = Event::all()->where('start_date','>=', today()  or 'end_date','<=',today()->modify('+1 week')); 
+    //started last week or is going to start next o between
+    $event = Event::whereBetween('start_date', [today()->modify('-1 week'), today()->modify('+1 week')]);
     return view('welcome',compact('petTypeInfo', 'blogs', 'pets', 'categories','event'));
 })->name('welcome');
 
