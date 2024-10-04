@@ -4,7 +4,7 @@
         @foreach ($products as $e)
         <div class="col-12 col-md-6 col-lg-4 pb-3">
             <div class="card border-mid animal">
-            @if ($e->img_url != null)
+            @if ($e->picture != null)
                 <img class="border-mid"height="240px"  src="{{ asset('images/product/' . $e->picture) }}" alt="{{ $e->picture }}" height="250px" >
             @else
                 <img class="border-mid" height="240px" src="{{ asset('images/sinfoto.png') }}" alt="{{ $e->picture }}">
