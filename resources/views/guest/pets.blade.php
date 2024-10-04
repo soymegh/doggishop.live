@@ -10,7 +10,7 @@
 <div class="row mt-4">
         @foreach ($pets as $e)
         <div class="col-12 col-md-6 col-lg-3 pb-3">
-            <a href="#" data-bs-toggle="modal" data-bs-target="#viewPets{{$e->id}}"  class="card border-mid animal">
+            <a href="#" data-bs-toggle="modal" data-bs-target="#viewPet{{$e->id}}"  class="card border-mid animal">
             @if ($e->img_url != null)
                 <img class="border-mid" src="{{ asset('images/pet/' . $e->img_url) }}" alt="{{ $e->img_url }}" height="250px" >
             @else
