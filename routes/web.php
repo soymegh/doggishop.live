@@ -46,12 +46,11 @@ Route::get('/', function () {
     $pets = $discountServices->applyDiscountPets()->take(4);
     //si llegase a tener productos
     //$products = $discountServices->applyDiscountProducts()->take(4);
-    $categories = Category::all()->take(4);
+    $categories = Category::all()->take(4);     
     
-    // Find future events or current ones that will end in the next 8 days
-    $event = Event::all()->where('start_date','>=', today()  or 'end_date','<=',today()->modify('+8 Days')); 
     //started last week or is going to start next o between
-    //$event = Event::whereBetween('start_date', [today()->modify('-1 week'), today()->modify('+1 week')]);
+    $event = Event::whereBetween('start_date', [today()->modify('-1 Week')->toDateTime() , today()->modify('+1 Week')->toDateTime()])->get()->all();
+    
     return view('welcome',compact('petTypeInfo', 'blogs', 'pets', 'categories','event'));
 })->name('welcome');
 
