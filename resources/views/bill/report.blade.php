@@ -51,7 +51,10 @@
     }
 
 </style>
+@php
+App::setLocale('es');
 
+@endphp
 
 
 <div class="">
@@ -61,11 +64,11 @@
         <div class="row">
             <div class="col" style="width: fit-content;">
                 <b>Mes </b>
-                <p>{{today()->localeMonth}}</p>
+                <p>{{today()->getTranslatedMonthName('es')}}</p>
             </div> 
 
             <div class="col" style="width: fit-content;">
-                <b>Total de {{today()->localeMonth}} </b>
+                <b>Total de {{today()->getTranslatedMonthName('es')}} </b>
                 <p> ${{$bill->sum('total')}}</p>
                 
             </div> 
