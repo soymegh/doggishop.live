@@ -1,4 +1,13 @@
-@extends('components.guest-design', ['title'=>'Productos', 'search'=>'home.products'])
+@php
+if(Route::current()->uri()=='categoria/{id}'):
+    $search = "home.category";
+    $id = $products[0]->category_id;
+else:
+    $search = "home.products";
+endif
+@endphp
+
+@extends('components.guest-design', ['title'=>'Productos', 'search'=>$search])
 @section('card-body')
 <div class="row mt-4">
         @foreach ($products as $e)

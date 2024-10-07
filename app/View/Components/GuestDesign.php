@@ -13,6 +13,7 @@ class GuestDesign extends Component
      */
     protected $title;
     protected $search;
+    protected $id = '';
     // protected $list;
     // protected $folder;
     // protected $show = '';
@@ -30,6 +31,7 @@ class GuestDesign extends Component
     {
         $title = $this->title;
         $search = $this->search;
-        return view('components.guest-design', compact('title','search'));
+        
+        return view('components.guest-design', compact('title','search','id'));
     }
 }

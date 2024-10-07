@@ -31,9 +31,9 @@ endif
             <div class="row">
                 <div class="col col-lg col-sm-12">
                 @if ($element->img_url != null )
-                <img  height="350" width="350" class="border-mid" src="{{ asset('images/'.$folder.'/' . $element->img_url) }}" alt="{{ $element->img_url }}" height="250px" >
+                <img  width="350" class="border-mid" src="{{ asset('images/'.$folder.'/' . $element->img_url) }}" alt="{{ $element->img_url }}" height="250px" >
                 @elseif($element->picture!=null)
-                <img  height="350" width="350" class="border-mid" src="{{ asset('images/'.$folder.'/' . $element->picture) }}" alt="{{ $element->picture }}" height="250px" >
+                <img   width="350" class="border-mid" src="{{ asset('images/'.$folder.'/' . $element->picture) }}" alt="{{ $element->picture }}" height="250px" >
                 @else
                     <img height="350"class="border-mid" src="{{ asset('images/sinfoto.png') }}" alt="N/A">
                 @endif
