@@ -55,18 +55,16 @@ class InventaryController extends Controller
 
 
         $cart = session()->get('cart');
+
         $product = Product::Where('id',$request->product_id)->first();
 
         if (!$cart) {
             $cart = [
                 $request->product_id => [
                     "date" => date('Y-m-d'),
-                    "name" => $product->name,
+                    "product" => $product,
                     "quantity"=> $request->quantity,
-                    "price" => $request->price,
-                    "description" => $request->description,
                     "user_id" => auth()->id(),
-                    "image" => $product->picture
 
                 ]
             ];
@@ -89,13 +87,9 @@ class InventaryController extends Controller
 
         $cart[ $request->product_id ] = [
             "date" => date('Y-m-d'),
-            "name" => $product->name,
+            "product" => $product,
             "quantity"=> $request->quantity,
-            "price" => $request->price,
-            "description" => $request->description,
             "user_id" => auth()->id(),
-            "image" => $product->picture
-
         ];
 
 

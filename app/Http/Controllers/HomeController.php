@@ -99,18 +99,33 @@ class HomeController extends Controller
         return view('guest.showPet', compact('mascota'));
     }
 
+
     public function showCart($id, Request $request)
     {
+
+        $cart = session()->get('cart');
+
+        dd($cart);
 
         $subtotal = 0;
         $totalPaid = 0;
 
+
         $payment_types = payment_type::all();
-        $products = Inventary::where('user_id', $id)->get();
         $departments = Departments::all();
 
-        foreach($products as $product) {
-            $subtotal += $product->price * $product->quantity;
+
+
+
+        $user_id = reset($cart)['user_id'];
+
+
+
+        $products = Inventary::where('user_id', $user_id)->get();
+
+
+        foreach ($cart as $key => $item) {
+            $subtotal += $item['product']['price'] * $item['quantity'];
         }
 
         $discounts = Discount::where('products', 1)->first();
@@ -124,6 +139,7 @@ class HomeController extends Controller
 
         $totalPaid = round($totalPaid,2);
         $subtotal = round($subtotal,2);
+
 
 
 

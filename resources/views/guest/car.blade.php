@@ -13,7 +13,7 @@
         <x-title-admin title="Mi carrito" route="gues" />
         @if (@session('cart'))
             <div class="row mb-4">
-                @foreach (@session('cart') as $id => $product)
+                @foreach (@session('cart') as $id => $item)
                     <div class="col-12 col row  border-top blog">
                         <div class=" col-md-10 ">
                             <a href="#" class="btn p-0" style="width:100%;">
@@ -23,25 +23,25 @@
                                             <div class="col-sm-2">
                                                 <!-- IMAGEN AQUI -->
                                                 <img width="50" height="50"
-                                                    src="{{ asset('images/product/' . $product['image']) }}" alt="">
+                                                    src="{{ asset('images/product/' . $item['product']['picture']) }}" alt="">
                                             </div>
                                             <div class="col-sm-10">
-                                                <h5 class="card-title text-left">{{ $product['name'] }}</h5>
+                                                <h5 class="card-title text-left">{{ $item['product']['name'] }}</h5>
                                                 <div class="row">
                                                     <b class="card-text text-left col-md-auto">Precio:</b>
-                                                    {{ $product['price'] }}
+                                                    {{ $item['product']['price'] }}
                                                 </div>
                                                 <div class="row">
                                                     <b class="card-text text-left col-md-auto">Cantidad:</b>
-                                                    {{ $product['quantity'] }}
+                                                    {{ $item['quantity'] }}
                                                 </div>
                                                 <div class="row">
                                                     <b class="card-text text-left col-md-auto">Descripción:</b>
-                                                    {{ $product['description'] }}
+                                                    {{ $item['product']['description'] }}
                                                 </div>
                                                 <div class="row">
                                                     <b class="card-text text-left col-md-auto">Fecha:</b>
-                                                    {{ $product['date'] }}
+                                                    {{ $item['date'] }}
                                                 </div>
 
                                             </div>
@@ -73,58 +73,58 @@
 
 
         <!-- <div class="row">
-                                <div class="col-12">
+                                    <div class="col-12">
 
-                                    <table class="table table-hover">
-                                        <thead class="thead-light">
-                                            <tr>
-                                                <th>Producto</th>
-                                                <th>Precio</th>
-                                                <th>Cantidad</th>
-                                                <th>Descripción</th>
-                                                <th>Fecha</th>
-                                                <th>Acciones</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @php
-                                                $total = 0;
-                                                // dd(@session('cart'))
-                                            @endphp
-                                            @if (@session('cart'))
-    @foreach (@session('cart') as $id => $product)
-    <tr>
-                                                        <td>{{ $product['name'] }}</td>
-                                                        <td class="text-right">${{ number_format($product['price'], 2) }}</td>
-                                                        <td class="text-right">{{ $product['quantity'] }}</td>
-                                                        <td>{{ $product['description'] }}</td>
-                                                        @php $total += $product['quantity'] ; @endphp
-                                                        <td>{{ $product['date'] }}</td>
-                                                        <td>
-                                                            <div class="btn-group" role="group">
-                                                                <form action="{{ route('inventary.destroy', $id) }}" method="POST"
-                                                                    style="display: inline;">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
-                                                                </form>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-    @endforeach
-                                                {{-- Fila para los totales --}}
+                                        <table class="table table-hover">
+                                            <thead class="thead-light">
                                                 <tr>
-                                                    <td colspan="2"><strong>Total</strong></td>
-                                                    <td class="text-right"><strong>{{ $total }}</strong></td>
-                                                    <td colspan="3"></td>
+                                                    <th>Producto</th>
+                                                    <th>Precio</th>
+                                                    <th>Cantidad</th>
+                                                    <th>Descripción</th>
+                                                    <th>Fecha</th>
+                                                    <th>Acciones</th>
                                                 </tr>
+                                            </thead>
+                                            <tbody>
+                                                @php
+                                                    $total = 0;
+                                                    // dd(@session('cart'))
+                                                @endphp
+                                                @if (@session('cart'))
+    @foreach (@session('cart') as $id => $item)
+    <tr>
+                                                            <td>{{ $item['product']['name'] }}</td>
+                                                            <td class="text-right">${{ number_format($item['product']['price'], 2) }}</td>
+                                                            <td class="text-right">{{ $item['quantity'] }}</td>
+                                                            <td>{{$item['product']['description'] }}</td>
+                                                            @php $total += $item['quantity'] ; @endphp
+                                                            <td>{{ $item['date'] }}</td>
+                                                            <td>
+                                                                <div class="btn-group" role="group">
+                                                                    <form action="{{ route('inventary.destroy', $id) }}" method="POST"
+                                                                        style="display: inline;">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                                                                    </form>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+    @endforeach
+                                                    {{-- Fila para los totales --}}
+                                                    <tr>
+                                                        <td colspan="2"><strong>Total</strong></td>
+                                                        <td class="text-right"><strong>{{ $total }}</strong></td>
+                                                        <td colspan="3"></td>
+                                                    </tr>
     @endif
 
 
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div> -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div> -->
 
         <a href="#" class="btn btn-success " data-toggle="modal" data-target="#modalBill"><i
                 class="fa-solid fa-basket-shopping fa-lg mr-2"></i>Realizar Factura</a>
@@ -144,6 +144,32 @@
 
                                 <div class="row">
 
+                                    <!-- Nombre de usuario -->
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-3">
+                                            <label for="username">Nombre de usuario</label>
+                                            <input type="text" name="username" id="username" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <!-- Telefono -->
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-3">
+                                            <label for="phone">Telefono</label>
+                                            <input type="number" name="phone" id="phone" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <!-- Cedula -->
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-3">
+                                            <label for="warrant">Telefono</label>
+                                            <input type="text" name="warrant" id="warrant" class="form-control">
+                                        </div>
+                                    </div>
+
+
+                                    <!-- Tipo de pago -->
                                     <div class="col-md-6">
                                         <label for="payment_type">Tipo de Pago</label>
                                         <select class="form-control" id="payment_type" name="payment_type">
@@ -158,45 +184,47 @@
 
                                 </div>
 
-                                    <hr>
+                                <hr>
 
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <label for="">Requiere envio:  </label>
-                                        </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label for="">Requiere envio: </label>
+                                    </div>
 
 
-                                        <div class="col-md-1">
+                                    <div class="col-md-1">
 
-                                            <div class="form-check">
-                                                <input onclick="toggleDiv()" class="form-check-input" type="radio" value="show" name="option" id="rbl1">
-                                                <label class="form-check-label" for="rbl1">
-                                                  Si
-                                                </label>
-                                              </div>
-
-                                        </div>
-
-                                        <div class="col-md-1">
-                                            <div class="form-check">
-                                                <input onclick="toggleDiv()"  class="form-check-input" type="radio"  value="hide"  name="option" id="rbl2">
-                                                <label class="form-check-label" for="rbl2">
-                                                  No
-                                                </label>
-                                              </div>
+                                        <div class="form-check">
+                                            <input onclick="toggleDiv()" class="form-check-input" type="radio"
+                                                value="show" name="option" id="rbl1">
+                                            <label class="form-check-label" for="rbl1">
+                                                Si
+                                            </label>
                                         </div>
 
                                     </div>
 
-                                    <hr>
+                                    <div class="col-md-1">
+                                        <div class="form-check">
+                                            <input onclick="toggleDiv()" class="form-check-input" type="radio"
+                                                value="hide" name="option" id="rbl2">
+                                            <label class="form-check-label" for="rbl2">
+                                                No
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <hr>
 
 
                                 <div class="row" id="myDiv">
 
                                     <h2>Datos de Envio</h2>
 
-                                     <!--- Direccion --->
-                                     <div class="col-md-6">
+                                    <!--- Direccion --->
+                                    <div class="col-md-6">
                                         <div class="form-group mb-3">
                                             <label for="address">Dirección</label>
                                             <input type="text" name="address" id="address" class="form-control">
@@ -273,8 +301,6 @@
                 }
             }
         }
-
-
     </script>
 
 
