@@ -11,7 +11,7 @@
 
     <div class="container">
         <x-title-admin title="Mi carrito" route="gues" />
-        @if (@session('cart'))
+        @if (@session('cart') !== null)
             <div class="row mb-4">
                 @foreach (@session('cart') as $id => $item)
                     <div class="col-12 col row  border-top blog">
@@ -67,7 +67,15 @@
 
                     </div>
                 @endforeach
+
+                <a href="#" class="btn btn-success " data-toggle="modal" data-target="#modalBill"><i
+                    class="fa-solid fa-basket-shopping fa-lg mr-2"></i>Realizar Factura</a>
             </div>
+            @else
+            <div class="row mb-4">
+                <h1>No tienes productos comprados, ve al dashboard y compra productos</h1>
+            </div>
+
         @endif
 
 
@@ -126,8 +134,7 @@
                                     </div>
                                 </div> -->
 
-        <a href="#" class="btn btn-success " data-toggle="modal" data-target="#modalBill"><i
-                class="fa-solid fa-basket-shopping fa-lg mr-2"></i>Realizar Factura</a>
+
 
         <div class="modal fade text-left" id="modalBill" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">

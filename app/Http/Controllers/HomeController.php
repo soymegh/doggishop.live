@@ -105,47 +105,46 @@ class HomeController extends Controller
 
         $cart = session()->get('cart');
 
-        dd($cart);
-
+        $payment_types = payment_type::all();
+        $departments = Departments::all();
         $subtotal = 0;
         $totalPaid = 0;
 
 
-        $payment_types = payment_type::all();
-        $departments = Departments::all();
+        if($cart !== null) {
+
+            $user_id = reset($cart)['user_id'];
+
+            $products = Inventary::where('user_id', $user_id)->get();
+
+            foreach ($cart as $key => $item) {
+                $subtotal += $item['product']['price'] * $item['quantity'];
+            }
+
+            $discounts = Discount::where('products', 1)->first();
+
+            if ($discounts) {
+                $subtotal =  $subtotal - ($subtotal * ($discounts->discount / 100));
+            }
+
+
+            $totalPaid = $subtotal + ($subtotal * (0.15 / 100));
+
+            $totalPaid = round($totalPaid,2);
+            $subtotal = round($subtotal,2);
 
 
 
 
-        $user_id = reset($cart)['user_id'];
 
 
+            return view('guest.car', compact('products', 'payment_types', 'departments' ,'totalPaid', 'subtotal'));
 
-        $products = Inventary::where('user_id', $user_id)->get();
-
-
-        foreach ($cart as $key => $item) {
-            $subtotal += $item['product']['price'] * $item['quantity'];
+        } else {
+            return view('guest.car', compact('payment_types', 'departments','totalPaid', 'subtotal'));
         }
 
-        $discounts = Discount::where('products', 1)->first();
 
-        if ($discounts) {
-            $subtotal =  $subtotal - ($subtotal * ($discounts->discount / 100));
-        }
-
-
-        $totalPaid = $subtotal + ($subtotal * (0.15 / 100));
-
-        $totalPaid = round($totalPaid,2);
-        $subtotal = round($subtotal,2);
-
-
-
-
-
-
-        return view('guest.car', compact('products', 'payment_types', 'departments' ,'totalPaid', 'subtotal'));
     }
 
     public function store(Request $request) {
