@@ -36,6 +36,8 @@ class BillController extends Controller
     //report
     public function report(){
         
+
+        
         $billid = Bill::whereMonth('bill_date','=', today()->month)->get(['id']);
         $billdetails = Bill_Detail::whereIn('bill_id', $billid)->get();
         
@@ -44,14 +46,7 @@ class BillController extends Controller
         $user = User::all();
         $products = Product::all();
         $payment_type = payment_type::all();
-
-     
         
-        
-        Carbon::setUTF8(true);
-        
-        App::setLocale(Cache::get('locale','default'));
-
         $pdf = Pdf::setOptions(
             ['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])
 

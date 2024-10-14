@@ -95,7 +95,7 @@
     <!-- Fin del carrusel-->
 
     <!-- Button trigger modal -->
-    @if (count($event)!=0)
+    @if ($event)
     
     <div class="mx-4 my-4">
         <button type="button" class="btn fs-2 col-12 py-3 modal-button border-2 border-mid" data-bs-toggle="modal" data-bs-target="#eventModal" >
@@ -155,8 +155,8 @@
     </div>
     <br>
 
-    <x-home-cards title="Mascotas Destacadas" index="pets.index" :list="$pets" folder="pet" />
-    <x-home-cards title="Categorias Destacadas" index="categories.index" :list="$categories" folder="category" />
+    <x-home-cards title="Mascotas Destacadas" index="home.pets.index" :list="$pets" folder="pet" show="home.showPet"/>
+    <x-home-cards title="Categorias Destacadas" index="home.category.index" :list="$categories" folder="category" show="home.category"/>
 
 
 

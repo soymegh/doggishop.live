@@ -62,6 +62,33 @@ class DiscountService
         return $products;
     }
 
+    public function applyDiscountProductsByCategory(Request $request, string $id)
+    {
+        $discounts = Discount::where('start_time', '<=', now())
+            ->where('end_time', '>=', now())
+            ->where('status', true)
+            ->where('products', true)
+            ->get();
+
+        
+        if($request){
+            $products = Product::whereAny(['name','description','price'],'LIKE','%'.$request->get('search').'%')->where('category_id', $id)
+            ->paginate(6);
+        }else{
+            $products = Product::where('category_id', $id)->paginate(6);
+        }
+
+        if ($discounts->count() > 0) {
+            foreach ($products as $product) {
+                //agregar un nuevo campo llamado price_discounted
+                $product->price_discounted = ($product->price * ($discounts[0]->discount/100));
+                $product->new_price = $product->price - ($product->price * ($discounts[0]->discount/100));
+            }
+        }
+
+        return $products;
+    }
+
     public function applyDiscountPet($pet)
     {
         $discounts = Discount::where('start_time', '<=', now())

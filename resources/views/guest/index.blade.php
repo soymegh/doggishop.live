@@ -1,188 +1,137 @@
 @extends('layouts.app')
 
 @section('content')
-    <style>
-        .titulo {
-            text-align: center;
-            margin-bottom: 40px;
-            color: #333;
+<style>
+     .border-mid {
+            border-radius: 50px;
         }
 
-        .mascotas .card {
-            border: none;
-            transition: transform 0.3s ease;
-        }
+    .animal:hover {
+        text-decoration: none;
+        border-color: #ffac45;
+        color: black;
+    }
+    img{
+        object-fit: cover;
+    }
 
-        .mascotas .card:hover {
-            transform: scale(1.05);
-        }
+    .mas:hover {
+        color: #ffac45;
+        border-color: #ffac45;
+    }
 
-        .productos .card {
-            border: none;
-            transition: box-shadow 0.3s ease;
-        }
-
-        .productos .card:hover {
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .card-img-top {
-            object-fit: cover;
-            height: 140px;
-        }
-
-        .btn-outline-primary {
-            color: #007bff;
-            border-color: #007bff;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
-        .btn-outline-primary:hover {
-            background-color: #007bff;
-            color: #fff;
-        }
-
-        .btn-outline-info {
-            color: #17a2b8;
-            border-color: #17a2b8;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
-        .btn-outline-info:hover {
-            background-color: #17a2b8;
-            color: #fff;
-        }
-
-        .btn-outline-success {
-            color: #28a745;
-            border-color: #28a745;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
-        .btn-outline-success:hover {
-            background-color: #28a745;
-            color: #fff;
-        }
-
-        .card {
-            border: none;
-            transition: transform 0.3s ease;
-        }
-
-        .card:hover {
-            transform: scale(1.05);
-        }
-
-        .pagination {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-        }
-
-        .pagination .page-link {
-            color: #007bff;
-            border: 1px solid #007bff;
-            padding: 8px 16px;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
-        .pagination .page-link:hover {
-            background-color: #007bff;
-            color: #fff;
-        }
-
-        .pagination .page-item.active .page-link {
-            background-color: #007bff;
-            border-color: #007bff;
-            color: #fff;
-        }
-    </style>
+</style>
 
     <section class="mascotas">
         <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <h2 class="titulo">Mascotas</h2>
-                </div>
-                @foreach ($mascotas->take(6) as $mascota)
-                    <div class="card col-12 col-md-4 mb-4">
-                        <div class="card-body text-center">
-                            <div class="mascota text-center">
-                                @if ($mascota->img_url)
-                                    <img src="{{ asset('images/pet/' . $mascota->img_url) }}" alt="Mascota" width="150px"
-                                        height="150px"
-                                        class="rounded-circle shadow-lg transition-transform duration-300 hover:scale-110 mb-3">
-                                @else
-                                    <img src="{{ asset('images/sinfoto.png') }}" alt="sinfoto" width="150px"
-                                        height="150px"
-                                        class="rounded-circle shadow-lg transition-transform duration-300 hover:scale-110 mb-3">
-                                @endif
-                                <div class="contenido mt-4">
-                                    <h3 class="fw-bold text-dark">{{ $mascota->breed }}</h3>
-                                    <p class="text-muted mb-3">{{ $mascota->name }} | <span class="text-muted mb-3">
-                                            @if ($mascota->price_discounted)
-                                                <del class="text-danger fw-semibold">${{ $mascota->price }}</del>
-                                                <span class="text-success fw-semibold">${{ $mascota->new_price }}</span>
-                                            @else
-                                                <span class="text-primary fw-semibold">${{ $mascota->price }}</span>
-                                            @endif
-                                        </span>
-                                    </p>
-                                    <p class="text-muted mb-3"> ⬇️ {{ $mascota->price_discounted }} </p>
-
-                                    <a href="{{ route('home.showPet', $mascota->id) }}"
-                                        class="btn btn-outline-primary btn-sm transition-colors duration-300 hover:bg-primary hover:text-white">Ver
-                                        más</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
+        <div class="row mt-4 pb-3">
+            <div class="col-6">
+                <h2>Mascotas</h2>
+            </div>
+            <div class="col-6 text-right">
+                <a href="{{ route('home.pets.index') }}" class="btn p-2 mas border-mid"> {{-- Cambiar por la vista del cliente --}}
+                    Ver más
+                </a>
             </div>
         </div>
-    </section>
 
+        <div class="row mt-4">
+        @foreach ($mascotas->take(8) as $e)
+        <div class="col-12 col-md-6 col-lg-3 pb-3">
+            <a href="#" class="card border-mid animal" data-bs-toggle="modal" data-bs-target="#viewPet{{$e->id}}" >
+            @if ($e->img_url != null)
+                <img class="border-mid" src="{{ asset('images/pet/' . $e->img_url) }}" alt="{{ $e->img_url }}" height="250px" >
+            @else
+                <img class="border-mid" src="{{ asset('images/sinfoto.png') }}" alt="{{ $e->img_url }}">
+            @endif
+
+            <div class="card-body">
+                <h5 class="card-title text-center">{{ $e->breed }}</h5>
+                <p class="card-text">{{ Str::limit($e->description,100) ?? $e->attendant ??$e->name }}</p>
+                
+                <div class="border-bottom mb-3" ></div>
+                
+                <div class="d-flex justify-content-evenly">
+                @if ($e->price_discounted)
+                    <del class="text-danger fw-semibold">${{ $e->price }}</del>
+                    <span class="text-success fw-semibold">${{ $e->new_price }}</span>
+                @else
+                    <span class="text-primary fw-semibold">${{ $e->price }}</span>
+                @endif
+                </div>
+            </div>
+
+            </a>
+            <x-picture-modal :element="$e"/>
+        </div>
+        @endforeach
+        </div>
+            
+        </div>
+    </section>
+    <div class="container">
+    <div class="border-bottom my-5" ></div>
+    </div>
     <section class="productos">
         <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <h2 class="titulo">Productos</h2>
-                </div>
-                @foreach ($productos as $product)
-                    <div class="col-md-4 mb-4">
-                        <div class="card shadow-sm">
-                            @if ($product->picture != null)
-                                <img src="{{ asset('images/product/' . $product->picture) }}" alt="Producto"
-                                    class="card-img-top" height="140px" style="object-fit: cover;">
-                            @else
-                                <img src="{{ asset('images/sinfoto.png') }}" alt="sinfoto" class="card-img-top"
-                                    height="140px" style="object-fit: cover;">
-                            @endif
-                            <div class="card-body text-center">
-                                <h5 class="card-title fw-bold text-dark">{{ $product->name }}</h5>
-                                <p class="card-text text-muted">{{ Str::limit($product->description, 30) }}</p>
-                                <p class="card-text text-primary fw-semibold">Precio: ${{ $product->price }}</p>
-                                <a href="{{ route('home.showProduct', $product->id) }}"
-                                    class="btn btn-outline-info btn-sm mb-2">Ver más</a>
-                                <form action="{{ route('inventary.store') }}" method="POST" class="d-inline-block">
-                                    @csrf
-                                    <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                    <input type="hidden" name="price" value="{{ $product->price }}">
-                                    <input type="hidden" name="description" value="Salida">
-                                    <div class="d-flex justify-content-center align-items-center mb-2">
-                                        <input type="number" name="quantity" value="1"
-                                            class="form-control form-control-sm text-center me-2" style="width: 60px;"
-                                            min="1" required>
-                                        <button type="submit" class="btn btn-outline-success btn-sm">Comprar</button>
-                                    </div>
-                                </form>
+        <div class="row mt-4 pb-3">
+            <div class="col-6">
+                <h2>Productos</h2>
+            </div>
+            <div class="col-6 text-right">
+                <a href="{{ route('home.products.index') }}" class="btn p-2 mas border-mid"> {{-- Cambiar por la vista del cliente --}}
+                    Ver más
+                </a>
+            </div>
+        </div>
 
-                            </div>
-                        </div>
+        <div class="row mt-4">
+        @foreach ($productos->take(8) as $e)
+        <div class="col-12 col-md-6 col-lg-4 pb-3">
+            <div class="card border-mid animal">
+            @if ($e->picture != null)
+                <img class="border-mid"height="240px"  src="{{ asset('images/product/'.$e->picture) }}" alt="{{ $e->picture }}" height="250px" >
+            @else
+                <img class="border-mid" height="240px" src="{{ asset('images/sinfoto.png') }}" alt="{{ $e->picture }}">
+            @endif
+
+            <div class="card-body text-center">
+                <div class="row">
+
+                </div>
+                
+                <h5 class="card-title fw-bold text-dark">{{ $e->name }}</h5>
+                <p class="card-text text-muted">{{ Str::limit($e->description, 30) }}</p>
+                <p class="card-text text-primary fw-semibold">Precio: ${{ $e->price }}</p>
+
+                <a href="#"  data-bs-toggle="modal" data-bs-target="#viewProd{{$e->id}}" title="Detalles de mascota" class="btn btn-outline-info rounded-pill my-auto"><i class="fa-regular fa-xl fa-eye mr-2"></i>Ver detalles</a>
+                <div class="border-bottom my-3" ></div>
+                
+                
+                
+                <form action="{{ route('inventary.store') }}" method="POST" class="d-inline-block">
+                @csrf
+                    <input type="hidden" name="product_id" value="{{ $e->id }}">
+                    <input type="hidden" name="price" value="{{ $e->price }}">
+                    <input type="hidden" name="description" value="Salida">
+                    <div class="d-flex justify-content-center align-items-center mb-2">
+                        <input type="number" name="quantity" value="1" class="form-control form-control-sm text-center me-2" style="width: 60px;" min="1" required>
+                        <button type="submit" class="btn btn-outline-success btn-sm rounded-pill"><i class="fa-solid fa-cart-shopping fa-xl mx-2 my-3"></i>Agregar a carrito</button>
                     </div>
-                @endforeach
+                </form>
 
             </div>
+
+            </div>
+
+            <x-picture-modal :element="$e"/>
+        </div>
+        @endforeach
+        </div>
+
+
+
+           
         </div>
     </section>
 @endsection
