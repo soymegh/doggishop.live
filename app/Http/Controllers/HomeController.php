@@ -11,8 +11,10 @@ use App\Models\Product;
 use App\Models\PetType;
 use App\Models\Provider;
 use App\Models\Blog;
+use App\Models\Departments;
 use App\Models\Inventary;
 use App\Models\Discount;
+use App\Models\Municipalities;
 use App\Models\payment_type;
 use App\Models\Shipping;
 use App\Models\User;
@@ -97,7 +99,7 @@ class HomeController extends Controller
         return view('guest.showPet', compact('mascota'));
     }
 
-    public function showCart($id)
+    public function showCart($id, Request $request)
     {
 
         $subtotal = 0;
@@ -105,9 +107,7 @@ class HomeController extends Controller
 
         $payment_types = payment_type::all();
         $products = Inventary::where('user_id', $id)->get();
-        $jsonPath = public_path('/json/cities.json');
-        $jsonContent = file_get_contents($jsonPath);
-        $cities = json_decode($jsonContent, true);
+        $departments = Departments::all();
 
         foreach($products as $product) {
             $subtotal += $product->price * $product->quantity;
@@ -129,7 +129,7 @@ class HomeController extends Controller
 
 
 
-        return view('guest.car', compact('products', 'payment_types','cities', 'totalPaid', 'subtotal'));
+        return view('guest.car', compact('products', 'payment_types', 'departments' ,'totalPaid', 'subtotal'));
     }
 
     public function store(Request $request) {
@@ -189,13 +189,14 @@ class HomeController extends Controller
 
     }
 
+
+
     function saveShipping(Bill $bill, Request $request, $user_id) {
 
         $shipping = new Shipping();
 
 
         $shipping->date_shipping = date_create('now')->format('Y-m-d H:i:s');
-        $shipping->zip_code = $request->zipcode;
         $shipping->address = $request->address;
         $shipping->city = $request->cities;
         $shipping->user_id = $user_id;
@@ -203,6 +204,8 @@ class HomeController extends Controller
         $shipping->save();
 
     }
+
+
 
     function saveInputsOutputs($product , $id) {
 
@@ -216,6 +219,10 @@ class HomeController extends Controller
         $inventary->save();
     }
 
+    function getMunicipalities($id) {
+        $municipalities = Municipalities::where('country_id', $id)->get();
+        return response()->json($municipalities);
+    }
 
 
 }

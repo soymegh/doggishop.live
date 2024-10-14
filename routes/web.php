@@ -47,9 +47,9 @@ Route::get('/', function () {
     //si llegase a tener productos
     //$products = $discountServices->applyDiscountProducts()->take(4);
     $categories = Category::all()->take(4);
-    
+
     // Find future events or current ones that will end in the next 8 days
-    $event = Event::all()->where('start_date','>=', today() or 'end_date','<=',today()->modify('+8 Days')); 
+    $event = Event::all()->where('start_date','>=', today() or 'end_date','<=',today()->modify('+8 Days'));
     return view('welcome',compact('petTypeInfo', 'blogs', 'pets', 'categories','event'));
 })->name('welcome');
 
@@ -171,7 +171,7 @@ Route::middleware('auth')->group(function () {
     Route::get('Cliente', [App\Http\Controllers\HomeController::class, 'index'])->name('welcome');
     Route::get('Ciente/{id}', [App\Http\Controllers\HomeController::class, 'showCart'] )->name('home.showCart');
     Route::post('Factura', [App\Http\Controllers\HomeController::class, 'store'] )->name('home.store');
-
+    Route::get('Municipios/{id}',  [App\Http\Controllers\HomeController::class, 'getMunicipalities'])->name('home.getMunicipalities');
 });
 
 
