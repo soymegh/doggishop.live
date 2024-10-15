@@ -104,11 +104,12 @@ class HomeController extends Controller
     {
 
         $cart = session()->get('cart');
-
+        $discounts = Discount::where('products', 1)->first();
         $payment_types = payment_type::all();
         $departments = Departments::all();
         $subtotal = 0;
         $totalPaid = 0;
+        $iva = 0.15;
 
 
         if($cart !== null) {
@@ -121,14 +122,15 @@ class HomeController extends Controller
                 $subtotal += $item['product']['price'] * $item['quantity'];
             }
 
-            $discounts = Discount::where('products', 1)->first();
+
 
             if ($discounts) {
                 $subtotal =  $subtotal - ($subtotal * ($discounts->discount / 100));
+
             }
 
 
-            $totalPaid = $subtotal + ($subtotal * (0.15 / 100));
+            $totalPaid = $subtotal + ($subtotal * ($iva / 100));
 
             $totalPaid = round($totalPaid,2);
             $subtotal = round($subtotal,2);
@@ -138,10 +140,10 @@ class HomeController extends Controller
 
 
 
-            return view('guest.car', compact('products', 'payment_types', 'departments' ,'totalPaid', 'subtotal'));
+            return view('guest.car', compact('products', 'payment_types', 'departments' ,'totalPaid', 'subtotal', 'discounts', 'iva'));
 
         } else {
-            return view('guest.car', compact('payment_types', 'departments','totalPaid', 'subtotal'));
+            return view('guest.car', compact('payment_types', 'departments','totalPaid', 'subtotal', 'iva'));
         }
 
 

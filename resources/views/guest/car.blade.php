@@ -276,6 +276,20 @@
                                             <h4>Total: {{ $totalPaid }}</h4>
                                         </div>
                                     </div>
+                                    <div class="row">
+
+                                        <div class="col-md-6">
+                                            @if($discounts)
+                                                <label for="">Descuento aplicado: {{ $discounts->name }}</label>
+                                            @endif
+                                        </div>
+
+
+                                        <div class="col-md-6">
+                                            <label for="">Subtotal + IVA ({{ bcmul($iva, "100", 0) }}%)</label>
+                                        </div>
+
+                                    </div>
                                 </div>
 
 
