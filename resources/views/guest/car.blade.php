@@ -19,13 +19,19 @@
                             <a href="#" class="btn p-0" style="width:100%;">
                                 <div class="card border-0">
                                     <div class="card-body ">
-                                        <div class="row">
-                                            <div class="col-sm-2">
+                                        <div class="row ">
+                                            <div class="col-sm-2 my-auto">
                                                 <!-- IMAGEN AQUI -->
-                                                <img width="50" height="50"
-                                                    src="{{ asset('images/product/' . $item['product']['picture']) }}" alt="">
+                                                <img height="120" width="120" 
+                                                
+                                                @if ($item['product']['picture'])
+                                                    src="{{ asset('images/product/' . $item['product']['picture']) }}"
+                                                @else
+                                                    src="{{ asset('images/sinfoto.png') }}"
+                                                @endif
+                                                     alt="">
                                             </div>
-                                            <div class="col-sm-10">
+                                            <div class="col-md col-sm-10 ml-3">
                                                 <h5 class="card-title text-left">{{ $item['product']['name'] }}</h5>
                                                 <div class="row">
                                                     <b class="card-text text-left col-md-auto">Precio:</b>
@@ -37,7 +43,8 @@
                                                 </div>
                                                 <div class="row">
                                                     <b class="card-text text-left col-md-auto">Descripción:</b>
-                                                    {{ $item['product']['description'] }}
+                                                    <p class="text-left ml-3">{{ $item['product']['description'] }}</p>
+                                                    
                                                 </div>
                                                 <div class="row">
                                                     <b class="card-text text-left col-md-auto">Fecha:</b>
@@ -52,11 +59,11 @@
                             </a>
                         </div>
                         <div class="col-sm my-auto">
-                            <div class="d-flex justify-content-evenly ">
-                                <form method="POST" class="fm-inline " action="{{ route('inventary.destroy', $id) }}">
+                            <div class="d-flex justify-content-evenly">
+                                <form method="POST" class="fm-inline" action="{{ route('inventary.destroy', $id) }}">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger rounded-circle py-2"
+                                    <button type="submit" class="btn btn-danger h-150 rounded-circle" style="height: 3pc;"
                                         onclick="return confirm('¿Estás seguro de que deseas eliminar este registro?')">
                                         <i class="fa-solid fa-xmark fa-xl  "></i>
                                     </button>
@@ -68,7 +75,7 @@
                     </div>
                 @endforeach
 
-                <a href="#" class="btn btn-success " data-toggle="modal" data-target="#modalBill"><i
+                <a href="#" class="mt-3 btn btn-success " data-toggle="modal" data-target="#modalBill"><i
                     class="fa-solid fa-basket-shopping fa-lg mr-2"></i>Realizar Factura</a>
             </div>
             @else
@@ -79,76 +86,20 @@
         @endif
 
 
-
-        <!-- <div class="row">
-                                    <div class="col-12">
-
-                                        <table class="table table-hover">
-                                            <thead class="thead-light">
-                                                <tr>
-                                                    <th>Producto</th>
-                                                    <th>Precio</th>
-                                                    <th>Cantidad</th>
-                                                    <th>Descripción</th>
-                                                    <th>Fecha</th>
-                                                    <th>Acciones</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @php
-                                                    $total = 0;
-                                                    // dd(@session('cart'))
-                                                @endphp
-                                                @if (@session('cart'))
-    @foreach (@session('cart') as $id => $item)
-    <tr>
-                                                            <td>{{ $item['product']['name'] }}</td>
-                                                            <td class="text-right">${{ number_format($item['product']['price'], 2) }}</td>
-                                                            <td class="text-right">{{ $item['quantity'] }}</td>
-                                                            <td>{{$item['product']['description'] }}</td>
-                                                            @php $total += $item['quantity'] ; @endphp
-                                                            <td>{{ $item['date'] }}</td>
-                                                            <td>
-                                                                <div class="btn-group" role="group">
-                                                                    <form action="{{ route('inventary.destroy', $id) }}" method="POST"
-                                                                        style="display: inline;">
-                                                                        @csrf
-                                                                        @method('DELETE')
-                                                                        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
-                                                                    </form>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-    @endforeach
-                                                    {{-- Fila para los totales --}}
-                                                    <tr>
-                                                        <td colspan="2"><strong>Total</strong></td>
-                                                        <td class="text-right"><strong>{{ $total }}</strong></td>
-                                                        <td colspan="3"></td>
-                                                    </tr>
-    @endif
-
-
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div> -->
-
-
-
-        <div class="modal fade text-left" id="modalBill" tabindex="-1" role="dialog" aria-hidden="true">
+        <!-- MODAL -->
+        <div class="modal fade text-left p-2" id="modalBill" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
+                        <h2>Datos de Factura</h2>
+                    </div>
 
-                        <form action="{{ route('home.store') }}" method="POST">
+                    <div class="modal-body">
+
+                    <form action="{{ route('home.store') }}" method="POST" class="mb-4 mx-3">
                             @csrf
                             <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                             <div class="row">
-                                <h2>Datos de Factura</h2>
-
-                                <hr>
-
                                 <div class="row">
 
                                     <!-- Nombre de usuario -->
@@ -296,7 +247,10 @@
                                 <button class="btn btn-success" type="submit">Finalizar Compras</button>
 
                         </form>
+                    </div>
 
+                    <div class="modal-footer">
+                        <hr>
                     </div>
                 </div>
             </div>
@@ -322,6 +276,8 @@
                 }
             }
         }
+
+        document.onload(toggleDiv())
     </script>
 
 

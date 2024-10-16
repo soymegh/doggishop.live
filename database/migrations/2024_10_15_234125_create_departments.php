@@ -15,6 +15,23 @@ return new class extends Migration
             $table->id();
             $table->string('name', 45);
         });
+        
+        \App\Models\Departments::factory()->createMany([
+            ['name'=>'Boaco'],
+            ['name'=>'Carazo'],
+            ['name'=>'Chinandega'],
+            ['name'=>'Chontales'],
+            ['name'=>'Estelí'],
+            ['name'=>'Jinotega'],
+            ['name'=>'León'],
+            ['name'=>'Madriz'],
+            ['name'=>'Managua'],
+            ['name'=>'Masaya'],
+            ['name'=>'Matagalpa'],
+            ['name'=>'Nueva Segovia'],
+            ['name'=>'Rivas'],
+            ['name'=>'Río San Juan'],
+        ]);
     }
 
     /**
