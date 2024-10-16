@@ -143,7 +143,7 @@ class HomeController extends Controller
             return view('guest.car', compact('products', 'payment_types', 'departments' ,'totalPaid', 'subtotal', 'discounts', 'iva'));
 
         } else {
-            return view('guest.car', compact('payment_types', 'departments','totalPaid', 'subtotal', 'iva'));
+            return view('guest.car', compact('payment_types', 'departments','totalPaid', 'subtotal','discounts', 'iva'));
         }
 
 
