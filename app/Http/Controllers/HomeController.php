@@ -129,7 +129,7 @@ class HomeController extends Controller
             }
 
 
-            dd($discounts);
+
 
             if ($discounts) {
                 $subtotal =  $subtotal - ($subtotal * ($discounts->discount / 100));
