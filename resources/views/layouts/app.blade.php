@@ -90,7 +90,7 @@
             }
         @endif
     </style>
-    @livewireStyles
+
 
 </head>
 
