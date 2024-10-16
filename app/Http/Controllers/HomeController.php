@@ -102,9 +102,15 @@ class HomeController extends Controller
 
     public function showCart($id, Request $request)
     {
-
+        $date_now = date('Y-m-d 00:00:00');
         $cart = session()->get('cart');
-        $discounts = Discount::where('products', 1)->first();
+
+        # Descuentos  logica
+        $discounts = Discount::where('products', 1)
+        ->where('end_time','>',$date_now)
+        ->where('start_time','<',$date_now)
+        ->first();
+
         $payment_types = payment_type::all();
         $departments = Departments::all();
         $subtotal = 0;
@@ -123,6 +129,7 @@ class HomeController extends Controller
             }
 
 
+            dd($discounts);
 
             if ($discounts) {
                 $subtotal =  $subtotal - ($subtotal * ($discounts->discount / 100));
