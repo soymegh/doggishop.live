@@ -22,8 +22,8 @@
                                         <div class="row ">
                                             <div class="col-sm-2 my-auto">
                                                 <!-- IMAGEN AQUI -->
-                                                <img height="120" width="120" 
-                                                
+                                                <img height="120" width="120"
+
                                                 @if ($item['product']['picture'])
                                                     src="{{ asset('images/product/' . $item['product']['picture']) }}"
                                                 @else
@@ -44,7 +44,7 @@
                                                 <div class="row">
                                                     <b class="card-text text-left col-md-auto">Descripción:</b>
                                                     <p class="text-left ml-3">{{ $item['product']['description'] }}</p>
-                                                    
+
                                                 </div>
                                                 <div class="row">
                                                     <b class="card-text text-left col-md-auto">Fecha:</b>
@@ -114,14 +114,14 @@
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
                                             <label for="phone">Telefono</label>
-                                            <input type="number" name="phone" id="phone" class="form-control">
+                                            <input type="text" name="phone" id="phone" class="form-control">
                                         </div>
                                     </div>
 
                                     <!-- Cedula -->
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
-                                            <label for="warrant">Telefono</label>
+                                            <label for="warrant">Cedula</label>
                                             <input type="text" name="warrant" id="warrant" class="form-control">
                                         </div>
                                     </div>
@@ -189,26 +189,8 @@
                                         </div>
                                     </div>
 
-                                    <!-- Departamentos -->
-                                    <div class="col-md-6">
-                                        <label for="departments">Departamento</label>
-                                        <select class="form-control" id="departments" name="departments">
-                                            <option value="" selected>Seleccionar un departamento</option>
-                                            @foreach ($departments as $department)
-                                                <option value="{{ $department->id }}">{{ $department->name }}</option>
-                                            @endforeach
-
-                                        </select>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <label for="municipalities">Municipio</label>
-                                        <select class="form-control" id="municipalities" name="municipalities">
-                                            <option value="" selected>Seleccione un municipio</option>
-
-                                        </select>
-
-                                    </div>
+                                    <!--Dropdowns de departmentos y municipios -->
+                                    <livewire:dropdowns-bills/>
 
 
                                 </div>

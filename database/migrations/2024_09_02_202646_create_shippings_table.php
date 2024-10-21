@@ -16,6 +16,8 @@ return new class extends Migration
             $table->dateTime('date_shipping');
             $table->string('address', 256);
             $table->string('city', 40);
+            $table->foreignId('municipalities_id')->constrained('municipalities');
+            $table->foreignId('departments_id')->constrained('departments');
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('bill_id')->constrained('bills');
         });

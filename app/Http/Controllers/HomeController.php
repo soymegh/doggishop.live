@@ -112,7 +112,7 @@ class HomeController extends Controller
         ->first();
 
         $payment_types = payment_type::all();
-        $departments = Departments::all();
+
         $subtotal = 0;
         $totalPaid = 0;
         $iva = 0.15;
@@ -147,10 +147,10 @@ class HomeController extends Controller
 
 
 
-            return view('guest.car', compact('products', 'payment_types', 'departments' ,'totalPaid', 'subtotal', 'discounts', 'iva'));
+            return view('guest.car', compact('products', 'payment_types', 'totalPaid', 'subtotal', 'discounts', 'iva'));
 
         } else {
-            return view('guest.car', compact('payment_types', 'departments','totalPaid', 'subtotal','discounts', 'iva'));
+            return view('guest.car', compact('payment_types', 'totalPaid', 'subtotal','discounts', 'iva'));
         }
 
 
@@ -186,6 +186,9 @@ class HomeController extends Controller
         $bill = new Bill();
         $user_id = reset($cart)['user_id'];
 
+        $bill->name = $request->input('username');
+        $bill->phone = $request->input('phone');
+        $bill->warrant = $request->input('warrant');
         $bill->payment_type_id = $request->payment_type;
         $bill->subtotal = $request->input('subtotal');
         $bill->total = $request->input('total');
@@ -206,8 +209,9 @@ class HomeController extends Controller
             $billDetail->bill_id = $bill->id;
             $billDetail->product_id = $id;
             $billDetail->amount = $product['quantity'];
-            $billDetail->price = $product['price'];
-            $billDetail->subtotal = $product['price'] * $product['quantity'];
+            $billDetail->price = $product['product']['price'];
+            $billDetail->subtotal = $product['product']['price'] * $product['quantity'];
+
             $billDetail->save();
         }
 
@@ -222,7 +226,8 @@ class HomeController extends Controller
 
         $shipping->date_shipping = date_create('now')->format('Y-m-d H:i:s');
         $shipping->address = $request->address;
-        $shipping->city = $request->cities;
+        $shipping->departments_id = $request->departments;
+        $shipping->municipalities_id = $request->municipalities;
         $shipping->user_id = $user_id;
         $shipping->bill_id = $bill->id;
         $shipping->save();
@@ -237,16 +242,13 @@ class HomeController extends Controller
         $inventary->date = date('Y-m-d');
         $inventary->product_id = $id;
         $inventary->quantity = $product['quantity'];
-        $inventary->price = $product['price'];
-        $inventary->description = $product['description'];
+        $inventary->price = $product['product']['price'];
+        $inventary->description = $product['product']['description'];
         $inventary->user_id = $product['user_id'];
         $inventary->save();
     }
 
-    function getMunicipalities($id) {
-        $municipalities = Municipalities::where('country_id', $id)->get();
-        return response()->json($municipalities);
-    }
+
 
 
 }

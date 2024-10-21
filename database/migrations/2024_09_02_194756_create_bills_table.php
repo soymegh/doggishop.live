@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('bills', function (Blueprint $table) {
             $table->id();
+            $table->string('name', 64);
+            $table->string('phone', 8);
+            $table->string('warrant', 64);
             $table->decimal('subtotal', 10, 0);
             $table->decimal('total',10, 0);
             $table->dateTime('bill_date');

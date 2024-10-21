@@ -11,5 +11,7 @@ class Bill extends Model
 
     use HasFactory;
 
-    protected $fillable = ['total','bill_date','payment_type_id','user_id'];
+    protected $fillable = ['name', 'phone', 'warrant',
+    'subtotal', 'total', 'bill_date',
+    'payment_type_id', 'user_id'];
 }
