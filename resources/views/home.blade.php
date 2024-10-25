@@ -48,7 +48,8 @@
 </style>
 <div class="container-fluid">
     <div class="row mt-4 mx-4">
-
+        <h2>Catalogos</h2>
+        <div class="border mb-4"></div>
         <!-- Categorías -->
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card card-yellow">
@@ -59,29 +60,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Mascotas -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card card-blue">
-                <div class="card-body">
-                    <h5 class="card-title text-center">Mascotas</h5>
-                    <p class="card-text">Registros: {{$petCount}}</p>
-                    <a href="{{route('pets.index')}}" class="btn btn-sm btn-light d-block mx-auto">Ver</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Productos -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card card-yellow">
-                <div class="card-body">
-                    <h5 class="card-title text-center">Productos</h5>
-                    <p class="card-text">Registros: {{$productCount}}</p>
-                    <a href="{{route('products.index')}}" class="btn btn-sm btn-light d-block mx-auto">Ver</a>
-                </div>
-            </div>
-        </div>
-
         <!-- Tipos de Mascotas -->
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card card-blue">
@@ -93,9 +71,42 @@
             </div>
         </div>
 
-        <!-- Proveedores -->
+        <!-- Payment -->
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card card-yellow">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Tipos de pago</h5>
+                    <p class="card-text">Registros: {{$paymentType}}</p>
+                    <a href="{{route('payment_type.index')}}" class="btn btn-sm btn-light d-block mx-auto">Ver</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Productos -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card card-blue">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Productos</h5>
+                    <p class="card-text">Registros: {{$productCount}}</p>
+                    <a href="{{route('products.index')}}" class="btn btn-sm btn-light d-block mx-auto">Ver</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mascotas -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card card-yellow">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Mascotas</h5>
+                    <p class="card-text">Registros: {{$petCount}}</p>
+                    <a href="{{route('pets.index')}}" class="btn btn-sm btn-light d-block mx-auto">Ver</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Proveedores -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card card-blue">
                 <div class="card-body">
                     <h5 class="card-title text-center">Proveedores</h5>
                     <p class="card-text">Registros: {{$providerCount}}</p>
@@ -103,6 +114,15 @@
                 </div>
             </div>
         </div>
+        
+        <h2 class="pt-3">Registros</h2>
+        <div class="border mb-4"></div>
+        
+
+
+        
+
+        
 
         <!-- Blog -->
         <div class="col-xl-3 col-md-6 mb-4">
@@ -130,23 +150,22 @@
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card card-blue">
                 <div class="card-body">
-                    <h5 class="card-title text-center">Tipos de pago</h5>
-                    <p class="card-text">Registros: {{$paymentType}}</p>
-                    <a href="{{route('payment_type.index')}}" class="btn btn-sm btn-light d-block mx-auto">Ver</a>
-                </div>
-            </div>
-        </div>
-        <!-- Payment -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card card-yellow">
-                <div class="card-body">
                     <h5 class="card-title text-center">Facturas</h5>
                     <p class="card-text">Registros: {{$billCount}}</p>
                     <a href="{{route('bills.index')}}" class="btn btn-sm btn-light d-block mx-auto">Ver</a>
                 </div>
             </div>
         </div>
-
+        <!-- Usuarios -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card card-yellow">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Descuentos</h5>
+                    <p class="card-text">Registros: {{$discountsCount}}</p>
+                    <a href="{{route('admin.index')}}" class="btn btn-sm btn-light d-block mx-auto">Ver</a>
+                </div>
+            </div>
+        </div>
         <!-- Inventario 
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card card-blue">
@@ -163,8 +182,5 @@
     </div>
 </div>
 
-<div class="mt-5 pt-5 pb-3">
-    
-</div>
 
 @endsection
