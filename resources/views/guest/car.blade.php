@@ -154,7 +154,7 @@
 
                                         <div class="form-check">
                                             <input onclick="toggleDiv()" class="form-check-input" type="radio"
-                                                value="show" name="option" id="rbl1">
+                                                value="show" name="option" id="rbl1" checked>
                                             <label class="form-check-label" for="rbl1">
                                                 Si
                                             </label>

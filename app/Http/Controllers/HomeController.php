@@ -222,6 +222,13 @@ class HomeController extends Controller
     function saveShipping(Bill $bill, Request $request, $user_id) {
 
         $shipping = new Shipping();
+        $satus = "";
+
+        if ($request->option == "show"){
+            $satus = "Requiere Envio";
+        } elseif ($request->option == "hide") {
+            $satus = "No Requiere Envio";
+        }
 
 
         $shipping->date_shipping = date_create('now')->format('Y-m-d H:i:s');
@@ -230,6 +237,8 @@ class HomeController extends Controller
         $shipping->municipalities_id = $request->municipalities;
         $shipping->user_id = $user_id;
         $shipping->bill_id = $bill->id;
+        $shipping->status = $satus;
+
         $shipping->save();
 
     }

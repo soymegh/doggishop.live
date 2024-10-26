@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreignId('departments_id')->constrained('departments');
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('bill_id')->constrained('bills');
+            $table->string('status', 45);
         });
     }
 
