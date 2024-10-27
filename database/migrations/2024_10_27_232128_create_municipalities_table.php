@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name', 45);
             $table->foreignId('departments_id')->constrained('departments');
         });
+
     }
 
     /**

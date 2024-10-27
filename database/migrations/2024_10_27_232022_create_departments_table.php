@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', 45);
         });
-        
+
         \App\Models\Departments::factory()->createMany([
             ['name'=>'Boaco'],
             ['name'=>'Carazo'],
@@ -32,6 +32,7 @@ return new class extends Migration
             ['name'=>'Rivas'],
             ['name'=>'Río San Juan'],
         ]);
+
     }
 
     /**
