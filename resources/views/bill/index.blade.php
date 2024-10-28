@@ -30,7 +30,17 @@
                         <div class="col-md-10">
                             <h5 class="card-title text-left">{{ $e->bill_date }}</h5>
                             <p class="card-title text-left"><b>Nombre del cliente:</b> {{$user->where('id','==',$e->user_id)->first()->name}}</p>
-                            <p class="card-title text-left"><b>Dirección de envío:</b> {{$shipment->where('bill_id','==',$e->id)->first()->city}}, {{$shipment->where('bill_id','==',$e->id)->first()->address}}</p>
+
+                            @if (count($shipment->where('bill_id','==',$e->id)) != 0)
+                                @php
+                                 $envio = $shipment->where('bill_id','==',$e->id)->first()
+                                @endphp
+
+                                <p class="card-title text-left"><b>Dirección de envío:</b> {{$departments->where('id','==', $envio->departments_id )->first()->name}}, {{$municipalities->where('id','==', $envio->municipalities_id )->first()->name}}. {{$envio->address}}. </p>
+                            @else
+                                <p class="card-title text-left text-danger"><b>Pick up en el local</b></p>
+                            @endif
+                            
                         </div>
                         </div>
                         
@@ -49,8 +59,11 @@
             </div>
             <div class="modal-body">
                 <p class="card-title text-left"><b>Nombre del cliente:</b> {{$user->where('id','==',$e->user_id)->first()->name}}</p>
-                <p class="card-title text-left"><b>Dirección de envío:</b> {{$shipment->where('bill_id','==',$e->id)->first()->city}}, {{$shipment->where('bill_id','==',$e->id)->first()->address}}</p>
-
+                @if (count($shipment->where('bill_id','==',$e->id))!= 0)
+                    <p class="card-title text-left"><b>Dirección de envío:</b> {{$departments->where('id','==', $envio->departments_id )->first()->name}}, {{$municipalities->where('id','==', $envio->municipalities_id )->first()->name}}. {{$envio->address}}. </p>
+                @else
+                <p class="card-title text-left text-danger"><b>Pick up en el local</b></p>
+                @endif
                 <div class="border-top p-0 m-0"></div>
 
                 @foreach ( $bill_details as $bd)
