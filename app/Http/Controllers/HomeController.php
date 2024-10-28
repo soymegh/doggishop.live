@@ -164,9 +164,18 @@ class HomeController extends Controller
 
         $user_id = reset($cart)['user_id'];
 
-        $bill = $this->saveBill($cart, $request);
-        $this->saveBillDetails($bill, $cart);
-        $this->saveShipping($bill, $request, $user_id);
+        if ($request->option == "show"){
+
+            $bill = $this->saveBill($cart, $request);
+            $this->saveBillDetails($bill, $cart);
+            $this->saveShipping($bill, $request, $user_id);
+
+        } elseif ($request->option == "hide") {
+            $bill = $this->saveBill($cart, $request);
+            $this->saveBillDetails($bill, $cart);
+        }
+
+
 
         foreach ($cart as $id => $product) {
 
@@ -224,13 +233,7 @@ class HomeController extends Controller
     function saveShipping(Bill $bill, Request $request, $user_id) {
 
         $shipping = new Shipping();
-        $satus = "";
 
-        if ($request->option == "show"){
-            $satus = "Requiere Envio";
-        } elseif ($request->option == "hide") {
-            $satus = "No Requiere Envio";
-        }
 
 
         $shipping->date_shipping = date_create('now')->format('Y-m-d H:i:s');
@@ -239,7 +242,6 @@ class HomeController extends Controller
         $shipping->municipalities_id = $request->municipalities;
         $shipping->user_id = $user_id;
         $shipping->bill_id = $bill->id;
-        $shipping->status = $satus;
 
         $shipping->save();
 

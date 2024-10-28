@@ -13,13 +13,12 @@ return new class extends Migration
     {
         Schema::create('shippings', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('date_shipping')->nullable();
-            $table->string('address', 256)->nullable();
-            $table->foreignId('municipalities_id')->nullable()->constrained('municipalities');
-            $table->foreignId('departments_id')->nullable()->constrained('departments');
+            $table->dateTime('date_shipping');
+            $table->string('address', 256);
+            $table->foreignId('municipalities_id')->constrained('municipalities');
+            $table->foreignId('departments_id')->constrained('departments');
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('bill_id')->constrained('bills');
-            $table->string('status', 45);
         });
     }
 
