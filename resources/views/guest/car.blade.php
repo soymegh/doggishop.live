@@ -204,7 +204,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
                                             <label for="address">Dirección</label>
-                                            <input type="text" name="address" id="address" class="form-control">
+                                            <input type="text" name="address" id="address" class="form-control if-required" required>
                                         </div>
                                     </div>
                                     <!--Dropdowns de departmentos y municipios -->
@@ -213,7 +213,7 @@
 
                                 <button type="button" class="btn btn-secondary prev-step">Anterior</button>
 
-                                <button class="btn btn-success" type="submit">Finalizar Compras</button>
+                                <button  class="btn btn-success" type="submit">Finalizar Compras</button>
                             </div>
                         
                         
@@ -265,6 +265,8 @@
 
     <script>
         function toggleDiv() {
+            const conditional_required = document.querySelectorAll(".if-required");
+
             // Obtener el radio button seleccionado
             var selectedOption = document.querySelector('input[name="option"]:checked');
 
@@ -275,9 +277,20 @@
 
                 // Mostrar u ocultar el div según el valor del radio button
                 if (showDiv === 'show') {
-                    div.style.display = '';
+                    //Cambiar inputs / selects a required
+                    conditional_required.forEach((input)=>{
+                        input.setAttribute('required', '');
+                    });
+
+                    div.style.display = '';                    
                 } else {
+                    //Quitar en inputs / selects el required
+                    conditional_required.forEach((input)=>{
+                        input.removeAttribute('required', '');
+                    });
                     div.style.display = 'none';
+
+                    
                 }
             }
         }
@@ -327,7 +340,6 @@ $(document).ready(function() {
         }
         });
 
-
         if(valid){
             steps[currentStep].classList.remove("active");
             steps[currentStep].classList.add("inactive");
@@ -335,8 +347,7 @@ $(document).ready(function() {
             steps[currentStep].classList.remove("inactive");
             steps[currentStep].classList.add("active");
             updateProgressBar();
-        }
-
+        }       
         
     });
     });
@@ -350,8 +361,9 @@ $(document).ready(function() {
         steps[currentStep].classList.add("active");
         updateProgressBar();
     });
-    });
 
+    });
+    
     function updateProgressBar() {
     const progress = ((currentStep + 1) / steps.length) * 100;
     progressBar.style.width = `${progress}%`;
