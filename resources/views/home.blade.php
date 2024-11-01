@@ -162,7 +162,7 @@
                 <div class="card-body">
                     <h5 class="card-title text-center">Descuentos</h5>
                     <p class="card-text">Registros: {{$discountsCount}}</p>
-                    <a href="{{route('admin.index')}}" class="btn btn-sm btn-light d-block mx-auto">Ver</a>
+                    <a href="{{route('discounts.index')}}" class="btn btn-sm btn-light d-block mx-auto">Ver</a>
                 </div>
             </div>
         </div>

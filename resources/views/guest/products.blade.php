@@ -1,10 +1,9 @@
 @php
 if(Route::current()->uri()=='categoria/{id}'):
-    $search = "home.category";
-    $id = $products[0]->category_id;
+    $search = "home.category";      
 else:
     $search = "home.products";
-endif
+endif;
 @endphp
 
 @extends('components.guest-design', ['title'=>'Productos', 'search'=>$search])
@@ -26,7 +25,16 @@ endif
                 
                 <h5 class="card-title fw-bold text-dark">{{ $e->name }}</h5>
                 <p class="card-text text-muted">{{ Str::limit($e->description, 30) }}</p>
-                <p class="card-text text-primary fw-semibold">Precio: ${{ $e->price }}</p>
+                <p class="card-text  fw-semibold">Precio:
+
+                        @if ($e->price_discounted)
+                            <del class="text-danger fw-semibold">${{ $e->price }}</del>
+                            <span class="text-success fw-semibold">${{ $e->new_price }}</span>
+
+                        @elseif ($e->price) {{$e->price }}
+                        @endif
+
+                    </p>
 
                 <a href="#" data-bs-toggle="modal" data-bs-target="#viewProd{{$e->id}}" title="Detalles de mascota" class="btn btn-outline-info rounded-pill my-auto"><i class="fa-regular fa-xl fa-eye mr-2"></i>Ver detalles</a>
                 <div class="border-bottom my-3" ></div>

@@ -44,7 +44,7 @@ class GuestController extends Controller
         try {
             
             $products = $discountServices->applyDiscountProductsByCategory($request, $id);
-            return view('guest.products', compact('products'));
+            return view('guest.products', compact('products', 'id'));
             
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());

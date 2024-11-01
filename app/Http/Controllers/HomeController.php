@@ -20,6 +20,7 @@ use App\Models\Shipping;
 use App\Models\User;
 use App\Services\DiscountService;
 use Psy\CodeCleaner\ReturnTypePass;
+use Symfony\Component\HttpKernel\DataCollector\RequestDataCollector;
 
 class HomeController extends Controller
 {
@@ -66,16 +67,15 @@ class HomeController extends Controller
                 break;
 
             case 'guest':
-
-
-
+                
                 $posts = Blog::orderBy('created_at', 'desc')->get();
                 //$mascotas = Pet::orderBy('created_at', 'desc')->paginate(6);
                 $discounts = new DiscountService();
+                
                 $mascotas = $discounts->applyDiscountPets();
-                $productos = Product::orderBy('created_at', 'desc')->paginate(6);
+                $products_discounts = $discounts->discountProductsDirect();
 
-                return view('guest.index', compact('posts', 'mascotas', 'productos'));
+                return view('guest.index', compact('posts', 'mascotas', 'products_discounts'));
 
                 break;
             default:
