@@ -126,20 +126,23 @@ class HomeController extends Controller
 
             $products = Inventary::where('user_id', $user_id)->get();
 
-            foreach ($cart as $key => $item) {
-                $subtotal += $item['product']['price'] * $item['quantity'];
-            }
-
-
-
-
             if ($discounts) {
-                $subtotal =  $subtotal - ($subtotal * ($discounts->discount / 100));
+                foreach ($cart as $key => $item) {
+                    $pro_with_discount = $item['product']['price'] - ($item['product']['price'] * ($discounts->discount / 100));
+                    $subtotal += $pro_with_discount     * $item['quantity'];
+                }
+
+            } else {
+
+                foreach ($cart as $key => $item) {
+                    $subtotal += $item['product']['price'] * $item['quantity'];
+                }
+
 
             }
 
 
-            $totalPaid = $subtotal + ($subtotal * ($iva / 100));
+            $totalPaid = $subtotal + ($subtotal * ($iva));
 
             $totalPaid = round($totalPaid,2);
             $subtotal = round($subtotal,2);
