@@ -40,7 +40,7 @@ endif;
                 <div class="border-bottom my-3" ></div>
                 
                 
-                
+                @if ($e->stock >0)
                 <form action="{{ route('inventary.store') }}" method="POST" class="d-inline-block">
                 @csrf
                     <input type="hidden" name="product_id" value="{{ $e->id }}">
@@ -51,6 +51,10 @@ endif;
                         <button type="submit" class="btn btn-outline-success btn-sm rounded-pill"><i class="fa-solid fa-cart-shopping fa-xl mx-2 my-3"></i>Agregar a carrito</button>
                     </div>
                 </form>
+                @else
+                <b class="text-danger">No hay existencias</b>
+                @endif
+                
 
             </div>
 

@@ -75,6 +75,27 @@ class HomeController extends Controller
                 $mascotas = $discounts->applyDiscountPets();
                 $products_discounts = $discounts->discountProductsDirect();
 
+
+                //Retrieve stocks
+                $records = Inventary::all();
+                foreach ($products_discounts as $product) {
+                    
+
+                    $total = 0;
+                    foreach ($records as $record) {
+                        if($record->product_id == $product->id){
+                            if ($record->description == 'Entrada') {
+                                $total += $record->quantity;
+                            } else {
+                                $total -= $record->quantity;
+                            }
+                        }
+                        
+                    }
+
+                    $product->stock = $total;
+                }
+                
                 return view('guest.index', compact('posts', 'mascotas', 'products_discounts'));
 
                 break;

@@ -15,6 +15,11 @@
         .inactive {
             display: none;
         }
+        .cart-empty{
+            height: 240px;
+            width: auto;
+            max-width: fit-content;
+        }
     </style>
 
     <div class="container">
@@ -88,7 +93,8 @@
             </div>
             @else
             <div class="row mb-4">
-                <h1>No tienes productos comprados, ve al dashboard y compra productos</h1>
+                <img  class="cart-empty rounded mx-auto d-block" src="{{ asset('images/cartempty.png') }}" alt="El carrito está vacio"/>
+                <b class="fs-5 text-danger text-center">No tienes productos comprados, ve al dashboard y compra productos</b>
             </div>
 
         @endif

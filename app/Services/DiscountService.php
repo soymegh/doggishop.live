@@ -92,11 +92,11 @@ class DiscountService
             ->get();
 
         
-        if($request){
+        if($request->get('search')){
             $products = Product::whereAny(['name','description','price'],'LIKE','%'.$request->get('search').'%')->where('category_id', $id)
             ->paginate(6);
         }else{
-            $products = Product::where('category_id', $id)->paginate(6);
+            $products = Product::where('category_id',$id)->paginate(6);
         }
 
         if ($discounts->count() > 0) {
@@ -105,8 +105,6 @@ class DiscountService
                 $product->price_discounted = ($product->price * ($discounts[0]->discount/100));
                 $product->new_price = $product->price - ($product->price * ($discounts[0]->discount/100));
             }
-        }else{
-            return $id;
         }
 
         return $products;

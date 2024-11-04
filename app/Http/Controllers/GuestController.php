@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Inventary;
 use Illuminate\Http\Request;
 use App\Models\Pet;
 use App\Models\Product;
@@ -31,6 +32,25 @@ class GuestController extends Controller
 
         try {
             $products = $discountServices->applyDiscountProducts($request);
+
+            //Retrieve stocks
+            $records = Inventary::all();
+            foreach ($products as $product) {
+                $total = 0;
+                foreach ($records as $record) {
+                    if($record->product_id == $product->id){
+                        if ($record->description == 'Entrada') {
+                            $total += $record->quantity;
+                        } else {
+                            $total -= $record->quantity;
+                        }
+                    }
+                    
+                }
+
+                $product->stock = $total;
+            }
+
             return view('guest.products', compact('products'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error al obtener los productos');
@@ -42,8 +62,26 @@ class GuestController extends Controller
         $discountServices = new DiscountService();
 
         try {
-            
-            $products = $discountServices->applyDiscountProductsByCategory($request, $id);
+            $products = $discountServices->applyDiscountProductsByCategory($request,$id);
+            //Retrieve stocks
+            $records = Inventary::all();
+            foreach ($products as $product) {
+                
+
+                $total = 0;
+                foreach ($records as $record) {
+                    if($record->product_id == $product->id){
+                        if ($record->description == 'Entrada') {
+                            $total += $record->quantity;
+                        } else {
+                            $total -= $record->quantity;
+                        }
+                    }
+                    
+                }
+
+                $product->stock = $total;
+            }
             return view('guest.products', compact('products', 'id'));
             
         } catch (\Exception $e) {

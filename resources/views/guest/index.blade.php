@@ -128,17 +128,23 @@
                     <div class="border-bottom my-3" ></div>
 
 
+                    @if ($e->stock)
+                        <form action="{{ route('inventary.store') }}" method="POST" class="d-inline-block">
+                        @csrf
+                            <input type="hidden" name="product_id" value="{{ $e->id }}">
+                            <input type="hidden" name="price" value="{{ $e->price }}">
+                            <input type="hidden" name="description" value="Salida">
+                            <div class="d-flex justify-content-center align-items-center mb-2">
+                                <input type="number" name="quantity" value="1" class="form-control form-control-sm text-center me-2" style="width: 60px;" min="1" required>
+                                <button type="submit" class="btn btn-outline-success btn-sm rounded-pill"><i class="fa-solid fa-cart-shopping fa-xl mx-2 my-3"></i>Agregar a carrito</button>
+                            </div>
+                        </form>
+                    @else
+                        <b class="text-danger">No hay existencias</b>
+                    @endif
 
-                    <form action="{{ route('inventary.store') }}" method="POST" class="d-inline-block">
-                    @csrf
-                        <input type="hidden" name="product_id" value="{{ $e->id }}">
-                        <input type="hidden" name="price" value="{{ $e->price }}">
-                        <input type="hidden" name="description" value="Salida">
-                        <div class="d-flex justify-content-center align-items-center mb-2">
-                            <input type="number" name="quantity" value="1" class="form-control form-control-sm text-center me-2" style="width: 60px;" min="1" required>
-                            <button type="submit" class="btn btn-outline-success btn-sm rounded-pill"><i class="fa-solid fa-cart-shopping fa-xl mx-2 my-3"></i>Agregar a carrito</button>
-                        </div>
-                    </form>
+
+                    
 
                 </div>
 
