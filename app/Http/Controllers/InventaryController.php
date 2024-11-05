@@ -154,6 +154,7 @@ class InventaryController extends Controller
             if (isset($cart[$id])) {
 
                 unset($cart[$id]);
+                //Aqui reparacion del redireccionamiento y error de carrito
                 if(count($cart)==0){
                     session()->put('cart',null);
                 }else{
