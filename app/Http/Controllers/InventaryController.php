@@ -162,8 +162,7 @@ class InventaryController extends Controller
         } elseif($id) {
             $product = Inventary::find($id);
             $product->delete();
-            return redirect()->route('inventary.index')->with('success', 'Inventario eliminado correctamente');
+            return redirect()->back()->with('success', 'Inventario eliminado correctamente');
         }
-        return back();
     }
 }
