@@ -68,12 +68,20 @@ class ProductController extends Controller
             $product->description = $request->description;
             $product->size = $request->size;
             $product->price = $request->price;
-            $product->stock = $request->stock;
+            
             $product->pet_type_id = $request->pet_type_id;
             $product->category_id = $request->category_id;
             $product->provider_id = $request->provider_id;
+
+            
             $product->save();
-            $this->saveInv($product);
+            if($request->stock){
+                $product->stock = $request->stock;    
+                $this->saveInv($product);
+            }else{
+                $product->stock = 0;
+            }
+            
 
             if ($request->hasFile('img_url')) {
                 $id = $product->id;
