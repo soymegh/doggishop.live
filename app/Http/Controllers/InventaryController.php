@@ -168,5 +168,7 @@ class InventaryController extends Controller
             $product->delete();
             return redirect()->back()->with('success', 'Se ha eliminado de su carrito');
         }
+
+        return redirect()->back()->with('success', 'Producto eliminado correctamente');
     }
 }
