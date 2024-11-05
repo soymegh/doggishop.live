@@ -29,11 +29,11 @@ class InventaryController extends Controller
     public function create()
     {
         //
-        if(auth()->user()->role != 'guest'){
+        if (auth()->user()->role != 'guest') {
 
-        $products = Product::all();
-        return view('inventary.create', compact('products'));
-        }else{
+            $products = Product::all();
+            return view('inventary.create', compact('products'));
+        } else {
             return redirect()->route('welcome');
         }
     }
@@ -56,14 +56,14 @@ class InventaryController extends Controller
 
         $cart = session()->get('cart');
 
-        $product = Product::Where('id',$request->product_id)->first();
+        $product = Product::Where('id', $request->product_id)->first();
 
         if (!$cart) {
             $cart = [
                 $request->product_id => [
                     "date" => date('Y-m-d'),
                     "product" => $product,
-                    "quantity"=> $request->quantity,
+                    "quantity" => $request->quantity,
                     "user_id" => auth()->id(),
 
                 ]
@@ -72,23 +72,21 @@ class InventaryController extends Controller
             session()->put('cart', $cart);
 
             return redirect()->back()->with('success', 'Registro guardado correctamente');
-
         }
 
-        if(isset($cart[$request->product_id])) {
-            $cart[$request->product_id]['quantity']+= $request->quantity;
+        if (isset($cart[$request->product_id])) {
+            $cart[$request->product_id]['quantity'] += $request->quantity;
 
             session()->put('cart', $cart);
 
             return redirect()->back()->with('success', 'Registro guardado correctamente');
-
         }
 
 
-        $cart[ $request->product_id ] = [
+        $cart[$request->product_id] = [
             "date" => date('Y-m-d'),
             "product" => $product,
-            "quantity"=> $request->quantity,
+            "quantity" => $request->quantity,
             "user_id" => auth()->id(),
         ];
 
@@ -97,8 +95,6 @@ class InventaryController extends Controller
 
         //mandar un mensaje de confirmacion
         return redirect()->back()->with('success', 'Registro guardado correctamente');
-
-
     }
 
     /**
@@ -108,8 +104,7 @@ class InventaryController extends Controller
     {
         //
         $products = Inventary::where('product_id', $id)->get();
-        return view('inventary.show', compact('products','id'));
-
+        return view('inventary.show', compact('products', 'id'));
     }
 
     /**
@@ -120,14 +115,13 @@ class InventaryController extends Controller
         if (auth()->user()->role != 'admin') {
             return redirect()->route('welcome');
         }
-        try{
+        try {
             $products = Product::all();
             $item = Product::find($id);
-            return view('inventary.edit', compact('item','products'));
-        }catch(\Exception $e){
+            return view('inventary.edit', compact('item', 'products'));
+        } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }
-
     }
 
     /**
@@ -144,7 +138,7 @@ class InventaryController extends Controller
         $product->description = $request->description;
         $product->user_id = auth()->id();
         $product->save();
-        return redirect()->route('inventary.show',$id);
+        return redirect()->route('inventary.show', $id);
     }
 
     /**
@@ -152,27 +146,24 @@ class InventaryController extends Controller
      */
     public function destroy($id)
     {
-        if($id) {
 
-            $cart = session()->get('cart');
+        $cart = session()->get('cart');
 
-            if(isset($cart[$id])) {
+        if ($id && isset($cart)) {
+
+            if (isset($cart[$id])) {
 
                 unset($cart[$id]);
 
                 session()->put('cart', $cart);
             }
 
-
-
             session()->flash('success', 'Product removed successfully');
+        } elseif($id) {
+            $product = Inventary::find($id);
+            $product->delete();
+            return redirect()->route('inventary.index')->with('success', 'Inventario eliminado correctamente');
         }
-
         return back();
-
-        // //
-        // $product = Inventary::find($id);
-        // $product->delete();
-        // return redirect()->route('inventary.index');
     }
 }
