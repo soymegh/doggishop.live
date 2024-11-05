@@ -62,7 +62,7 @@ class ProviderController extends Controller
             $provider->attendant = $request->attendant;
             $provider->email = $request->email;
             $provider->phone = $request->phone;
-            $provider->website = $provider->website;
+            $provider->website = $request->website;
             $provider->save();
         
             if ($request->hasFile('img_url')) {
@@ -73,7 +73,7 @@ class ProviderController extends Controller
                 $provider->save();
             }
 
-            return redirect()->route('providers.index');
+            return redirect()->route('providers.index')->with('success', 'Proveedor ingresado correctamente');
         }catch(\Exception $e){
             return redirect()->back()->with('error', 'Error al guardar el proveedor');
         }

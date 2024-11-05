@@ -38,13 +38,17 @@ class AdminController extends Controller
     public function store(Request $request)
     {
         //
+        try{
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
         $user->role= $request->role;
         $user->save();
-        return redirect()->route('admin.index');
+        return redirect()->route('admin.index')->with('success', 'Se ha ingresado el usuario correctamente');
+        }catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Error al ingresar el nuevo usuario');
+        }
         
     }
 
@@ -75,13 +79,17 @@ class AdminController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        try{
         $user = User::find($id);
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
         $user->role= $request->role; 
         $user->save();
-        return redirect()->route('admin.index');
+        return redirect()->route('admin.index')->with('success', 'Se ha actualizado el usuario correctamente');
+        }catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Error al actualizar el usuario');
+        }
     }
 
     /**
@@ -90,9 +98,13 @@ class AdminController extends Controller
     public function destroy(string $id)
     {
         //
+        try{
         $user = User::find($id);
         $user->delete();
-        return redirect()->route('admin.index');
+        return redirect()->route('admin.index')->with('success', 'Se ha eliminado el usuario correctamente');
+        }catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Error al eliminar el usuario');
+        }
         
     }
 }

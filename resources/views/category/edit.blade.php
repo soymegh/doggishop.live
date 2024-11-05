@@ -53,10 +53,23 @@
                     @error('img_url')
                     has-error
                     @enderror">
-                        <label for="img_url">Foto</label>
-                        <img src="{{ asset('images/category/' . $category->img_url) }}" alt="" class="img-thumbnail rounded-circle mx-auto d-block px-2 mb-2" width="150px">
-                        <input type="file" name="img_url" id ="img_url" class="form-control"
-                            value="{{ $category->img_url }}">
+                        <label for="img_url">Imagen</label>
+                        <div class="row">
+                        <div class="col col-sm-2">
+                            @if ($category->img_url)
+                            <img src="{{ asset('images/category/' . $category->img_url) }}" alt="" class="img-thumbnail  mx-auto d-block " width="150px">
+                            @else
+                            <img class="border-mid" src="{{ asset('images/sinfoto.png') }}" alt="No hay una imagen actual disponible">
+                            @endif
+                            
+                        </div> 
+                        <div class="col">
+                        <input type="file" name="img_url" id ="img_url" class="form-control "
+                        value="{{ $category->img_url }}">
+                        </div>   
+                        </div>
+                        
+                        
                     </div>
                     <button type="submit" class="btn btn-success rounded-pill pl-4 pr-4 fw-bold">Guardar</button>
                 </form>

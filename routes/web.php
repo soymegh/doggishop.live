@@ -48,8 +48,12 @@ Route::get('/', function () {
     //$products = $discountServices->applyDiscountProducts()->take(4);
     $categories = Category::all()->take(4);
 
-    //started last week or is going to start next o between
-    $event = Event::whereBetween('start_date', [today()->modify('-1 Week')->toDateTime() , today()->modify('+1 Week')->toDateTime()])->get()->all();
+    //started last week or is going to start next o between and hasn't finished
+    $event = Event::whereBetween('start_date', [today()->modify('-1 Week')->toDateTime() , today()->modify('+1 Week')->toDateTime()])
+    ->where('end_date','>=',today())
+    ->get()->all();
+    
+    
 
     return view('welcome',compact('petTypeInfo', 'blogs', 'pets', 'categories','event'));
 })->name('welcome');

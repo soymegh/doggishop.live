@@ -44,7 +44,7 @@ class PaymentTypeController extends Controller
             $payment_type->description = $request->description;
 
             $payment_type->save();
-            return redirect()->route('payment_type.index');
+            return redirect()->route('payment_type.index')->with('success', 'Tipo de pago ingresado correctamente');
         }catch(\Exception $e){
             return redirect()->back()->with('error', $e->getMessage());
         }
@@ -76,7 +76,7 @@ class PaymentTypeController extends Controller
             $payment_type->description = $request->description;
             
             $payment_type->save();
-            return redirect()->route('payment_type.index');
+            return redirect()->route('payment_type.index')->with('success', 'Tipo de pago actualizado correctamente');
         }catch(\Exception $e){
             return redirect()->back()->with('error', $e->getMessage());
         }
@@ -92,7 +92,7 @@ class PaymentTypeController extends Controller
             $payment_type = payment_type::find($id);
             $payment_type->delete();
 
-            return redirect()->route('payment_type.index');
+            return redirect()->route('payment_type.index')->with('success', 'Tipo de pago eliminado correctamente');
         }catch(\Exception $e){
             return redirect()->back()->with('error', $e->getMessage());
         }

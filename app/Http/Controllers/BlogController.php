@@ -49,13 +49,18 @@ class BlogController extends Controller
         if (auth()->user()->role != 'admin') {
             return redirect()->route('welcome');
         }
+        try{
         $blog = new Blog();
         $blog->title = $request->title;
         $blog->slug = $request->slug;
         $blog->content = $request->content;
         $blog->user_id = auth()->id();
         $blog->save();
-        return redirect()->route('blogs.index');
+        return redirect()->route('blogs.index')->with('success', 'Blog ingresado correctamente');
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Error al intentar ingresar la entrada de Blog');
+        }
     }
 
     /**
@@ -90,14 +95,17 @@ class BlogController extends Controller
         if (auth()->user()->role != 'admin') {
             return redirect()->route('welcome');
         }
+        try{
         $blog = Blog::find($id);
         $blog->title = $request->title;
         $blog->slug = $request->slug;
         $blog->content = $request->content;
         $blog->user_id = auth()->id();
         $blog->save();
-        return redirect()->route('blogs.index');
-        
+        return redirect()->route('blogs.index')->with('success', 'Blog actualizado correctamente');
+        }catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Error al actualizar la entrada de Blog');
+        }
     }
 
     /**
@@ -106,12 +114,17 @@ class BlogController extends Controller
     public function destroy(string $id)
     {
         //
+        try{
         if (auth()->user()->role != 'admin') {
             return redirect()->route('welcome');
         }
+
         $blog = Blog::find($id);
         $blog->delete();
-        return redirect()->route('blogs.index');
+        return redirect()->route('blogs.index')->with('success', 'Blog eliminado correctamente');
+        }catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Error al intentar eliminar la entrada de Blog');
+        }
     }
 
     public function posts()

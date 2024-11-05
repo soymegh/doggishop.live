@@ -75,7 +75,7 @@ class PetController extends Controller
                 $pet->save();
             }
 
-            return redirect()->route('pets.index');
+            return redirect()->route('pets.index')->with('success', 'Mascota ingresada correctamente');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error al guardar la mascota');
         }
@@ -144,7 +144,7 @@ class PetController extends Controller
             $pet->save();
 
 
-            return redirect()->route('pets.index');
+            return redirect()->route('pets.index')->with('success', 'Mascota actualizada correctamente');;
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error al actualizar la mascota');
         }
@@ -165,7 +165,7 @@ class PetController extends Controller
                 File::delete(public_path('images/pet/' . $pet->img_url));
             }
             $pet->delete();
-            return redirect()->route('pets.index');
+            return redirect()->route('pets.index')->with('success', 'Mascota eliminada correctamente');;
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error al eliminar la mascota');
         }

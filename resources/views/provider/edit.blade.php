@@ -56,13 +56,19 @@
                             <span class="help-block text-danger">{{ $message }} </span>
                         @enderror
                     </div>
-                    <div class="form-group @error('img_url') has-error @enderror">
-                        <label for="img_url">Imagen</label>
-                        <input type="file" name="img_url" id="img_url" class="form-control"
-                            value="{{ $provider->img_url }}" accept="image/*">
-                        @error('img_url')
-                            <span class="help-block text-danger">{{ $message }} </span>
-                        @enderror
+                    <div class="row form-group  @error('img_url') has-error @enderror">
+                        <label for="img_url">{{ __('Foto') }} </label>
+                        <div class="col col-sm-2">
+                            @if ($provider->img_url)
+                                <img src="{{ asset('images/provider/' . $provider->img_url) }}" alt="" class="img-thumbnail  mx-auto my-auto d-block " width="150px">
+                            @else
+                                <img class="border-mid" src="{{ asset('images/sinfoto.png') }}" alt="No hay una imagen actual disponible">
+                            @endif
+                            
+                        </div> 
+                        <div class="col">
+                            <input type="file" name="img_url" id="img_url" accept="image/*" class="form-control">
+                        </div>   
                     </div>
                     <button type="submit" class="btn btn-primary">Guardar</button>
                 </form>

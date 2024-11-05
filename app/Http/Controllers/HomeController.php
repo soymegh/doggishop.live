@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bill;
+use App\Models\Event;
 use App\Models\Bill_Detail;
+
 use Illuminate\Http\Request;
 use App\Models\Pet;
 use App\Models\Category;
@@ -49,7 +51,8 @@ class HomeController extends Controller
                 $historyCount = Inventary::count();
                 $billCount = Bill::count();
                 $discountsCount = Discount::count();
-                return view('home', compact('discountsCount','paymentType','petCount', 'categoryCount', 'productCount', 'petTypeCount', 'providerCount', 'blogCount', 'userCount', 'historyCount','billCount'));
+                $eventsCount = Event::count();
+                return view('home', compact('eventsCount','discountsCount','paymentType','petCount', 'categoryCount', 'productCount', 'petTypeCount', 'providerCount', 'blogCount', 'userCount', 'historyCount','billCount'));
                 break;
             case 'user':
                 $petCount = Pet::count();
@@ -63,7 +66,8 @@ class HomeController extends Controller
                 $historyCount = Inventary::count();
                 $billCount = Bill::count();
                 $discountsCount = Discount::count();
-                return view('home', compact('discountsCount','billCount','paymentType','petCount', 'categoryCount', 'productCount', 'petTypeCount', 'providerCount', 'blogCount', 'userCount', 'historyCount'));
+                $eventsCount = Event::count();
+                return view('home', compact('eventsCount','discountsCount','billCount','paymentType','petCount', 'categoryCount', 'productCount', 'petTypeCount', 'providerCount', 'blogCount', 'userCount', 'historyCount'));
                 break;
 
             case 'guest':

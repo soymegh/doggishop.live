@@ -43,7 +43,7 @@ class CategoryController extends Controller
         if (auth()->user()->role != 'admin') {
             return redirect()->route('welcome');
         }
-
+        try{
         $category = new Category();
         $category->name = $request->name;
         $category->description = $request->description;
@@ -60,7 +60,12 @@ class CategoryController extends Controller
             $category->save();
         }
 
-        return redirect()->route('categories.index');
+        return redirect()->route('categories.index')->with('success', 'Categoria ingresada correctamente');
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
+        
     }
 
     /**
@@ -98,27 +103,33 @@ class CategoryController extends Controller
         if (auth()->user()->role != 'admin') {
             return redirect()->route('welcome');
         }
-        $category = Category::find($id);
-        $category->name = $request->name;
-        $category->description = $request->description;
 
-        if ($request->hasFile('img_url')) {
-            // Delete the previous image, if it exists
-            if (!empty($category->img_url) && file_exists(public_path('images/category/' . $category->img_url))) {
-                File::delete(public_path('images/category/' . $category->img_url));
+        try {
+            
+            $category = Category::find($id);
+            $category->name = $request->name;
+            $category->description = $request->description;
+
+            if ($request->hasFile('img_url')) {
+                // Delete the previous image, if it exists
+                if (!empty($category->img_url) && file_exists(public_path('images/category/' . $category->img_url))) {
+                    File::delete(public_path('images/category/' . $category->img_url));
+                }
+
+                // Generate a new image name using the ID
+                $imageName = $id . '.' . $request->img_url->extension();
+                // Move the new image to the desired location
+                $request->img_url->move(public_path('images/category'), $imageName);
+                // Assign the new image name to the blog
+                $category->img_url = $imageName;
             }
 
-            // Generate a new image name using the ID
-            $imageName = $id . '.' . $request->img_url->extension();
-            // Move the new image to the desired location
-            $request->img_url->move(public_path('images/category'), $imageName);
-            // Assign the new image name to the blog
-            $category->img_url = $imageName;
+            $category->save();
+
+            return redirect()->route('categories.index')->with('success', 'Categoria actualizada correctamente');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
         }
-
-        $category->save();
-
-        return redirect()->route('categories.index');
     }
 
     /**
@@ -140,9 +151,9 @@ class CategoryController extends Controller
         }
 
         $category->delete();
-        return redirect()->route('category.index');
+        return redirect()->route('categories.index')->with('success', 'Categoria eliminada correctamente');
         }catch(\Exception $e){
-            return redirect()->back()->with('error', "Código ".$e->getCode());
+            return redirect()->back()->with('error', $e->getMessage());
         }
         
     }

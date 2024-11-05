@@ -65,7 +65,7 @@ class PetTypeController extends Controller
                 $petType->img_url = $imageName;
                 $petType->save();
             }
-            return redirect()->route('pet_type.index');
+            return redirect()->route('pet_type.index')->with('success', 'Tipo de mascota ingresado correctamente');
         }catch(\Exception $e){
             return redirect()->back()->with('error', $e->getMessage());
         }
@@ -130,7 +130,7 @@ class PetTypeController extends Controller
             }
 
             $petType->save();
-            return redirect()->route('pet_type.index');
+            return redirect()->route('pet_type.index')->with('success', 'Tipo de mascota actualizado correctamente');
         }catch(\Exception $e){
             return redirect()->back()->with('error', $e->getMessage());
         }
@@ -151,7 +151,7 @@ class PetTypeController extends Controller
                 File::delete(public_path('images/pet_type/' . $petType->img_url));
             }
             $petType->delete();
-            return redirect()->route('pet_type.index');
+            return redirect()->route('pet_type.index')->with('success', 'Tipo de mascota eliminado correctamente');
         }catch(\Exception $e){
             return redirect()->back()->with('error', $e->getMessage());
         }

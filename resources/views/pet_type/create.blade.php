@@ -74,14 +74,14 @@
                     </a>
                     </div>
                 </div>
-                <form class="mb-4  ml-3 mr-3" action="{{ route('pet_type.store') }}" method="POST" enctype="multipart/form-data">
+                <form class="mb-4  ml-3 mr-3 needs-validation" action="{{ route('pet_type.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group
                         @error('name')
                             has-error
                         @enderror">
                         <label for="name">{{ __('Tipo de Mascota') }}</label>
-                        <input type="text" class="form-control" id="name" name="name">
+                        <input type="text" class="form-control" id="name" name="name" required>
                         @error('name')
                             <span class="help-block text-danger">{{ $message }}</span>
                         @enderror
@@ -92,7 +92,7 @@
                             has-error
                         @enderror">
                         <label for="description">{{ __('Descripcion') }}</label>
-                        <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                        <textarea class="form-control" id="description" name="description" rows="3"required></textarea>
                         @error('description')
                             <span class="help-block text-danger">{{ $message }}</span>
                         @enderror

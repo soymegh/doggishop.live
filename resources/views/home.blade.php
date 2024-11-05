@@ -166,6 +166,16 @@
                 </div>
             </div>
         </div>
+        <!-- Eventos -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card card-blue">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Eventos</h5>
+                    <p class="card-text">Registros: {{$discountsCount}}</p>
+                    <a href="{{route('events.index')}}" class="btn btn-sm btn-light d-block mx-auto">Ver</a>
+                </div>
+            </div>
+        </div>
         <!-- Inventario 
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card card-blue">
