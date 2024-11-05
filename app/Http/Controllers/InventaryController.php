@@ -156,7 +156,7 @@ class InventaryController extends Controller
                 unset($cart[$id]);
 
                 session()->put('cart', $cart);
-                return redirect()->back()->with('success', 'Producto eliminado correctamente');
+
             }
 
             session()->flash('success', 'Product removed successfully');
@@ -165,5 +165,7 @@ class InventaryController extends Controller
             $product->delete();
             return redirect()->back()->with('success', 'Inventario eliminado correctamente');
         }
+
+        return redirect()->back()->with('success', 'Producto eliminado correctamente');
     }
 }
