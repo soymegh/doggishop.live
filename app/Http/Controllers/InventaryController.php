@@ -154,15 +154,19 @@ class InventaryController extends Controller
             if (isset($cart[$id])) {
 
                 unset($cart[$id]);
-
-                session()->put('cart', $cart);
+                if(count($cart)==0){
+                    session()->put('cart',null);
+                }else{
+                    session()->put('cart', $cart);
+                }
+                
             }
 
-            session()->flash('success', 'Product removed successfully');
+            return redirect()->back()->with('success', 'Se ha eliminado de su carrito');
         } elseif($id) {
             $product = Inventary::find($id);
             $product->delete();
-            return redirect()->back()->with('success', 'Inventario eliminado correctamente');
+            return redirect()->back()->with('success', 'Se ha eliminado de su carrito');
         }
     }
 }
