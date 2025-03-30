@@ -60,12 +60,6 @@ php artisan migrate:fresh --seed
 php artisan storage:link
 ```
 
-#### 5. **Instalar dependencias frontend (si usa Node.js/Vite)**
-```bash
-npm install
-npm run dev
-```
-
 #### 6. **Levantar el servidor local**
 ```bash
 php artisan serve
