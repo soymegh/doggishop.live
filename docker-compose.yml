@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  nginx:
+    image: nginx:alpine  # Más ligero que "latest"
+    ports:
+      - "80:80"  # Azure App Service usa el puerto 80 por defecto
+    volumes:
+      - ./:/var/www/html
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - appdoggi
+    networks:
+      - networkapp
+
+  appdoggi:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - APP_ENV=production
+      - APP_DEBUG=false
+      # Variables de Azure MySQL (desde Azure Portal)
+      - DB_HOST=doggishopdb.mysql.database.azure.com
+      - DB_DATABASE=doggishop_prod
+      - DB_USERNAME=admindoggi@doggishopdb
+      - DB_PASSWORD=MGonzales2020
+      - DB_SSL=true
+      - MYSQL_ATTR_SSL_CA=/etc/ssl/certs/BaltimoreCyberTrustRoot.crt.pem
+    volumes:
+      - ./:/var/www/html
+      - ./docker/ssl/BaltimoreCyberTrustRoot.crt.pem:/etc/ssl/certs/BaltimoreCyberTrustRoot.crt.pem:ro
+    networks:
+      - networkapp
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1G
+
+networks:
+  networkapp:
+    driver: bridge
